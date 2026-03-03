@@ -68,7 +68,7 @@ const PricingSection = () => {
 
             <div className="text-center mt-6">
               <Button size="lg" asChild className="bg-hero-gradient hover:opacity-90 transition-opacity px-8 h-12 rounded-xl">
-                <a href="#demo">Hitung Estimasi Biaya Sekolah Anda</a>
+                <a href="/pricing">Hitung Estimasi Biaya Sekolah Anda</a>
               </Button>
             </div>
           </div>
