@@ -1,11 +1,12 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const navLinks = [
   { label: "Fitur", href: "#modul" },
   { label: "Cara Kerja", href: "#cara-kerja" },
-  { label: "Harga", href: "#harga" },
+  { label: "Harga", href: "/pricing" },
   { label: "Testimoni", href: "#testimoni" },
 ];
 
@@ -23,11 +24,17 @@ const Navbar = () => {
         </a>
 
         <div className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <a key={link.href} href={link.href} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-              {link.label}
-            </a>
-          ))}
+          {navLinks.map((link) =>
+            link.href.startsWith("/") ? (
+              <Link key={link.href} to={link.href} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+                {link.label}
+              </Link>
+            ) : (
+              <a key={link.href} href={link.href} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+                {link.label}
+              </a>
+            )
+          )}
         </div>
 
         <div className="hidden md:block">
@@ -43,11 +50,17 @@ const Navbar = () => {
 
       {open && (
         <div className="md:hidden bg-background border-b px-4 pb-4 space-y-3">
-          {navLinks.map((link) => (
-            <a key={link.href} href={link.href} onClick={() => setOpen(false)} className="block text-sm font-medium text-muted-foreground hover:text-foreground">
-              {link.label}
-            </a>
-          ))}
+          {navLinks.map((link) =>
+            link.href.startsWith("/") ? (
+              <Link key={link.href} to={link.href} onClick={() => setOpen(false)} className="block text-sm font-medium text-muted-foreground hover:text-foreground">
+                {link.label}
+              </Link>
+            ) : (
+              <a key={link.href} href={link.href} onClick={() => setOpen(false)} className="block text-sm font-medium text-muted-foreground hover:text-foreground">
+                {link.label}
+              </a>
+            )
+          )}
           <Button asChild className="w-full bg-hero-gradient">
             <a href="#demo" onClick={() => setOpen(false)}>Jadwalkan Demo</a>
           </Button>
