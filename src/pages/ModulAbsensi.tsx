@@ -61,11 +61,11 @@ const DotLabel = ({ text }: { text: string }) => (
 
 /* ─── floating icon badges ─── */
 const floatingIcons = [
-  { emoji: "🔔", label: "Notifikasi", x: "-55%", y: "-50%" },
-  { emoji: "✅", label: "Approval", x: "55%", y: "-50%" },
+  { emoji: "🔔", label: "Notifikasi", x: "-145%", y: "-130%" },
+  { emoji: "✅", label: "Approval", x: "45%", y: "-190%" },
   { emoji: "⏰", label: "Reminder", x: "65%", y: "10%" },
-  { emoji: "📍", label: "Live Loc", x: "45%", y: "55%" },
-  { emoji: "📸", label: "Foto Bukti", x: "-50%", y: "45%" },
+  { emoji: "📍", label: "Live Loc", x: "45%", y: "235%" },
+  { emoji: "📸", label: "Foto Bukti", x: "-130%", y: "175%" },
 ];
 
 function FloatingIcons() {
@@ -79,8 +79,8 @@ function FloatingIcons() {
   return (
     <div className="relative w-full h-full flex items-center justify-center">
       {/* center phone icon */}
-      <div className="w-16 h-16 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center text-2xl">
-        📱
+      <div className="p-4 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center">
+        <span className="text-[150px]">📱</span>
       </div>
       <AnimatePresence mode="wait">
         <motion.div key={cycle} className="absolute inset-0">
@@ -149,94 +149,97 @@ const ModulAbsensi = () => {
       {/* ── SECTION 1: HERO ── */}
       <section className="pt-28 pb-20 overflow-hidden">
         <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* left */}
-            <motion.div
-              initial="hidden"
-              animate="visible"
-              variants={staggerContainer(0.12)}
-            >
-              <MChild variants={childFade()}>
-                <Badge variant="secondary" className="mb-4 text-xs font-semibold">
-                  Modul · Absensi &amp; Jurnaling
-                </Badge>
-              </MChild>
+          <div className="max-w-4xl mx-auto relative">
+            <div className="grid lg:flex gap-12 items-center">
+              {/* left */}
+              <motion.div
+                initial="hidden"
+                animate="visible"
+                variants={staggerContainer(0.12)}>
+                <MChild variants={childFade()}>
+                  <Badge
+                    variant="secondary"
+                    className="mb-4 text-xs font-semibold">
+                    Modul · Absensi &amp; Jurnaling
+                  </Badge>
+                </MChild>
 
-              <MChild variants={childFade()}>
-                <h1 className="text-4xl md:text-5xl lg:text-[3.4rem] font-extrabold leading-[1.12] mb-5">
-                  Absensi Digital yang Simpel —{" "}
-                  <span className="text-gradient">Langsung dari HP Guru</span>
-                </h1>
-              </MChild>
+                <MChild variants={childFade()}>
+                  <h1 className="text-4xl md:text-5xl lg:text-[3.4rem] font-extrabold leading-[1.12] mb-5">
+                    Absensi Digital yang Simpel —{" "}
+                    <span className="text-gradient">Langsung dari HP Guru</span>
+                  </h1>
+                </MChild>
 
-              <MChild variants={childFade()}>
-                <p className="text-lg text-muted-foreground leading-relaxed mb-8 max-w-xl">
-                  Tidak perlu lagi kertas, tanda tangan, atau rekap manual. Catat kehadiran dan aktivitas kelas dalam hitungan detik — di mana saja, kapan saja.
-                </p>
-              </MChild>
+                <MChild variants={childFade()}>
+                  <p className="text-lg text-muted-foreground leading-relaxed mb-8 max-w-xl">
+                    Tidak perlu lagi kertas, tanda tangan, atau rekap manual.
+                    Catat kehadiran dan aktivitas kelas dalam hitungan detik —
+                    di mana saja, kapan saja.
+                  </p>
+                </MChild>
 
-              <MChild variants={childFade()}>
-                <Button
-                  asChild
-                  size="lg"
-                  className="bg-hero-gradient hover:opacity-90 transition-opacity h-14 rounded-xl text-base px-8 animate-[pulse_2.5s_ease-in-out_infinite] shadow-lg shadow-primary/25"
-                >
-                  <a href="/#demo">
-                    Jadwalkan Demo Gratis
-                    <Send className="ml-2 h-5 w-5" />
-                  </a>
-                </Button>
-              </MChild>
+                <MChild variants={childFade()}>
+                  <Button
+                    size="lg"
+                    asChild
+                    className="bg-hero-gradient hover:opacity-90 transition-opacity text-lg px-8 h-14 rounded-xl">
+                    <a href="/#demo">
+                      Jadwalkan Demo Gratis
+                      <Send className="ml-2 h-5 w-5" />
+                    </a>
+                  </Button>
+                </MChild>
 
-              <MChild variants={childFade()}>
-                <p className="mt-4 text-sm text-muted-foreground">
-                  Harga mulai <span className="font-semibold text-foreground">Rp 5.000</span> / siswa / tahun
-                </p>
-              </MChild>
-            </motion.div>
+                <MChild variants={childFade()}>
+                  <p className="mt-4 text-sm text-muted-foreground">
+                    Harga mulai{" "}
+                    <span className="font-semibold text-foreground">
+                      Rp 5.000
+                    </span>{" "}
+                    / siswa / tahun
+                  </p>
+                </MChild>
+              </motion.div>
 
-            {/* right — phone mockup */}
-            <motion.div
-              initial={{ opacity: 0, x: 40 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
-              className="flex justify-center"
-            >
-              <div
-                className="relative rounded-[2.5rem] border-2 border-border bg-muted/50 flex items-center justify-center"
-                style={{ width: 280, aspectRatio: "9/19.5" }}
-              >
-                <span className="text-xs text-muted-foreground font-medium">[ Screenshot Produk ]</span>
-                {/* notch */}
-                <div className="absolute top-3 left-1/2 -translate-x-1/2 w-24 h-5 rounded-full bg-border/60" />
-              </div>
-            </motion.div>
+              {/* right — phone mockup */}
+              <motion.div
+                initial={{ opacity: 0, x: 40 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
+                className="right-0 -translate-y-1/2 lg:translate-y-0 lg:right-auto flex justify-center">
+                <div
+                  className="relative rounded-[2.5rem] border-2 border-border bg-muted/50 flex items-center justify-center"
+                  style={{ width: 280, aspectRatio: "9/19.5" }}>
+                  <span className="text-xs text-muted-foreground font-medium">
+                    [ Screenshot Produk ]
+                  </span>
+                  {/* notch */}
+                  <div className="absolute top-3 left-1/2 -translate-x-1/2 w-24 h-5 rounded-full bg-border/60" />
+                </div>
+              </motion.div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* ── SECTION 2: MODULE HIGHLIGHTS ── */}
       <Section className="py-24 bg-foreground/[0.03] relative overflow-hidden">
-        {/* dot-grid decorations */}
         <div
-          className="absolute top-0 right-0 w-64 h-64 pointer-events-none"
+          className="absolute inset-0 w-full h-full pointer-events-none"
           style={{
-            backgroundImage: "radial-gradient(circle, hsl(var(--primary) / 0.08) 1px, transparent 1px)",
-            backgroundSize: "18px 18px",
-          }}
-        />
-        <div
-          className="absolute bottom-0 left-0 w-64 h-64 pointer-events-none"
-          style={{
-            backgroundImage: "radial-gradient(circle, hsl(var(--primary) / 0.08) 1px, transparent 1px)",
-            backgroundSize: "18px 18px",
+            backgroundImage:
+              "radial-gradient(circle, hsl(var(--primary) / 0.18) 1px, transparent 1px)",
+            backgroundSize: "24px 24px",
           }}
         />
 
         <div className="container mx-auto px-4 relative z-10">
           <MChild variants={sectionVariants}>
             <DotLabel text="Keunggulan Modul" />
-            <h2 className="text-3xl md:text-5xl font-extrabold text-center mb-14">Kenapa Memilih Modul Ini?</h2>
+            <h2 className="text-3xl md:text-5xl font-extrabold text-center mb-14">
+              Kenapa Memilih Modul Ini?
+            </h2>
           </MChild>
 
           {/* bento grid */}
@@ -255,8 +258,8 @@ const ModulAbsensi = () => {
 
             {/* card 2 */}
             <MChild variants={childFade()} className={`${cardHover} p-6`}>
-              <span className="text-3xl mb-3 block">📊</span>
-              <h3 className="text-lg font-bold mb-1">Monitoring Kehadiran Guru Real-Time</h3>
+              <span className="text-3xl mb-3 block">🔔</span>
+              <h3 className="text-lg font-bold mb-1">Reminder Otomatis</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 Guru piket dan kepala sekolah dapat memantau aktivitas seluruh guru langsung dari dashboard.
               </p>
@@ -272,11 +275,11 @@ const ModulAbsensi = () => {
             </MChild>
 
             {/* card 4 */}
-            <MChild variants={childFade()} className={`${cardHover} p-6 lg:col-span-1 md:col-span-2`}>
-              <span className="text-3xl mb-3 block">🔔</span>
-              <h3 className="text-lg font-bold mb-1">Reminder Otomatis</h3>
+            <MChild variants={childFade()} className={`${cardHover} p-6 lg:col-span-3 md:col-span-2`}>
+              <span className="text-3xl mb-3 block">📊</span>
+              <h3 className="text-lg font-bold mb-1">Monitoring Kehadiran Guru Real-Time</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                Ada reminder sebelum kelas dimulai. Jika guru belum masuk, guru piket langsung bisa mengingatkan.
+                Guru piket dan kepala sekolah dapat memantau aktivitas seluruh guru langsung dari dashboard.
               </p>
             </MChild>
           </div>
@@ -287,23 +290,68 @@ const ModulAbsensi = () => {
       <Section className="py-24">
         <div className="container mx-auto px-4">
           <MChild variants={sectionVariants}>
-            <DotLabel text="Fitur Modul" />
-            <h2 className="text-3xl md:text-5xl font-extrabold text-center mb-14">Semua yang Ada di Dalam Modul</h2>
+            <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="flex items-center gap-2 justify-center"
+            >
+            <div className="flex items-center gap-3 mb-4 px-4 py-1.5 rounded-full bg-primary/10">
+              <span
+              className="w-2 h-2 rounded-full bg-primary"
+              />
+              <span className="text-primary text-xs font-semibold">
+              Fitur Modul
+              </span>
+            </div>
+            </motion.div>
+            <h2 className="text-3xl md:text-5xl font-extrabold text-center mb-14">
+              Semua yang Ada di Dalam Modul
+            </h2>
           </MChild>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {[
-              { emoji: "🤳", title: "Anti Jurnal Fiktif", desc: "Input jurnal wajib selfie langsung dari kamera — tidak bisa dari galeri foto. Disertai lokasi real-time." },
-              { emoji: "☁️", title: "Hemat Biaya Server", desc: "Sekolah tidak perlu memikirkan storage. Server dan penyimpanan data ditangani sepenuhnya oleh sistem." },
-              { emoji: "📸", title: "Double Check", desc: "Selain lokasi, ada bukti foto langsung dari kamera sebagai verifikasi kehadiran guru." },
-              { emoji: "🔗", title: "Sinkron dengan Jadwal", desc: "Jadwal guru yang sedang on duty terintegrasi otomatis — tidak perlu input ulang." },
-              { emoji: "👨‍🏫", title: "Guru Pengganti", desc: "Jika guru berhalangan hadir, bisa digantikan guru piket atau guru lain — tercatat di sistem." },
-              { emoji: "✅", title: "Approval Jurnal", desc: "Guru piket dapat mereject hasil jurnal yang tidak sesuai — ada lapisan verifikasi manual." },
+              {
+                emoji: "🤳",
+                title: "Anti Jurnal Fiktif",
+                desc: "Input jurnal wajib selfie langsung dari kamera — tidak bisa dari galeri foto. Disertai lokasi real-time.",
+              },
+              {
+                emoji: "☁️",
+                title: "Hemat Biaya Server",
+                desc: "Sekolah tidak perlu memikirkan storage. Server dan penyimpanan data ditangani sepenuhnya oleh sistem.",
+              },
+              {
+                emoji: "📸",
+                title: "Double Check",
+                desc: "Selain lokasi, ada bukti foto langsung dari kamera sebagai verifikasi kehadiran guru.",
+              },
+              {
+                emoji: "🔗",
+                title: "Sinkron dengan Jadwal",
+                desc: "Jadwal guru yang sedang on duty terintegrasi otomatis — tidak perlu input ulang.",
+              },
+              {
+                emoji: "👨‍🏫",
+                title: "Guru Pengganti",
+                desc: "Jika guru berhalangan hadir, bisa digantikan guru piket atau guru lain — tercatat di sistem.",
+              },
+              {
+                emoji: "✅",
+                title: "Approval Jurnal",
+                desc: "Guru piket dapat mereject hasil jurnal yang tidak sesuai — ada lapisan verifikasi manual.",
+              },
             ].map((f, i) => (
-              <MChild key={f.title} variants={childFade()} className={`${cardHover} p-6`}>
+              <MChild
+                key={f.title}
+                variants={childFade()}
+                className={`${cardHover} p-6`}>
                 <span className="text-2xl mb-3 block">{f.emoji}</span>
                 <h3 className="text-base font-bold mb-1">{f.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  {f.desc}
+                </p>
               </MChild>
             ))}
           </div>
@@ -321,12 +369,18 @@ const ModulAbsensi = () => {
           </MChild>
 
           <MChild variants={childFade()} className="max-w-lg mx-auto">
-            <div ref={pricingRef} className={`${cardHover} p-8 md:p-10 text-center`}>
-              <p className="text-sm text-muted-foreground mb-2 font-medium">Mulai dari</p>
+            <div
+              ref={pricingRef}
+              className={`${cardHover} p-8 md:p-10 text-center`}>
+              <p className="text-sm text-muted-foreground mb-2 font-medium">
+                Mulai dari
+              </p>
               <p className="text-5xl md:text-6xl font-extrabold text-gradient mb-1">
                 Rp {countedPrice.toLocaleString("id-ID")}
               </p>
-              <p className="text-muted-foreground text-sm mb-8">/ siswa / tahun</p>
+              <p className="text-muted-foreground text-sm mb-8">
+                / siswa / tahun
+              </p>
 
               <div className="space-y-3 text-sm mb-6">
                 <div className="flex justify-between py-2 border-b border-border">
@@ -343,7 +397,9 @@ const ModulAbsensi = () => {
                 Hemat 5–15% jika dikombinasikan dengan modul lain
               </p>
 
-              <Link to="/pricing" className="text-sm font-semibold text-primary hover:underline inline-flex items-center gap-1">
+              <Link
+                to="/pricing"
+                className="text-sm font-semibold text-primary hover:underline inline-flex items-center gap-1">
                 Lihat detail harga lengkap →
               </Link>
             </div>
@@ -358,20 +414,19 @@ const ModulAbsensi = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="container mx-auto px-4 text-center"
-        >
+          className="container mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-extrabold text-primary-foreground mb-4">
             Tertarik dengan Modul Ini?
           </h2>
           <p className="text-primary-foreground/80 text-lg max-w-xl mx-auto mb-8">
-            Jadwalkan demo gratis dan lihat langsung cara kerja modul Absensi &amp; Jurnaling di sekolah Anda.
+            Jadwalkan demo gratis dan lihat langsung cara kerja modul Absensi
+            &amp; Jurnaling di sekolah Anda.
           </p>
           <Button
             asChild
             size="lg"
             variant="secondary"
-            className="bg-card text-foreground hover:bg-card/90 h-14 rounded-xl text-base px-8 shadow-lg"
-          >
+            className="bg-card text-foreground hover:bg-card/90 h-14 rounded-xl text-base px-8 shadow-lg">
             <a href="/#demo">
               Jadwalkan Demo Sekarang
               <Send className="ml-2 h-5 w-5" />
