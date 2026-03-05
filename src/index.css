@@ -101,3 +101,15 @@
     box-shadow: var(--card-shadow-hover);
   }
 }
+
+/* blob swirl animations */
+@keyframes blob-move-0 { from { transform: translate(0,0); } to { transform: translate(30px,-25px); } }
+@keyframes blob-move-1 { from { transform: translate(0,0); } to { transform: translate(-35px,20px); } }
+@keyframes blob-move-2 { from { transform: translate(0,0); } to { transform: translate(20px,35px); } }
+@keyframes blob-move-3 { from { transform: translate(0,0); } to { transform: translate(-25px,-30px); } }
+@keyframes blob-move-4 { from { transform: translate(0,0); } to { transform: translate(30px,15px); } }
+
+@keyframes float-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
