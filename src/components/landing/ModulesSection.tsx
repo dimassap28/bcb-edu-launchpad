@@ -77,7 +77,7 @@ const Blob = ({
       className="absolute w-32 h-32 rounded-full"
       style={{
         backgroundColor: color,
-        filter: "blur(60px)",
+        filter: "blur(50px)",
         ...positions[index],
         animation: `blob-move-${index} ${speed}s ease-in-out infinite alternate`,
         animationDelay: `${index * -1.5}s`,
@@ -163,7 +163,7 @@ const ModuleCard = ({
 
       {/* bottom content */}
       <div className="p-5 pt-4 flex-1 flex flex-col">
-        <span className="text-xs text-muted-foreground mb-3">{mod.price}</span>
+        <span className="text-xs text-secondary text-semibold mb-3">{mod.price}</span>
         <ul className="space-y-1.5">
           {mod.features.map((f) => (
             <li
