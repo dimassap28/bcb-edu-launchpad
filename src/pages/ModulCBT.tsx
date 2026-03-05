@@ -211,7 +211,7 @@ const ModulCBT = () => {
           </MChild>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            <MChild variants={childFade()} className={`${cardHover} p-8 md:col-span-2 lg:row-span-2 flex flex-col`}>
+            <MChild variants={childFade()} className={`${cardHover} p-8 md:col-span-2 lg:row-span-3 flex flex-col`}>
               <span className="text-3xl mb-4">🛡️</span>
               <h3 className="text-xl font-bold mb-2">Anti Kecurangan</h3>
               <p className="text-sm text-muted-foreground mb-6 leading-relaxed">
@@ -222,7 +222,7 @@ const ModulCBT = () => {
               </div>
             </MChild>
 
-            <MChild variants={childFade()} className={`${cardHover} p-6`}>
+            <MChild variants={childFade()} className={`${cardHover} p-6 md:col-span-2 lg:col-span-1`}>
               <span className="text-3xl mb-3 block">🚀</span>
               <h3 className="text-lg font-bold mb-1">Akses Massal Stabil</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
@@ -238,7 +238,7 @@ const ModulCBT = () => {
               </p>
             </MChild>
 
-            <MChild variants={childFade()} className={`${cardHover} p-6 lg:col-span-3 md:col-span-2`}>
+            <MChild variants={childFade()} className={`${cardHover} p-6`}>
               <span className="text-3xl mb-3 block">👁️</span>
               <h3 className="text-lg font-bold mb-1">Monitoring Real-Time</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
