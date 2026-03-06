@@ -159,13 +159,11 @@ const HowItWorksSection = () => {
                   transition={{ duration: 0.3, delay: nodeBase + i * nodeStagger }}
                 >
                   <ShapeBackground shape={s.shape} pulseDuration={s.pulseDuration} />
-                  <div className="relative z-10 w-10 h-10 rounded-xl bg-card shadow-card flex items-center justify-center">
-                    <s.icon className="h-4 w-4 text-primary" />
-                  </div>
+
                 </motion.div>
 
                 {/* Text */}
-                <div className="pt-1">
+                <div className="ml-10 md:ml-0 pt-1">
                   <motion.span
                     className="text-sm font-semibold text-primary"
                     initial={{ opacity: 0, y: 16 }}

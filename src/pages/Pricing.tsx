@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
-import { Check, ChevronRight, Shield, Zap, Monitor, BookOpen, FileText, Wallet, Code2, Info, Star } from "lucide-react";
+import { Check, ArrowRight, Shield, Zap, Monitor, BookOpen, FileText, Wallet, Code2, Info, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
@@ -497,10 +497,10 @@ const Pricing = () => {
             <div className="flex items-center justify-center gap-4 mb-4 flex-wrap">
               <h2 className="text-3xl md:text-4xl font-extrabold flex items-center gap-2">
                 <Zap className="h-8 w-8 text-accent" />
-                <span className="bg-foreground text-background px-3 py-1 rounded-lg">FREE</span>{" "}
+                <span className="bg-hero-gradient text-background px-3 py-1 rounded-lg">FREE</span>{" "}
                 SETUP FEE
               </h2>
-              <span className="border-2 border-foreground rounded-full px-4 py-1 font-bold text-sm">
+              <span className="border-2 border-foreground rounded-full px-4 py-1 text-secondary font-bold text-sm">
                 HEMAT HINGGA Rp 5 JUTA!
               </span>
             </div>
@@ -558,12 +558,12 @@ const Pricing = () => {
               Kami menawarkan jaminan uang kembali 100%. Jika kami gagal memberikan penempatan media yang tercantum dalam rencana ERP sekolah Anda, kami akan mengembalikan uang Anda seluruhnya — tanpa ribet.
             </p>
             <div className="flex items-center justify-center gap-4 flex-wrap">
-              <Button size="lg" className="bg-hero-gradient hover:opacity-90 transition-opacity h-12 rounded-xl px-8" asChild>
-                <a href="#demo">Coba Demo Gratis</a>
-              </Button>
-              <Button size="lg" variant="outline" className="h-12 rounded-xl px-8">
-                Coba Soal AI
-              </Button>
+              <Button size="lg" asChild className="bg-hero-gradient hover:opacity-90 transition-opacity text-lg px-8 h-14 rounded-xl">
+              <a href="#demo">
+                Jadwalkan Demo Gratis
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </a>
+            </Button>
             </div>
 
             <div className="mt-12 flex justify-center">
