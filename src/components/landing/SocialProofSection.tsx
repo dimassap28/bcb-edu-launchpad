@@ -1,6 +1,7 @@
 import { motion, useInView } from "framer-motion";
 import { Users } from "lucide-react";
 import { useRef, useState } from "react";
+import CurvedLoop from '../accent/CurvedLoop';
 
 const personas = [
   {
@@ -191,82 +192,19 @@ const SocialProofSection = () => {
             <span className="text-gradient">Sekolah di Indonesia</span>
           </h2>
         </motion.div>
-
-        {/* Desktop layout */}
         <div ref={ref} className="hidden md:block relative" style={{ height: 560 }}>
-          {/* Curved ribbon via SVG */}
-          <div className="absolute inset-0 z-10 pointer-events-none overflow-hidden">
-            <svg
-              viewBox="0 0 1200 560"
-              className="w-full h-full"
-              preserveAspectRatio="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <defs>
-                <path
-                  id="ribbonPath"
-                  d="M-100,320 C100,100 300,450 600,280 C900,110 1100,400 1300,250"
-                  fill="none"
-                />
-              </defs>
-              {/* Ribbon background */}
-              <motion.path
-                d="M-100,320 C100,100 300,450 600,280 C900,110 1100,400 1300,250"
-                fill="none"
-                stroke="hsl(210 80% 45%)"
-                strokeWidth="88"
-                strokeLinecap="round"
-                opacity="0.9"
-                initial={{ pathLength: 0 }}
-                animate={inView ? { pathLength: 1 } : {}}
-                transition={{ duration: 1.2, ease: "easeInOut" }}
-              />
-              {/* Animated text on path */}
-              <text
-                fill="white"
-                fontSize="14"
-                fontWeight="600"
-                fontFamily="'Plus Jakarta Sans', sans-serif"
-                letterSpacing="0.5"
-              >
-                <textPath href="#ribbonPath" startOffset="0%">
-                  <animate
-                    attributeName="startOffset"
-                    from="0%"
-                    to="-100%"
-                    dur="25s"
-                    repeatCount="indefinite"
-                  />
-                  {repeatedText}
-                </textPath>
-              </text>
-              <text
-                fill="white"
-                fontSize="14"
-                fontWeight="600"
-                fontFamily="'Plus Jakarta Sans', sans-serif"
-                letterSpacing="0.5"
-              >
-                <textPath href="#ribbonPath" startOffset="100%">
-                  <animate
-                    attributeName="startOffset"
-                    from="100%"
-                    to="0%"
-                    dur="25s"
-                    repeatCount="indefinite"
-                  />
-                  {repeatedText}
-                </textPath>
-              </text>
-            </svg>
-          </div>
-
-          {/* Persona photos */}
-          {personas.map((p, i) => (
+{personas.map((p, i) => (
             <PersonaPhoto key={i} persona={p} index={i} inView={inView} />
           ))}
-        </div>
-
+        <CurvedLoop
+        className="text-[96px]"
+          marqueeText="Be ✦ Creative ✦ With ✦ React ✦ Bits ✦ test"
+          speed={0.2}
+          curveAmount={400}
+          interactive
+        />
+          </div>
+        
         {/* Mobile layout */}
         <div className="md:hidden">
           {/* Horizontal scrollable cards */}
