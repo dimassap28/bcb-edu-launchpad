@@ -54,7 +54,7 @@ const avatars = [
   "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=48&h=48&fit=crop&crop=face",
 ];
 
-const ReviewCard = ({ quote, name, role, image, badge }: typeof reviews[0]) => (
+const ReviewCard = ({ quote, name, role, school, image, badge }: typeof reviews[0]) => (
   <div className="bg-card border border-border rounded-[20px] p-6 md:p-8 shadow-card flex flex-col justify-between h-full">
     <div>
       <span className="text-4xl font-serif leading-none text-primary mb-2 block select-none">"</span>
@@ -68,11 +68,12 @@ const ReviewCard = ({ quote, name, role, image, badge }: typeof reviews[0]) => (
           <div className="min-w-0">
             <p className="text-sm font-bold text-foreground truncate">{name}</p>
             <p className="text-xs text-muted-foreground truncate">{role}</p>
+            <p className="text-xs text-primary font-medium truncate">{school}</p>
           </div>
         </div>
         <span
-          className="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold shrink-0"
-          style={{ backgroundColor: badge.bg, color: badge.color }}
+          className="inline-flex items-center rounded-full px-3 py-1 text-xs shrink-0"
+          style={{ backgroundColor: badge.bg, color: badge.color, fontFamily: "'Caveat', cursive", fontWeight: 700, fontSize: '0.875rem' }}
         >
           {badge.word}
         </span>
