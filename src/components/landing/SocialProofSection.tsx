@@ -4,10 +4,10 @@ import { useRef } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const tags = [
-  { emoji: "✅", word: "Good", bg: "#D1FAE5", color: "#065F46", pos: { top: "-8%", right: "35%" }, mPos: { top: "0%", left: "0%" }, drift: { x: 10, y: -8, dur: 9 }, delay: 0, rotate: 15 },
-  { emoji: "👍", word: "Helpful", bg: "#FCE7F3", color: "#9D174D", pos: { top: "35%", left: "20%" }, mPos: { top: "55%", left: "30%" }, drift: { x: 12, y: -12, dur: 7 }, delay: 4.8, rotate: -12 },
-  { emoji: "⭐", word: "Superb", bg: "#FEF3C7", color: "#92400E", pos: { top: "60%", left: "-4%" }, mPos: { top: "30%", left: "0%" }, drift: { x: -8, y: 14, dur: 13 }, delay: 3.6, rotate: 6 },
-  { emoji: "🏆", word: "Recommended", bg: "#DBEAFE", color: "#1E40AF", pos: { bottom: "25%", right: "19%" }, mPos: { bottom: "25%", right: "19%" }, drift: { x: -14, y: 10, dur: 11 }, delay: 1.2, rotate: -15 },
+  { emoji: "✅", word: "Good", bg: "#D1FAE5", color: "#065F46", pos: { top: "-8%", right: "-10%" }, mPos: { top: "0%", left: "0%" }, drift: { x: 10, y: -8, dur: 9 }, delay: 0, rotate: 15 },
+  { emoji: "👍", word: "Helpful", bg: "#FCE7F3", color: "#9D174D", pos: { top: "45%", left: "30%" }, mPos: { top: "55%", left: "30%" }, drift: { x: 12, y: -12, dur: 7 }, delay: 4.8, rotate: -12 },
+  { emoji: "⭐", word: "Superb", bg: "#FEF3C7", color: "#92400E", pos: { bottom: "-7%", left: "0%" }, mPos: { top: "30%", left: "0%" }, drift: { x: -8, y: 14, dur: 13 }, delay: 3.6, rotate: 6 },
+  { emoji: "🏆", word: "Recommended", bg: "#DBEAFE", color: "#1E40AF", pos: { bottom: "-10%", right: "-30%" }, mPos: { bottom: "25%", right: "19%" }, drift: { x: -14, y: 10, dur: 11 }, delay: 1.2, rotate: -15 },
 ];
 
 const reviews = [
