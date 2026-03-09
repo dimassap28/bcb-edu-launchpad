@@ -16,7 +16,7 @@ const Footer = () => {
           </div>
 
           <p className="text-sm text-muted-foreground">
-            © 2026 BCB Edu. All rights reserved.
+            © {new Date().getFullYear()} BCB Edu. All rights reserved.
           </p>
         </div>
       </div>
