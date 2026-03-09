@@ -3,10 +3,8 @@ const Footer = () => {
     <footer className="border-t py-12">
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-hero-gradient flex items-center justify-center">
-              <span className="text-xs font-bold text-primary-foreground">B</span>
-            </div>
+          <div className="flex items-center gap-3">
+            <img src="/kite.svg" alt="BCB Edu Logo" className="w-7 h-7 object-contain grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all" />
             <span className="text-lg font-bold">BCB <span className="text-gradient">Edu</span></span>
           </div>
 

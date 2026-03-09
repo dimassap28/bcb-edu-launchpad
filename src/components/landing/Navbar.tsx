@@ -45,10 +45,8 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-lg border-b">
       <div className="container mx-auto flex items-center justify-between h-16 px-4">
-        <a href="#" className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-hero-gradient flex items-center justify-center">
-            <span className="text-sm font-bold text-primary-foreground">B</span>
-          </div>
+        <a href="#" className="flex items-center gap-3">
+          <img src="/kite.svg" alt="BCB Edu Logo" className="w-8 h-8 object-contain" />
           <span className="text-xl font-bold text-foreground">BCB <span className="text-gradient">Edu</span></span>
         </a>
 

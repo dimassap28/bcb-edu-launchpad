@@ -96,7 +96,7 @@ const SocialProofSection = () => {
   const duplicatedReviews = [...reviews, ...reviews];
 
   return (
-    <section id="testimoni" ref={ref} className="py-20 md:py-28 bg-background">
+    <section id="testimoni" ref={ref} className="py-24 md:py-28 bg-background">
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row md:items-start items-center gap-10 md:gap-12">
           {/* LEFT COLUMN */}
