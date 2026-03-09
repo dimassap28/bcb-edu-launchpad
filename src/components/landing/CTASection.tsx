@@ -3,7 +3,8 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import { Send } from "lucide-react";
+import { Send, Rocket } from "lucide-react";
+import { PillBadge } from "@/components/ui/pill-badge";
 
 const CTASection = () => {
   const { toast } = useToast();
@@ -33,6 +34,14 @@ const CTASection = () => {
         >
           <div className="bg-card rounded-2xl shadow-card-hover border overflow-hidden">
             <div className="bg-hero-gradient p-8 md:p-12 text-center">
+              {/* Pill badge */}
+              <PillBadge 
+                icon={<Rocket className="h-3 w-3" />}
+                className="border-primary-foreground/20 bg-primary-foreground/10 text-primary-foreground"
+              >
+                Mulai Sekarang
+              </PillBadge>
+
               <h2 className="text-3xl md:text-4xl font-extrabold text-primary-foreground mb-3">
                 Siap Membawa Sekolah Anda ke Level Berikutnya?
               </h2>

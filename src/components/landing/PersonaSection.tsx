@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { Shield, FileText, BookMarked } from "lucide-react";
+import { Shield, FileText, BookMarked, Users } from "lucide-react";
+import { PillBadge } from "@/components/ui/pill-badge";
 
 const personas = [
   {
@@ -32,6 +33,11 @@ const PersonaSection = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
+          {/* Pill badge */}
+          <PillBadge icon={<Users className="h-3 w-3" />}>
+            Pengguna
+          </PillBadge>
+
           <h2 className="text-3xl md:text-5xl font-extrabold mb-4">
             BCB Edu untuk <span className="text-gradient">Semua Peran</span> di Sekolah
           </h2>

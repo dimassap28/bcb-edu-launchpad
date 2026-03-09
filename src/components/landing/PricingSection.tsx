@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Check } from "lucide-react";
+import { Check, Tag } from "lucide-react";
+import { PillBadge } from "@/components/ui/pill-badge";
 
 const PricingSection = () => {
   return (
@@ -12,6 +13,11 @@ const PricingSection = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
+          {/* Pill badge */}
+          <PillBadge icon={<Tag className="h-3 w-3" />}>
+            Harga Transparan
+          </PillBadge>
+
           <h2 className="text-3xl md:text-5xl font-extrabold mb-4">
             Harga Transparan, <span className="text-gradient">Sesuai Skala Sekolah Anda</span>
           </h2>

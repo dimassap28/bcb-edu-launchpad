@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { Puzzle, Link2, Zap } from "lucide-react";
+import { Puzzle, Link2, Zap, Lightbulb } from "lucide-react";
+import { PillBadge } from "@/components/ui/pill-badge";
 
 const points = [
   { icon: Puzzle, title: "Modular", desc: "Pilih sendiri modul yang dibutuhkan sekolah Anda" },
@@ -17,6 +18,11 @@ const SolutionSection = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
+            {/* Pill badge */}
+            <PillBadge icon={<Lightbulb className="h-3 w-3" />}>
+              Solusi Cerdas
+            </PillBadge>
+
             <h2 className="text-3xl md:text-5xl font-extrabold mb-6">
               Satu Platform,{" "}
               <span className="text-gradient">Sesuai Kebutuhan Anda</span>

@@ -1,6 +1,7 @@
 import { motion, useInView } from "framer-motion";
-import { MousePointerClick, Settings, Rocket } from "lucide-react";
+import { MousePointerClick, Settings, Rocket, Route } from "lucide-react";
 import { useRef } from "react";
+import { PillBadge } from "@/components/ui/pill-badge";
 
 const steps = [
   {
@@ -73,6 +74,11 @@ const HowItWorksSection = () => {
           viewport={{ once: true }}
           className="text-center mb-20"
         >
+          {/* Pill badge */}
+          <PillBadge icon={<Route className="h-3 w-3" />}>
+            Cara Kerja
+          </PillBadge>
+
           <h2 className="text-3xl md:text-5xl font-extrabold mb-4">
             Mulai dalam <span className="text-gradient">3 Langkah Mudah</span>
           </h2>

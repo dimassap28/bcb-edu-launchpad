@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { Clock, DollarSign, Frown } from "lucide-react";
+import { Clock, DollarSign, Frown, AlertTriangle } from "lucide-react";
+import { PillBadge } from "@/components/ui/pill-badge";
 
 const problems = [
   {
@@ -29,6 +30,11 @@ const ProblemSection = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
+          {/* Pill badge */}
+          <PillBadge icon={<AlertTriangle className="h-3 w-3" />}>
+            Tantangan
+          </PillBadge>
+
           <h2 className="text-3xl md:text-5xl font-extrabold mb-4">
             Apakah Sekolah Anda Masih Menghadapi Ini?
           </h2>

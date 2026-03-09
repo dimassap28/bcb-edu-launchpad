@@ -2,6 +2,7 @@ import { motion, useInView } from "framer-motion";
 import { Quote, Users } from "lucide-react";
 import { useRef } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { PillBadge } from "@/components/ui/pill-badge";
 
 const tags = [
   { emoji: "✅", word: "Good", bg: "#D1FAE5", color: "#065F46", pos: { top: "-8%", right: "-10%" }, mPos: { top: "0%", left: "0%" }, drift: { x: 10, y: -8, dur: 9 }, delay: 0, rotate: 15 },
@@ -106,9 +107,9 @@ const SocialProofSection = () => {
             transition={{ duration: 0.4 }}
           >
             {/* Pill badge */}
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-primary/5 px-3 py-1 text-xs font-medium text-primary mb-6">
-              <Quote className="h-3 w-3" />Testimoni
-            </span>
+            <PillBadge icon={<Quote className="h-3 w-3" />}>
+              Testimoni
+            </PillBadge>
 
             {/* Headline + floating tags */}
             <div className="relative mb-8 text-center md:text-left">

@@ -1,7 +1,8 @@
 import { motion, useInView } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Package } from "lucide-react";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { PillBadge } from "@/components/ui/pill-badge";
 
 const modules = [
   {
@@ -192,6 +193,11 @@ const ModulesSection = () => {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
+          {/* Pill badge */}
+          <PillBadge icon={<Package className="h-3 w-3" />}>
+            Fitur & Modul
+          </PillBadge>
+
           <h2 className="text-3xl md:text-5xl font-extrabold mb-4 text-foreground">
             Modul yang Bisa Anda Pilih
           </h2>
