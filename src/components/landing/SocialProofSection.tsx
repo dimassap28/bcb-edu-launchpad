@@ -17,28 +17,32 @@ const reviews = [
   {
     quote: "BCB Edu benar-benar mengubah cara kami mengelola sekolah. Absensi yang dulu manual sekarang selesai otomatis. Guru-guru langsung bisa pakai dari hari pertama.",
     name: "Ibu Ratna Dewi",
-    role: "Kepala Sekolah · SMP Swasta Jakarta",
+    role: "Kepala Sekolah",
+    school: "SMP Swasta Jakarta",
     image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&h=100&fit=crop&crop=face",
     badge: { word: "Perfect", bg: "#EDE9FE", color: "#5B21B6" },
   },
   {
     quote: "Jadwal tidak pernah bentrok lagi. Sistem otomatisnya sangat membantu staf TU dan membuat semua pihak lebih tenang.",
     name: "Pak Arief Santoso",
-    role: "Wakil Kepala Sekolah · SMA Swasta Surabaya",
+    role: "Wakil Kepala Sekolah",
+    school: "SMA Swasta Surabaya",
     image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
     badge: { word: "Great", bg: "#DBEAFE", color: "#1E40AF" },
   },
   {
     quote: "CBT-nya stabil untuk ratusan siswa sekaligus. Tidak ada kendala teknis sama sekali saat ujian berlangsung.",
     name: "Ibu Sari Kusuma",
-    role: "Guru TIK · SMK Swasta Semarang",
+    role: "Guru TIK",
+    school: "SMK Swasta Semarang",
     image: "https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=100&h=100&fit=crop&crop=face",
     badge: { word: "Smooth", bg: "#FCE7F3", color: "#9D174D" },
   },
   {
     quote: "Rekap absensi yang dulu makan waktu berjam-jam sekarang selesai otomatis. Sangat membantu operasional harian kami.",
     name: "Pak Budi Hartono",
-    role: "Operator TU · SD Islam Bandung",
+    role: "Operator TU",
+    school: "SD Islam Bandung",
     image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100&h=100&fit=crop&crop=face",
     badge: { word: "Helpful", bg: "#CCFBF1", color: "#0F766E" },
   },
@@ -50,7 +54,7 @@ const avatars = [
   "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=48&h=48&fit=crop&crop=face",
 ];
 
-const ReviewCard = ({ quote, name, role, image, badge }: typeof reviews[0]) => (
+const ReviewCard = ({ quote, name, role, school, image, badge }: typeof reviews[0]) => (
   <div className="bg-card border border-border rounded-[20px] p-6 md:p-8 shadow-card flex flex-col justify-between h-full">
     <div>
       <span className="text-4xl font-serif leading-none text-primary mb-2 block select-none">"</span>
@@ -64,11 +68,12 @@ const ReviewCard = ({ quote, name, role, image, badge }: typeof reviews[0]) => (
           <div className="min-w-0">
             <p className="text-sm font-bold text-foreground truncate">{name}</p>
             <p className="text-xs text-muted-foreground truncate">{role}</p>
+            <p className="text-xs text-primary font-medium truncate">{school}</p>
           </div>
         </div>
         <span
-          className="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold shrink-0"
-          style={{ backgroundColor: badge.bg, color: badge.color }}
+          className="inline-flex items-center rounded-full px-3 py-1 text-xs shrink-0"
+          style={{ backgroundColor: badge.bg, color: badge.color, fontFamily: "'Caveat', cursive", fontWeight: 700, fontSize: '0.875rem' }}
         >
           {badge.word}
         </span>
