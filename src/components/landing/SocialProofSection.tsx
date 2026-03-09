@@ -4,13 +4,10 @@ import { useRef } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const tags = [
-  { emoji: "✅", word: "Good", bg: "#D1FAE5", color: "#065F46", pos: { top: "-8%", left: "5%" }, mPos: { top: "0%", left: "0%" }, drift: { x: 10, y: -8, dur: 9 }, delay: 0 },
-  { emoji: "🚀", word: "Great", bg: "#DBEAFE", color: "#1E40AF", pos: { top: "-2%", right: "2%" }, mPos: { top: "0%", right: "0%" }, drift: { x: -14, y: 10, dur: 11 }, delay: 1.2 },
-  { emoji: "💯", word: "Perfect", bg: "#EDE9FE", color: "#5B21B6", pos: { bottom: "18%", right: "8%" }, mPos: { top: "55%", right: "5%" }, drift: { x: 18, y: -6, dur: 8 }, delay: 2.4 },
-  { emoji: "⭐", word: "Superb", bg: "#FEF3C7", color: "#92400E", pos: { top: "40%", left: "-4%" }, mPos: { top: "30%", left: "0%" }, drift: { x: -8, y: 14, dur: 13 }, delay: 3.6 },
-  { emoji: "👍", word: "Helpful", bg: "#CCFBF1", color: "#0F766E", pos: { top: "48%", left: "30%" }, mPos: { top: "55%", left: "30%" }, drift: { x: 12, y: -12, dur: 7 }, delay: 4.8 },
-  { emoji: "🌊", word: "Smooth", bg: "#FCE7F3", color: "#9D174D", pos: { bottom: "2%", left: "15%" }, mPos: { bottom: "0%", left: "5%" }, drift: { x: -16, y: 8, dur: 10 }, delay: 6 },
-  { emoji: "🏆", word: "Recommended", bg: "#E0E7FF", color: "#3730A3", pos: { bottom: "8%", right: "-2%" }, mPos: { bottom: "0%", right: "0%" }, drift: { x: 14, y: -10, dur: 12 }, delay: 7.2 },
+  { emoji: "✅", word: "Good", bg: "#D1FAE5", color: "#065F46", pos: { top: "-8%", right: "35%" }, mPos: { top: "0%", left: "0%" }, drift: { x: 10, y: -8, dur: 9 }, delay: 0, rotate: 15 },
+  { emoji: "👍", word: "Helpful", bg: "#FCE7F3", color: "#9D174D", pos: { top: "35%", left: "20%" }, mPos: { top: "55%", left: "30%" }, drift: { x: 12, y: -12, dur: 7 }, delay: 4.8, rotate: -12 },
+  { emoji: "⭐", word: "Superb", bg: "#FEF3C7", color: "#92400E", pos: { top: "60%", left: "-4%" }, mPos: { top: "30%", left: "0%" }, drift: { x: -8, y: 14, dur: 13 }, delay: 3.6, rotate: 6 },
+  { emoji: "🏆", word: "Recommended", bg: "#DBEAFE", color: "#1E40AF", pos: { bottom: "25%", right: "19%" }, mPos: { bottom: "25%", right: "19%" }, drift: { x: -14, y: 10, dur: 11 }, delay: 1.2, rotate: -15 },
 ];
 
 const reviews = [
@@ -58,7 +55,7 @@ const ReviewCard = ({ quote, name, role, school, image, badge }: typeof reviews[
   <div className="relative bg-card border border-border rounded-[20px] p-6 md:p-8 flex flex-col justify-between h-full">
     {/* Stamp-style badge — outside top-right corner */}
     <span
-      className="absolute -top-3 -right-3 select-none opacity-80 z-10"
+      className="absolute -top-3 right-1 select-none opacity-80 z-10"
       style={{
         fontFamily: "'Caveat', cursive",
         fontWeight: 700,
@@ -100,34 +97,34 @@ const SocialProofSection = () => {
   return (
     <section id="testimoni" ref={ref} className="py-20 md:py-28 bg-background">
       <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row md:items-start gap-10 md:gap-12">
+        <div className="flex flex-col md:flex-row md:items-start items-center gap-10 md:gap-12">
           {/* LEFT COLUMN */}
           <motion.div
-            className="md:w-[35%] shrink-0"
+            className="md:w-[35%] shrink-0 flex flex-col items-center md:items-start"
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.4 }}
           >
             {/* Pill badge */}
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-muted px-3 py-1 text-xs font-medium text-muted-foreground mb-6">
-              <Quote className="h-3 w-3" /> 99 Testimoni
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-primary/5 px-3 py-1 text-xs font-medium text-primary mb-6">
+              <Quote className="h-3 w-3" />Testimoni
             </span>
 
             {/* Headline + floating tags */}
-            <div className="relative mb-8" style={{ minHeight: isMobile ? 180 : 220 }}>
-              <h2 className="text-4xl md:text-5xl font-extrabold leading-[1.15] relative z-0">
+            <div className="relative mb-8 text-center md:text-left">
+              <h2 className="text-4xl md:text-[64px] font-extrabold leading-[1.15] relative z-0">
                 <span className="text-foreground">Apa Kata</span>
                 <br />
-                <span className="text-primary">Mereka?</span>
+                <span className="text-gradient">Mereka?</span>
               </h2>
 
               {/* Floating tags */}
-              {visibleTags.map((t, i) => (
+              {!isMobile && visibleTags.map((t, i) => (
                 <motion.span
                   key={i}
                   className="absolute inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-xs font-semibold whitespace-nowrap z-10"
                   style={{
-                    ...(isMobile ? t.mPos : t.pos),
+                    ...t.pos,
                     backgroundColor: t.bg,
                     color: t.color,
                     animation: `drift-${i} ${t.drift.dur}s ease-in-out ${t.delay}s infinite alternate`,
@@ -142,7 +139,7 @@ const SocialProofSection = () => {
             </div>
 
             {/* Aggregate rating */}
-            <div className="flex items-center gap-3">
+            <div className="flex flex-row items-center gap-3">
               <div className="flex -space-x-2">
                 {avatars.map((src, i) => (
                   <img
@@ -202,7 +199,7 @@ const SocialProofSection = () => {
 
       {/* Drift keyframes */}
       <style>{tags.map((t, i) =>
-        `@keyframes drift-${i} { from { transform: translate(0,0); } to { transform: translate(${t.drift.x}px, ${t.drift.y}px); } }`
+        `@keyframes drift-${i} { from { transform: translate(0,0) rotate(${t.rotate}deg); } to { transform: translate(${t.drift.x}px, ${t.drift.y}px) rotate(${t.rotate}deg); } }`
       ).join("\n")}</style>
     </section>
   );
