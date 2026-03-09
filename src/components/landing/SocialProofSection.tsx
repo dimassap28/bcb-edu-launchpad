@@ -1,182 +1,118 @@
 import { motion, useInView } from "framer-motion";
 import { Users } from "lucide-react";
-import { useRef, useState } from "react";
-import CurvedLoop from '../accent/CurvedLoop';
+import { useRef } from "react";
 
-const personas = [
+const tags = [
+  { emoji: "✅", word: "Good", bg: "#D1FAE5", color: "#065F46", pos: { top: "8%", left: "12%" }, drift: { x: 10, y: -8, dur: 9 }, delay: 0 },
+  { emoji: "🚀", word: "Great", bg: "#DBEAFE", color: "#1E40AF", pos: { top: "22%", left: "48%" }, drift: { x: -14, y: 10, dur: 11 }, delay: 1.2 },
+  { emoji: "💯", word: "Perfect", bg: "#EDE9FE", color: "#5B21B6", pos: { top: "38%", left: "6%" }, drift: { x: 18, y: -6, dur: 8 }, delay: 2.4 },
+  { emoji: "⭐", word: "Superb", bg: "#FEF3C7", color: "#92400E", pos: { top: "50%", left: "40%" }, drift: { x: -8, y: 14, dur: 13 }, delay: 3.6 },
+  { emoji: "👍", word: "Helpful", bg: "#CCFBF1", color: "#0F766E", pos: { top: "62%", left: "18%" }, drift: { x: 12, y: -12, dur: 7 }, delay: 4.8 },
+  { emoji: "🌊", word: "Smooth", bg: "#FCE7F3", color: "#9D174D", pos: { top: "74%", left: "50%" }, drift: { x: -16, y: 8, dur: 10 }, delay: 6 },
+  { emoji: "🏆", word: "Recommended", bg: "#E0E7FF", color: "#3730A3", pos: { top: "86%", left: "10%" }, drift: { x: 14, y: -10, dur: 12 }, delay: 7.2 },
+];
+
+const featuredReview = {
+  quote: "BCB Edu benar-benar mengubah cara kami mengelola sekolah. Absensi yang dulu manual dan memakan waktu sekarang selesai otomatis. Guru-guru kami tidak perlu belajar sistem yang rumit — langsung bisa pakai dari hari pertama.",
+  name: "Ibu Ratna Dewi",
+  role: "Kepala Sekolah · SMP Swasta Jakarta",
+  image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&h=100&fit=crop&crop=face",
+  badge: { word: "Perfect", bg: "#EDE9FE", color: "#5B21B6" },
+};
+
+const smallReviews = [
   {
-    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop&crop=face",
-    name: "Ibu Ratna Dewi",
-    role: "Kepala Sekolah · SMP Swasta Jakarta",
-    quote: "BCB Edu membuat pengelolaan sekolah kami jauh lebih efisien dan terorganisir.",
-    size: 112,
-    position: { top: "5%", left: "8%" },
-    zFront: true,
-  },
-  {
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face",
+    quote: "Jadwal tidak pernah bentrok lagi. Sistem otomatisnya luar biasa membantu staf TU kami.",
     name: "Pak Arief Santoso",
     role: "Wakil Kepala Sekolah · SMA Swasta Surabaya",
-    quote: "Jadwal tidak pernah bentrok lagi sejak pakai BCB Edu. Guru-guru lebih tenang.",
-    size: 96,
-    position: { top: "2%", left: "42%" },
-    zFront: false,
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
+    badge: { word: "Great", bg: "#DBEAFE", color: "#1E40AF" },
   },
   {
-    image: "https://images.unsplash.com/photo-1580894732444-8ecded7900cd?w=200&h=200&fit=crop&crop=face",
+    quote: "CBT-nya stabil untuk ratusan siswa sekaligus. Tidak ada kendala teknis sama sekali saat ujian.",
+    name: "Ibu Sari Kusuma",
+    role: "Guru TIK · SMK Swasta Semarang",
+    image: "https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=100&h=100&fit=crop&crop=face",
+    badge: { word: "Smooth", bg: "#FCE7F3", color: "#9D174D" },
+  },
+  {
+    quote: "Rekap absensi yang dulu makan waktu berjam-jam, sekarang selesai otomatis. Sangat membantu.",
     name: "Pak Budi Hartono",
     role: "Operator TU · SD Islam Bandung",
-    quote: "Rekap absensi yang dulu makan waktu 2 jam, sekarang selesai otomatis.",
-    size: 80,
-    position: { top: "8%", right: "10%" },
-    zFront: true,
-  },
-  {
-    image: "https://images.unsplash.com/photo-1594744803329-e58b31de8bf5?w=200&h=200&fit=crop&crop=face",
-    name: "Ibu Sari Kusuma",
-    role: "Guru Kelas · SD Swasta Yogyakarta",
-    quote: "Input nilai dan absensi jadi satu tempat. Tidak perlu buka banyak aplikasi lagi.",
-    size: 96,
-    position: { bottom: "12%", left: "12%" },
-    zFront: false,
-  },
-  {
-    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&h=200&fit=crop&crop=face",
-    name: "Pak Denny Firmansyah",
-    role: "Kepala Yayasan · Yayasan Pendidikan Nusantara",
-    quote: "Harga yang transparan dan modular sangat membantu kami mengontrol budget sekolah.",
-    size: 112,
-    position: { bottom: "8%", right: "30%" },
-    zFront: true,
-  },
-  {
-    image: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=200&h=200&fit=crop&crop=face",
-    name: "Ibu Mega Puspita",
-    role: "Guru TIK · SMK Swasta Semarang",
-    quote: "CBT-nya stabil banget. 500 siswa ujian bersamaan, tidak ada yang error.",
-    size: 96,
-    position: { bottom: "15%", right: "6%" },
-    zFront: true,
+    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100&h=100&fit=crop&crop=face",
+    badge: { word: "Helpful", bg: "#CCFBF1", color: "#0F766E" },
   },
 ];
 
-const ribbonTexts = [
-  "Dipercaya sekolah swasta Indonesia",
-  "Mulai dari 1 modul, berkembang sesuai kebutuhan",
-  "Sistem modern untuk sekolah modern",
-  "Absensi · Jadwal · CBT dalam satu platform",
-  "Setup gratis, langsung pakai",
+const avatars = [
+  "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=48&h=48&fit=crop&crop=face",
+  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=48&h=48&fit=crop&crop=face",
+  "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=48&h=48&fit=crop&crop=face",
 ];
 
-const PersonaPhoto = ({
-  persona,
-  index,
-  inView,
+const SentimentBadge = ({ word, bg, color }: { word: string; bg: string; color: string }) => (
+  <span
+    className="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold"
+    style={{ backgroundColor: bg, color }}
+  >
+    {word}
+  </span>
+);
+
+const AggregateRating = () => (
+  <div className="flex items-center gap-3">
+    <div className="flex -space-x-2">
+      {avatars.map((src, i) => (
+        <img
+          key={i}
+          src={src}
+          alt=""
+          className="w-8 h-8 rounded-full border-2 border-card object-cover"
+          loading="lazy"
+        />
+      ))}
+    </div>
+    <div>
+      <p className="text-sm font-bold text-foreground">4.9 / 5</p>
+      <p className="text-xs text-muted-foreground">Dari 1 sekolah pilot aktif</p>
+    </div>
+  </div>
+);
+
+const ReviewCard = ({
+  quote, name, role, image, badge, large = false,
 }: {
-  persona: (typeof personas)[0];
-  index: number;
-  inView: boolean;
-}) => {
-  const [hovered, setHovered] = useState(false);
-  const offsets = [
-    { x: -15, y: 12 },
-    { x: 18, y: -8 },
-    { x: -10, y: -18 },
-    { x: 14, y: 10 },
-    { x: -20, y: -5 },
-    { x: 8, y: 15 },
-  ];
-
-  const isNearRight = persona.position.right && parseInt(persona.position.right) < 20;
-  const isNearTop = persona.position.top && parseInt(persona.position.top) < 15;
-
-  return (
-    <motion.div
-      className="absolute"
-      style={{
-        ...persona.position,
-        zIndex: persona.zFront ? 20 : 5,
-      }}
-      initial={{ opacity: 0, x: offsets[index].x, y: offsets[index].y }}
-      animate={inView ? { opacity: 1, x: 0, y: 0 } : {}}
-      transition={{ duration: 0.4, delay: 0.3 + index * 0.08 }}
-    >
-      <div
-        className="relative cursor-pointer"
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-      >
-        {/* Photo */}
-        <div
-          className="rounded-full overflow-hidden border-[3px] border-card shadow-lg transition-transform duration-200 ease-out"
-          style={{
-            width: persona.size,
-            height: persona.size,
-            transform: hovered ? "scale(1.12)" : "scale(1)",
-          }}
-        >
-          <img
-            src={persona.image}
-            alt={persona.name}
-            className="w-full h-full object-cover"
-            loading="lazy"
-          />
+  quote: string; name: string; role: string; image: string;
+  badge: { word: string; bg: string; color: string }; large?: boolean;
+}) => (
+  <div
+    className={`bg-card border border-border rounded-[20px] ${large ? "p-8" : "p-5"} shadow-card flex flex-col justify-between h-full`}
+  >
+    {large && (
+      <span className="text-5xl font-serif leading-none text-primary mb-2 select-none">"</span>
+    )}
+    <p className={`${large ? "text-base" : "text-sm"} text-foreground leading-relaxed mb-4`}>
+      {quote}
+    </p>
+    <div>
+      <div className="h-px bg-border mb-4" />
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex items-center gap-3 min-w-0">
+          <img src={image} alt={name} className="w-10 h-10 rounded-full object-cover shrink-0" loading="lazy" />
+          <div className="min-w-0">
+            <p className="text-sm font-bold text-foreground truncate">{name}</p>
+            <p className="text-xs text-muted-foreground truncate">{role}</p>
+          </div>
         </div>
-
-        {/* Quote card on hover */}
-        {hovered && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.85 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.85 }}
-            transition={{ duration: 0.18 }}
-            className="absolute z-50 w-[220px] p-4 rounded-xl shadow-xl"
-            style={{
-              background: "#1a1a2e",
-              color: "white",
-              ...(isNearRight
-                ? { right: 0, bottom: persona.size + 12 }
-                : isNearTop
-                  ? { left: persona.size + 8, top: 0 }
-                  : { left: "50%", bottom: persona.size + 12, transform: "translateX(-50%) scale(1)" }),
-              transformOrigin: "bottom center",
-            }}
-          >
-            <p className="text-[13px] italic leading-snug mb-3 opacity-90">
-              "{persona.quote}"
-            </p>
-            <div className="border-t border-white/20 pt-2">
-              <p className="text-[13px] font-bold">{persona.name}</p>
-              <p className="text-[11px] opacity-60">{persona.role}</p>
-            </div>
-            {/* Triangle pointer */}
-            {!isNearTop && (
-              <div
-                className="absolute w-0 h-0"
-                style={{
-                  bottom: -6,
-                  left: isNearRight ? "auto" : "50%",
-                  right: isNearRight ? 20 : "auto",
-                  transform: isNearRight ? "none" : "translateX(-50%)",
-                  borderLeft: "6px solid transparent",
-                  borderRight: "6px solid transparent",
-                  borderTop: "6px solid #1a1a2e",
-                }}
-              />
-            )}
-          </motion.div>
-        )}
+        <SentimentBadge {...badge} />
       </div>
-    </motion.div>
-  );
-};
+    </div>
+  </div>
+);
 
 const SocialProofSection = () => {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
-
-  const repeatedText = [...ribbonTexts, ...ribbonTexts, ...ribbonTexts]
-    .join("  ✦  ");
 
   return (
     <section id="testimoni" className="py-24 bg-section-alt">
@@ -192,62 +128,76 @@ const SocialProofSection = () => {
             <span className="text-gradient">Sekolah di Indonesia</span>
           </h2>
         </motion.div>
-        <div ref={ref} className="hidden md:block relative" style={{ height: 560 }}>
-{personas.map((p, i) => (
-            <PersonaPhoto key={i} persona={p} index={i} inView={inView} />
-          ))}
-        <CurvedLoop
-        className="text-[96px]"
-          marqueeText="Be ✦ Creative ✦ With ✦ React ✦ Bits ✦ test"
-          speed={0.2}
-          curveAmount={400}
-          interactive
-        />
+
+        {/* Mobile aggregate rating */}
+        <div className="md:hidden mb-6 flex justify-center">
+          <AggregateRating />
+        </div>
+
+        <div ref={ref} className="hidden md:grid grid-cols-[1fr_1.6fr_1.4fr] gap-8 items-stretch" style={{ minHeight: 440 }}>
+          {/* Left column — floating tags */}
+          <div className="relative">
+            {tags.map((t, i) => (
+              <motion.span
+                key={i}
+                className="absolute inline-flex items-center gap-1 rounded-full px-4 py-2 text-sm font-semibold whitespace-nowrap"
+                style={{
+                  ...t.pos,
+                  backgroundColor: t.bg,
+                  color: t.color,
+                  animation: `drift-${i} ${t.drift.dur}s ease-in-out ${t.delay}s infinite alternate`,
+                }}
+                initial={{ opacity: 0 }}
+                animate={inView ? { opacity: 1 } : {}}
+                transition={{ duration: 0.3, delay: i * 0.08 }}
+              >
+                {t.emoji} {t.word}
+              </motion.span>
+            ))}
+            <div className="absolute bottom-0 left-0">
+              <AggregateRating />
+            </div>
           </div>
-        
-        {/* Mobile layout */}
-        <div className="md:hidden">
-          {/* Horizontal scrollable cards */}
-          <div className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory -mx-4 px-4 scrollbar-hide">
-            {personas.slice(0, 3).map((p, i) => (
+
+          {/* Center column — featured review */}
+          <motion.div
+            initial={{ opacity: 0, y: 32 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.4, ease: "easeOut", delay: 0.3 }}
+          >
+            <ReviewCard {...featuredReview} large />
+          </motion.div>
+
+          {/* Right column — stacked cards */}
+          <div className="flex flex-col gap-4">
+            {smallReviews.map((r, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="snap-center shrink-0 w-[280px] bg-card rounded-2xl p-5 border shadow-card"
+                className="flex-1"
+                initial={{ opacity: 0, y: 32 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.4, ease: "easeOut", delay: 0.5 + i * 0.12 }}
               >
-                <div className="flex items-center gap-3 mb-3">
-                  <img
-                    src={p.image}
-                    alt={p.name}
-                    className="w-12 h-12 rounded-full object-cover border-2 border-primary/20"
-                    loading="lazy"
-                  />
-                  <div>
-                    <p className="text-sm font-bold">{p.name}</p>
-                    <p className="text-xs text-muted-foreground">{p.role}</p>
-                  </div>
-                </div>
-                <p className="text-sm text-muted-foreground italic leading-relaxed">
-                  "{p.quote}"
-                </p>
+                <ReviewCard {...r} />
               </motion.div>
             ))}
           </div>
+        </div>
 
-          {/* Simple horizontal marquee */}
-          <div className="mt-6 overflow-hidden">
-            <div className="flex animate-[marquee_20s_linear_infinite] whitespace-nowrap">
-              <span className="text-sm font-semibold text-primary/70 mx-4">
-                {ribbonTexts.join("  ✦  ")}
-              </span>
-              <span className="text-sm font-semibold text-primary/70 mx-4">
-                {ribbonTexts.join("  ✦  ")}
-              </span>
-            </div>
-          </div>
+        {/* Mobile — horizontal snap scroll */}
+        <div className="md:hidden flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory -mx-4 px-4 scrollbar-hide">
+          {[{ ...featuredReview, large: false }, ...smallReviews].map((r, i) => (
+            <motion.div
+              key={i}
+              className="snap-center shrink-0 w-[300px]"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+            >
+              <ReviewCard {...r} />
+            </motion.div>
+          ))}
         </div>
 
         <motion.div
@@ -262,6 +212,11 @@ const SocialProofSection = () => {
           </span>
         </motion.div>
       </div>
+
+      {/* Drift keyframes injected via style tag */}
+      <style>{tags.map((t, i) =>
+        `@keyframes drift-${i} { from { transform: translate(0,0); } to { transform: translate(${t.drift.x}px, ${t.drift.y}px); } }`
+      ).join("\n")}</style>
     </section>
   );
 };
