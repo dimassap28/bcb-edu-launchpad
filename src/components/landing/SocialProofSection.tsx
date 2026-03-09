@@ -55,16 +55,16 @@ const avatars = [
 ];
 
 const ReviewCard = ({ quote, name, role, school, image, badge }: typeof reviews[0]) => (
-  <div className="relative bg-card border border-border rounded-[20px] p-6 md:p-8 flex flex-col justify-between h-full overflow-hidden">
-    {/* Stamp-style badge */}
+  <div className="relative bg-card border border-border rounded-[20px] p-6 md:p-8 flex flex-col justify-between h-full">
+    {/* Stamp-style badge — outside top-right corner */}
     <span
-      className="absolute top-4 right-4 select-none opacity-80"
+      className="absolute -top-3 -right-3 select-none opacity-80 z-10"
       style={{
         fontFamily: "'Caveat', cursive",
         fontWeight: 700,
         fontSize: '1.5rem',
         color: badge.color,
-        transform: 'rotate(-27deg)',
+        transform: 'rotate(27deg)',
       }}
     >
       {badge.word}
