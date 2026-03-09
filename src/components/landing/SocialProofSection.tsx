@@ -55,28 +55,33 @@ const avatars = [
 ];
 
 const ReviewCard = ({ quote, name, role, school, image, badge }: typeof reviews[0]) => (
-  <div className="bg-card border border-border rounded-[20px] p-6 md:p-8 shadow-card flex flex-col justify-between h-full">
+  <div className="relative bg-card border border-border rounded-[20px] p-6 md:p-8 flex flex-col justify-between h-full overflow-hidden">
+    {/* Stamp-style badge */}
+    <span
+      className="absolute top-4 right-4 select-none opacity-80"
+      style={{
+        fontFamily: "'Caveat', cursive",
+        fontWeight: 700,
+        fontSize: '1.5rem',
+        color: badge.color,
+        transform: 'rotate(-27deg)',
+      }}
+    >
+      {badge.word}
+    </span>
     <div>
       <span className="text-4xl font-serif leading-none text-primary mb-2 block select-none">"</span>
       <p className="text-sm md:text-base text-foreground leading-relaxed mb-6">{quote}</p>
     </div>
     <div>
       <div className="h-px bg-border mb-4" />
-      <div className="flex items-center justify-between gap-3">
-        <div className="flex items-center gap-3 min-w-0">
-          <img src={image} alt={name} className="w-10 h-10 rounded-full object-cover shrink-0" loading="lazy" />
-          <div className="min-w-0">
-            <p className="text-sm font-bold text-foreground truncate">{name}</p>
-            <p className="text-xs text-muted-foreground truncate">{role}</p>
-            <p className="text-xs text-primary font-medium truncate">{school}</p>
-          </div>
+      <div className="flex items-center gap-3 min-w-0">
+        <img src={image} alt={name} className="w-10 h-10 rounded-full object-cover shrink-0" loading="lazy" />
+        <div className="min-w-0">
+          <p className="text-sm font-bold text-foreground truncate">{name}</p>
+          <p className="text-xs text-muted-foreground truncate">{role}</p>
+          <p className="text-xs text-primary font-medium truncate">{school}</p>
         </div>
-        <span
-          className="inline-flex items-center rounded-full px-3 py-1 text-xs shrink-0"
-          style={{ backgroundColor: badge.bg, color: badge.color, fontFamily: "'Caveat', cursive", fontWeight: 700, fontSize: '0.875rem' }}
-        >
-          {badge.word}
-        </span>
       </div>
     </div>
   </div>
