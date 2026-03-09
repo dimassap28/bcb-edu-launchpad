@@ -4,13 +4,13 @@ import { useRef, useState } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const tags = [
-  { emoji: "✅", word: "Good", bg: "#D1FAE5", color: "#065F46", pos: { top: "-8%", left: "5%" }, mPos: { top: "0%", left: "0%" }, drift: { x: 10, y: -8, dur: 9 }, delay: 0, rotate: -8 },
-  { emoji: "🚀", word: "Great", bg: "#DBEAFE", color: "#1E40AF", pos: { top: "-2%", right: "2%" }, mPos: { top: "0%", right: "0%" }, drift: { x: -14, y: 10, dur: 11 }, delay: 1.2, rotate: 12 },
-  { emoji: "💯", word: "Perfect", bg: "#EDE9FE", color: "#5B21B6", pos: { bottom: "18%", right: "8%" }, mPos: { top: "55%", right: "5%" }, drift: { x: 18, y: -6, dur: 8 }, delay: 2.4, rotate: -15 },
-  { emoji: "⭐", word: "Superb", bg: "#FEF3C7", color: "#92400E", pos: { top: "40%", left: "-4%" }, mPos: { top: "30%", left: "0%" }, drift: { x: -8, y: 14, dur: 13 }, delay: 3.6, rotate: 6 },
-  { emoji: "👍", word: "Helpful", bg: "#CCFBF1", color: "#0F766E", pos: { top: "48%", left: "30%" }, mPos: { top: "55%", left: "30%" }, drift: { x: 12, y: -12, dur: 7 }, delay: 4.8, rotate: -5 },
-  { emoji: "🌊", word: "Smooth", bg: "#FCE7F3", color: "#9D174D", pos: { bottom: "2%", left: "15%" }, mPos: { bottom: "0%", left: "5%" }, drift: { x: -16, y: 8, dur: 10 }, delay: 6, rotate: 15 },
-  { emoji: "🏆", word: "Recommended", bg: "#E0E7FF", color: "#3730A3", pos: { bottom: "8%", right: "-2%" }, mPos: { bottom: "0%", right: "0%" }, drift: { x: 14, y: -10, dur: 12 }, delay: 7.2, rotate: -10 },
+  { emoji: "✅", word: "Good", bg: "#D1FAE5", color: "#065F46", pos: { top: "-8%", left: "5%" }, mPos: { top: "0%", left: "0%" }, drift: { x: 10, y: -8, dur: 9 }, delay: 0 },
+  { emoji: "🚀", word: "Great", bg: "#DBEAFE", color: "#1E40AF", pos: { top: "-2%", right: "2%" }, mPos: { top: "0%", right: "0%" }, drift: { x: -14, y: 10, dur: 11 }, delay: 1.2 },
+  { emoji: "💯", word: "Perfect", bg: "#EDE9FE", color: "#5B21B6", pos: { bottom: "18%", right: "8%" }, mPos: { top: "55%", right: "5%" }, drift: { x: 18, y: -6, dur: 8 }, delay: 2.4 },
+  { emoji: "⭐", word: "Superb", bg: "#FEF3C7", color: "#92400E", pos: { top: "40%", left: "-4%" }, mPos: { top: "30%", left: "0%" }, drift: { x: -8, y: 14, dur: 13 }, delay: 3.6 },
+  { emoji: "👍", word: "Helpful", bg: "#CCFBF1", color: "#0F766E", pos: { top: "48%", left: "30%" }, mPos: { top: "55%", left: "30%" }, drift: { x: 12, y: -12, dur: 7 }, delay: 4.8 },
+  { emoji: "🌊", word: "Smooth", bg: "#FCE7F3", color: "#9D174D", pos: { bottom: "2%", left: "15%" }, mPos: { bottom: "0%", left: "5%" }, drift: { x: -16, y: 8, dur: 10 }, delay: 6 },
+  { emoji: "🏆", word: "Recommended", bg: "#E0E7FF", color: "#3730A3", pos: { bottom: "8%", right: "-2%" }, mPos: { bottom: "0%", right: "0%" }, drift: { x: 14, y: -10, dur: 12 }, delay: 7.2 },
 ];
 
 const reviews = [
@@ -50,37 +50,32 @@ const avatars = [
   "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=48&h=48&fit=crop&crop=face",
 ];
 
-const ReviewCard = ({ quote, name, role, image, badge }: typeof reviews[0]) => {
-  const [jabatan, sekolah] = role.split(" · ");
-
-  return (
-    <div className="bg-card border border-border rounded-[20px] p-6 md:p-8 shadow-card flex flex-col justify-between h-full">
-      <div>
-        <span className="text-4xl font-serif leading-none text-primary mb-2 block select-none">"</span>
-        <p className="text-sm md:text-base text-foreground leading-relaxed mb-6">{quote}</p>
-      </div>
-      <div>
-        <div className="h-px bg-border mb-4" />
-        <div className="flex items-center justify-between gap-3">
-          <div className="flex items-center gap-3 min-w-0">
-            <img src={image} alt={name} className="w-10 h-10 rounded-full object-cover shrink-0" loading="lazy" />
-            <div className="min-w-0">
-              <p className="text-sm font-bold text-foreground truncate">{name}</p>
-              <p className="text-xs text-muted-foreground truncate">{jabatan}</p>
-              {sekolah && <p className="text-xs font-bold text-foreground truncate mt-0.5">{sekolah}</p>}
-            </div>
+const ReviewCard = ({ quote, name, role, image, badge }: typeof reviews[0]) => (
+  <div className="bg-card border border-border rounded-[20px] p-6 md:p-8 shadow-card flex flex-col justify-between h-full">
+    <div>
+      <span className="text-4xl font-serif leading-none text-primary mb-2 block select-none">"</span>
+      <p className="text-sm md:text-base text-foreground leading-relaxed mb-6">{quote}</p>
+    </div>
+    <div>
+      <div className="h-px bg-border mb-4" />
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex items-center gap-3 min-w-0">
+          <img src={image} alt={name} className="w-10 h-10 rounded-full object-cover shrink-0" loading="lazy" />
+          <div className="min-w-0">
+            <p className="text-sm font-bold text-foreground truncate">{name}</p>
+            <p className="text-xs text-muted-foreground truncate">{role}</p>
           </div>
-          <span
-            className="inline-flex items-center rounded-full px-3 py-1 text-xs font-serif italic font-bold shrink-0"
-            style={{ backgroundColor: badge.bg, color: badge.color }}
-          >
-            {badge.word}
-          </span>
         </div>
+        <span
+          className="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold shrink-0"
+          style={{ backgroundColor: badge.bg, color: badge.color }}
+        >
+          {badge.word}
+        </span>
       </div>
     </div>
-  );
-};
+  </div>
+);
 
 const SocialProofSection = () => {
   const ref = useRef<HTMLDivElement>(null);
@@ -106,7 +101,7 @@ const SocialProofSection = () => {
           >
             {/* Pill badge */}
             <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-muted px-3 py-1 text-xs font-medium text-muted-foreground mb-6">
-              <Quote className="h-3 w-3" /> Testimoni
+              <Quote className="h-3 w-3" /> 99 Testimoni
             </span>
 
             {/* Headline + floating tags */}
@@ -170,7 +165,7 @@ const SocialProofSection = () => {
                 {Array.from({ length: Math.ceil(reviews.length / perSlide) }).map((_, slideIdx) => (
                   <div
                     key={slideIdx}
-                    className="flex flex-col lg:flex-row gap-4 shrink-0"
+                    className="flex gap-4 shrink-0"
                     style={{ width: "100%" }}
                   >
                     {reviews.slice(slideIdx * perSlide, slideIdx * perSlide + perSlide).map((r, ci) => (
@@ -227,7 +222,7 @@ const SocialProofSection = () => {
 
       {/* Drift keyframes */}
       <style>{tags.map((t, i) =>
-        `@keyframes drift-${i} { from { transform: translate(0,0) rotate(${t.rotate}deg); } to { transform: translate(${t.drift.x}px, ${t.drift.y}px) rotate(${t.rotate}deg); } }`
+        `@keyframes drift-${i} { from { transform: translate(0,0); } to { transform: translate(${t.drift.x}px, ${t.drift.y}px); } }`
       ).join("\n")}</style>
     </section>
   );
