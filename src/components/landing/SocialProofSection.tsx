@@ -1,6 +1,6 @@
 import { motion, useInView } from "framer-motion";
-import { ChevronLeft, ChevronRight, Quote, Users } from "lucide-react";
-import { useRef, useState } from "react";
+import { Quote, Users } from "lucide-react";
+import { useRef } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const tags = [
@@ -81,12 +81,11 @@ const SocialProofSection = () => {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const isMobile = useIsMobile();
-  const [slide, setSlide] = useState(0);
-
-  const perSlide = isMobile ? 1 : 2;
-  const maxSlide = Math.ceil(reviews.length / perSlide) - 1;
 
   const visibleTags = isMobile ? tags.slice(0, 4) : tags;
+
+  // Duplicate cards for seamless infinite scroll
+  const duplicatedReviews = [...reviews, ...reviews];
 
   return (
     <section id="testimoni" ref={ref} className="py-20 md:py-28 bg-background">
@@ -152,56 +151,27 @@ const SocialProofSection = () => {
             </div>
           </motion.div>
 
-          {/* RIGHT COLUMN — SLIDER */}
+          {/* RIGHT COLUMN — INFINITE VERTICAL SCROLL */}
           <div className="md:w-[65%] min-w-0">
-            <div className="overflow-hidden">
-              <motion.div
-                className="flex gap-4"
-                animate={{ x: `-${slide * (100 / perSlide * perSlide + (perSlide > 1 ? 1 : 0))}%` }}
-                style={{ x: `-${slide * 100}%` }}
-                transition={{ duration: 0.35, ease: "easeInOut" }}
-              >
-                {/* Group cards into slides */}
-                {Array.from({ length: Math.ceil(reviews.length / perSlide) }).map((_, slideIdx) => (
-                  <div
-                    key={slideIdx}
-                    className="flex gap-4 shrink-0"
-                    style={{ width: "100%" }}
-                  >
-                    {reviews.slice(slideIdx * perSlide, slideIdx * perSlide + perSlide).map((r, ci) => (
-                      <motion.div
-                        key={ci}
-                        className="flex-1 min-w-0"
-                        initial={{ opacity: 0, y: 32 }}
-                        animate={inView ? { opacity: 1, y: 0 } : {}}
-                        transition={{ duration: 0.4, delay: 0.5 + (slideIdx * perSlide + ci) * 0.12 }}
-                      >
-                        <ReviewCard {...r} />
-                      </motion.div>
-                    ))}
-                  </div>
-                ))}
-              </motion.div>
-            </div>
+            <div
+              className="overflow-hidden relative"
+              style={{ height: isMobile ? 360 : 480 }}
+            >
+              {/* Top/bottom fade masks */}
+              <div className="absolute inset-x-0 top-0 h-12 bg-gradient-to-b from-background to-transparent z-10 pointer-events-none" />
+              <div className="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-background to-transparent z-10 pointer-events-none" />
 
-            {/* Navigation */}
-            <div className="flex justify-end md:justify-end justify-center gap-3 mt-6">
-              <button
-                onClick={() => setSlide(Math.max(0, slide - 1))}
-                disabled={slide === 0}
-                className="w-10 h-10 rounded-full border border-border bg-card shadow-sm flex items-center justify-center transition-colors hover:bg-primary hover:text-primary-foreground hover:border-primary disabled:opacity-40 disabled:hover:bg-card disabled:hover:text-foreground disabled:hover:border-border"
-                aria-label="Previous"
-              >
-                <ChevronLeft className="h-4 w-4" />
-              </button>
-              <button
-                onClick={() => setSlide(Math.min(maxSlide, slide + 1))}
-                disabled={slide === maxSlide}
-                className="w-10 h-10 rounded-full border border-border bg-card shadow-sm flex items-center justify-center transition-colors hover:bg-primary hover:text-primary-foreground hover:border-primary disabled:opacity-40 disabled:hover:bg-card disabled:hover:text-foreground disabled:hover:border-border"
-                aria-label="Next"
-              >
-                <ChevronRight className="h-4 w-4" />
-              </button>
+              <div className="group h-full">
+                <div
+                  className="flex flex-col gap-4 animate-[scroll-up_24s_linear_infinite] group-hover:[animation-play-state:paused]"
+                >
+                  {duplicatedReviews.map((r, i) => (
+                    <div key={i} className="shrink-0">
+                      <ReviewCard {...r} />
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </div>
