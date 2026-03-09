@@ -1,6 +1,6 @@
 import { motion, useInView } from "framer-motion";
-import { ChevronLeft, ChevronRight, Quote, Users } from "lucide-react";
-import { useRef, useState } from "react";
+import { Quote, Users } from "lucide-react";
+import { useRef } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const tags = [
