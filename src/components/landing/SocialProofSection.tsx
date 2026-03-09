@@ -176,7 +176,7 @@ const SocialProofSection = () => {
                   className="flex flex-col gap-4 animate-[scroll-up_24s_linear_infinite] group-hover:[animation-play-state:paused]"
                 >
                   {duplicatedReviews.map((r, i) => (
-                    <div key={i} className="shrink-0">
+                    <div key={i} className="shrink-0 overflow-visible">
                       <ReviewCard {...r} />
                     </div>
                   ))}
