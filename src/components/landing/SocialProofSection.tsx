@@ -164,7 +164,7 @@ const SocialProofSection = () => {
           {/* RIGHT COLUMN — INFINITE VERTICAL SCROLL */}
           <div className="md:w-[65%] min-w-0">
             <div
-              className="overflow-hidden relative"
+              className="overflow-x-clip overflow-y-hidden relative"
               style={{ height: isMobile ? 360 : 480 }}
             >
               {/* Top/bottom fade masks */}
