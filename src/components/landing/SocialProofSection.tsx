@@ -62,7 +62,7 @@ const ReviewCard = ({ quote, name, role, school, image, badge }: typeof reviews[
       style={{
         fontFamily: "'Caveat', cursive",
         fontWeight: 700,
-        fontSize: '1.5rem',
+        fontSize: '2.875rem',
         color: badge.color,
         transform: 'rotate(27deg)',
       }}
