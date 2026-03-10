@@ -23,7 +23,7 @@ const PricingSection = () => {
 
           <div className="relative z-10 px-8 py-12 md:px-16 md:py-16 text-center">
             {/* Headline */}
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-white mb-6">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white mb-6">
               Investasi Cerdas untuk Sekolah Anda
             </h2>
 
