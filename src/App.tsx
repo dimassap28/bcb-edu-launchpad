@@ -3,6 +3,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import GradualBlur from "@/components/ui/GradualBlur";
 import Index from "./pages/Index";
 import Pricing from "./pages/Pricing";
 import ModulAbsensi from "./pages/ModulAbsensi";
@@ -17,6 +18,23 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
+      {/* GradualBlur - Top & Bottom of all pages */}
+      <GradualBlur
+        target="page"
+        position="top"
+        height="7rem"
+        strength={2}
+        curve="bezier"
+        exponential
+        opacity={1}
+        zIndex={-80}
+      />
+      <GradualBlur
+        target="page"
+        position="bottom"
+        height="3rem"
+        strength={3}
+      />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
