@@ -2,7 +2,7 @@ import { Facebook, Instagram, Twitter, Linkedin } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="relative overflow-hidden border-t bg-background pt-24 pb-8">
+    <footer className="relative overflow-hidden border-t bg-background pt-24 pb-10">
       {/* Background Watermark */}
       <div className="pointer-events-none select-none absolute hidden md:block bottom-0 left-1/2 -translate-x-1/2 w-full leading-none text-center text-[18vw] font-bold tracking-[-0.25rem] bg-gradient-to-b from-muted-foreground/10 to-background bg-clip-text text-transparent md:from-muted-foreground/20">
         BCB Edu

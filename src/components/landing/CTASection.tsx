@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { Send, Mail, Phone, CheckCircle2, CalendarCheck } from "lucide-react";
 import { PillBadge } from "@/components/ui/pill-badge";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const MODULE_OPTIONS = [
   "Absensi & Jurnaling",
@@ -57,18 +58,17 @@ const CTASection = () => {
   };
 
   return (
-    <section id="demo" className="py-24">
-      <div className="px-14">
-        <div className="bg-muted rounded-3xl p-8 md:p-14 mx-auto">
-          <div className="grid md:grid-cols-[45fr_50fr] gap-8 md:gap-12 items-start">
+    <section id="demo" className="py-24 relative overflow-hidden">
+      <div className="px-5 md:px-14">
+        <div className="bg-muted rounded-3xl p-5 md:p-14 mx-auto w-full max-w-full">
+          <div className="grid md:grid-cols-[45fr_50fr] gap-8 md:gap-12 items-start w-full">
             {/* LEFT COLUMN */}
             <motion.div
               initial={{ opacity: 0, x: -24 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, ease: "easeOut" }}
-              className="flex flex-col"
-            >
+              className="flex flex-col min-w-0 w-full">
               <PillBadge icon={<CalendarCheck className="h-3 w-3" />}>
                 Jadwalkan Demo
               </PillBadge>
@@ -119,8 +119,8 @@ const CTASection = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
-            >
-              <div className="bg-card rounded-[20px] p-6 md:p-9 shadow-card border">
+              className="min-w-0 w-full">
+              <div className="bg-card rounded-[20px] p-6 md:p-9 shadow-card border w-full">
                 {submitted ? (
                   <div className="flex flex-col items-center justify-center py-12 text-center gap-4">
                     <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
@@ -144,7 +144,7 @@ const CTASection = () => {
 
                     <form onSubmit={handleSubmit} className="space-y-4">
                       {/* Nama */}
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                         <div className="space-y-1.5">
                           <Label className="text-xs text-muted-foreground">
                             Nama Lengkap
@@ -207,7 +207,7 @@ const CTASection = () => {
                         </div>
 
                         {/* Modul — checkbox pills */}
-                        <div className="space-y-1.5 col-span-2">
+                        <div className="space-y-1.5 md:col-span-2">
                           <Label className="text-xs text-muted-foreground">
                             Modul yang Diminati
                           </Label>
@@ -223,8 +223,7 @@ const CTASection = () => {
                                     isSelected
                                       ? "border-primary bg-primary/5 text-primary font-medium"
                                       : "border-border bg-background text-muted-foreground hover:border-primary/40"
-                                  }`}
-                                >
+                                  }`}>
                                   <span className="mr-1.5">
                                     {isSelected ? "✓" : "○"}
                                   </span>
@@ -240,13 +239,12 @@ const CTASection = () => {
                         type="submit"
                         size="lg"
                         disabled={loading}
-                        className="w-full bg-hero-gradient hover:opacity-90 transition-opacity h-12 rounded-xl text-base"
-                      >
+                        className="w-full bg-hero-gradient hover:opacity-90 transition-opacity h-12 rounded-xl text-base">
                         {loading ? (
                           "Mengirim..."
                         ) : (
                           <>
-                            Jadwalkan Demo Sekarang
+                            Jadwalkan Demo
                             <Send className="ml-2 h-4 w-4" />
                           </>
                         )}
