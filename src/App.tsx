@@ -22,9 +22,9 @@ const App = () => (
       <GradualBlur
         target="page"
         position="top"
-        height="7rem"
-        strength={2}
-        curve="bezier"
+        height="3rem"
+        strength={0.6}
+        curve="linear"
         exponential
         opacity={1}
         zIndex={-80}
@@ -33,7 +33,11 @@ const App = () => (
         target="page"
         position="bottom"
         height="3rem"
-        strength={3}
+        strength={0.6}
+        curve="linear"
+        exponential
+        opacity={1}
+        zIndex={-80}
       />
       <BrowserRouter>
         <Routes>
