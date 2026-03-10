@@ -2,85 +2,252 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { Send, Rocket } from "lucide-react";
+import { Send, Mail, Phone, CheckCircle2 } from "lucide-react";
 import { PillBadge } from "@/components/ui/pill-badge";
+
+const MODULE_OPTIONS = [
+  "Absensi & Jurnaling",
+  "Jadwal & Kurikulum",
+  "CBT – Ujian Online",
+  "Belum tahu, ingin konsultasi",
+];
 
 const CTASection = () => {
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [selectedModules, setSelectedModules] = useState<string[]>([]);
+  const [errors, setErrors] = useState<Record<string, boolean>>({});
+
+  const toggleModule = (mod: string) => {
+    setSelectedModules((prev) =>
+      prev.includes(mod) ? prev.filter((m) => m !== mod) : [...prev, mod]
+    );
+  };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const form = e.target as HTMLFormElement;
+    const formData = new FormData(form);
+    const newErrors: Record<string, boolean> = {};
+
+    ["nama", "sekolah", "phone", "email"].forEach((field) => {
+      if (!formData.get(field)?.toString().trim()) {
+        newErrors[field] = true;
+      }
+    });
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
+    setErrors({});
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
+      setSubmitted(true);
       toast({
         title: "Terima kasih! 🎉",
         description: "Tim kami akan menghubungi Anda dalam 1x24 jam.",
       });
-      (e.target as HTMLFormElement).reset();
     }, 1000);
   };
 
   return (
     <section id="demo" className="py-24">
       <div className="container mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="max-w-2xl mx-auto"
-        >
-          <div className="bg-card rounded-2xl shadow-card-hover border overflow-hidden">
-            <div className="bg-hero-gradient p-8 md:p-12 text-center">
-              {/* Pill badge */}
-              <PillBadge 
-                icon={<Rocket className="h-3 w-3" />}
-                className="border-primary-foreground/20 bg-primary-foreground/10 text-primary-foreground"
-              >
-                Mulai Sekarang
-              </PillBadge>
+        <div className="bg-muted rounded-3xl p-8 md:p-14 max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-[45fr_50fr] gap-8 md:gap-12 items-start">
+            {/* LEFT COLUMN */}
+            <motion.div
+              initial={{ opacity: 0, x: -24 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+              className="flex flex-col"
+            >
+              <PillBadge>Jadwalkan Demo</PillBadge>
 
-              <h2 className="text-3xl md:text-4xl font-extrabold text-primary-foreground mb-3">
-                Siap Membawa Sekolah Anda ke Level Berikutnya?
+              <h2 className="text-3xl md:text-[40px] md:leading-[1.15] font-extrabold text-foreground mb-4">
+                Siap Membawa Sekolah
+                <br />
+                Anda ke Level
+                <br />
+                <span className="text-primary">Berikutnya?</span>
               </h2>
-              <p className="text-primary-foreground/80">
-                Jadwalkan demo gratis dan lihat langsung bagaimana BCB Edu bekerja untuk sekolah Anda.
+
+              <p className="text-muted-foreground text-[15px] max-w-xs mb-8">
+                Isi form di sebelah dan tim kami akan menghubungi Anda dalam 1×24
+                jam untuk menjadwalkan demo gratis.
               </p>
-            </div>
 
-            <form onSubmit={handleSubmit} className="p-8 md:p-12 space-y-4">
-              <div className="grid sm:grid-cols-2 gap-4">
-                <Input placeholder="Nama lengkap" required className="h-12 rounded-xl" />
-                <Input placeholder="Nama sekolah" required className="h-12 rounded-xl" />
+              {/* Contact Info */}
+              <div className="space-y-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-[10px] bg-card shadow-sm border flex items-center justify-center shrink-0">
+                    <Mail className="h-4 w-4 text-primary" />
+                  </div>
+                  <div>
+                    <p className="text-xs text-muted-foreground">Email</p>
+                    <p className="text-sm font-semibold text-foreground">
+                      halo@bcbedu.id
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-[10px] bg-card shadow-sm border flex items-center justify-center shrink-0">
+                    <Phone className="h-4 w-4 text-primary" />
+                  </div>
+                  <div>
+                    <p className="text-xs text-muted-foreground">WhatsApp</p>
+                    <p className="text-sm font-semibold text-foreground">
+                      +62 812-XXXX-XXXX
+                    </p>
+                  </div>
+                </div>
               </div>
-              <div className="grid sm:grid-cols-2 gap-4">
-                <Input placeholder="No. HP / WhatsApp" type="tel" required className="h-12 rounded-xl" />
-                <Input placeholder="Email" type="email" required className="h-12 rounded-xl" />
-              </div>
-              <Input placeholder="Modul yang diminati (opsional)" className="h-12 rounded-xl" />
+            </motion.div>
 
-              <Button
-                type="submit"
-                size="lg"
-                disabled={loading}
-                className="w-full bg-hero-gradient hover:opacity-90 transition-opacity h-14 rounded-xl text-lg"
-              >
-                {loading ? "Mengirim..." : (
+            {/* RIGHT COLUMN — FORM CARD */}
+            <motion.div
+              initial={{ opacity: 0, x: 24 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
+            >
+              <div className="bg-card rounded-[20px] p-6 md:p-9 shadow-[0_4px_32px_rgba(0,0,0,0.08)] border">
+                {submitted ? (
+                  <div className="flex flex-col items-center justify-center py-12 text-center gap-4">
+                    <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
+                      <CheckCircle2 className="h-8 w-8 text-primary" />
+                    </div>
+                    <h3 className="text-xl font-bold text-foreground">
+                      Terima kasih!
+                    </h3>
+                    <p className="text-muted-foreground text-sm max-w-xs">
+                      Tim kami akan segera menghubungi Anda.
+                    </p>
+                  </div>
+                ) : (
                   <>
-                    Jadwalkan Demo Sekarang
-                    <Send className="ml-2 h-5 w-5" />
+                    <h3 className="text-xl font-bold text-foreground mb-1">
+                      Jadwalkan Demo Gratis
+                    </h3>
+                    <p className="text-sm text-muted-foreground mb-6">
+                      Gratis setup · Gratis migrasi · Gratis pelatihan
+                    </p>
+
+                    <form onSubmit={handleSubmit} className="space-y-4">
+                      {/* Nama */}
+                      <div className="space-y-1.5">
+                        <Label className="text-xs text-muted-foreground">
+                          Nama Lengkap
+                        </Label>
+                        <Input
+                          name="nama"
+                          placeholder="Masukkan nama lengkap Anda"
+                          className={`h-11 rounded-xl ${errors.nama ? "border-destructive ring-1 ring-destructive" : ""}`}
+                          onChange={() => setErrors((p) => ({ ...p, nama: false }))}
+                        />
+                      </div>
+
+                      {/* Sekolah */}
+                      <div className="space-y-1.5">
+                        <Label className="text-xs text-muted-foreground">
+                          Nama Sekolah
+                        </Label>
+                        <Input
+                          name="sekolah"
+                          placeholder="Masukkan nama sekolah"
+                          className={`h-11 rounded-xl ${errors.sekolah ? "border-destructive ring-1 ring-destructive" : ""}`}
+                          onChange={() => setErrors((p) => ({ ...p, sekolah: false }))}
+                        />
+                      </div>
+
+                      {/* Phone */}
+                      <div className="space-y-1.5">
+                        <Label className="text-xs text-muted-foreground">
+                          No. HP / WhatsApp
+                        </Label>
+                        <Input
+                          name="phone"
+                          type="tel"
+                          placeholder="+62"
+                          className={`h-11 rounded-xl ${errors.phone ? "border-destructive ring-1 ring-destructive" : ""}`}
+                          onChange={() => setErrors((p) => ({ ...p, phone: false }))}
+                        />
+                      </div>
+
+                      {/* Email */}
+                      <div className="space-y-1.5">
+                        <Label className="text-xs text-muted-foreground">
+                          Email
+                        </Label>
+                        <Input
+                          name="email"
+                          type="email"
+                          placeholder="nama@sekolah.sch.id"
+                          className={`h-11 rounded-xl ${errors.email ? "border-destructive ring-1 ring-destructive" : ""}`}
+                          onChange={() => setErrors((p) => ({ ...p, email: false }))}
+                        />
+                      </div>
+
+                      {/* Modul — checkbox pills */}
+                      <div className="space-y-1.5">
+                        <Label className="text-xs text-muted-foreground">
+                          Modul yang Diminati
+                        </Label>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                          {MODULE_OPTIONS.map((mod) => {
+                            const isSelected = selectedModules.includes(mod);
+                            return (
+                              <button
+                                key={mod}
+                                type="button"
+                                onClick={() => toggleModule(mod)}
+                                className={`text-left text-xs px-3 py-2.5 rounded-xl border transition-colors ${
+                                  isSelected
+                                    ? "border-primary bg-primary/5 text-primary font-medium"
+                                    : "border-border bg-background text-muted-foreground hover:border-primary/40"
+                                }`}
+                              >
+                                <span className="mr-1.5">{isSelected ? "✓" : "○"}</span>
+                                {mod}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+
+                      <Button
+                        type="submit"
+                        size="lg"
+                        disabled={loading}
+                        className="w-full bg-hero-gradient hover:opacity-90 transition-opacity h-13 rounded-xl text-base"
+                      >
+                        {loading ? (
+                          "Mengirim..."
+                        ) : (
+                          <>
+                            Jadwalkan Demo Sekarang
+                            <Send className="ml-2 h-4 w-4" />
+                          </>
+                        )}
+                      </Button>
+
+                      <p className="text-center text-xs text-muted-foreground">
+                        Tidak ada komitmen. Kami menghubungi Anda dalam 1×24 jam.
+                      </p>
+                    </form>
                   </>
                 )}
-              </Button>
-
-              <p className="text-center text-sm text-muted-foreground">
-                Tidak ada komitmen. Tim kami akan menghubungi Anda dalam 1x24 jam.
-              </p>
-            </form>
+              </div>
+            </motion.div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
