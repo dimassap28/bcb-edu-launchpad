@@ -1,80 +1,55 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Check, Tag } from "lucide-react";
-import { PillBadge } from "@/components/ui/pill-badge";
+import { Tag } from "lucide-react";
 
 const PricingSection = () => {
   return (
     <section id="harga" className="py-24 bg-section-alt">
       <div className="container mx-auto px-4">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          transition={{ duration: 0.5 }}
+          className="relative max-w-4xl mx-auto rounded-3xl overflow-hidden"
+          style={{
+            background: "linear-gradient(135deg, hsl(220 25% 8%) 0%, hsl(220 20% 14%) 50%, hsl(25 60% 15%) 100%)",
+          }}
         >
-          {/* Pill badge */}
-          <PillBadge icon={<Tag className="h-3 w-3" />}>
-            Harga Transparan
-          </PillBadge>
+          {/* Subtle warm glow corners */}
+          <div className="absolute top-0 right-0 w-64 h-64 rounded-full opacity-20 blur-3xl" style={{ background: "hsl(25 80% 40%)" }} />
+          <div className="absolute bottom-0 left-0 w-48 h-48 rounded-full opacity-15 blur-3xl" style={{ background: "hsl(25 70% 35%)" }} />
 
-          <h2 className="text-3xl md:text-5xl font-extrabold mb-4">
-            Harga Transparan, <span className="text-gradient">Sesuai Skala Sekolah Anda</span>
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Mulai dari <span className="font-bold text-foreground">Rp 2.000 / siswa / tahun</span> — Core System gratis selamanya.
-          </p>
-        </motion.div>
+          <div className="relative z-10 px-8 py-16 md:px-16 md:py-20 text-center">
+            {/* Headline */}
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-white mb-6">
+              Investasi Cerdas untuk Sekolah Anda
+            </h2>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="max-w-3xl mx-auto bg-card rounded-2xl shadow-card-hover border overflow-hidden"
-        >
-          {/* Header */}
-          <div className="bg-hero-gradient p-8 text-center">
-            <h3 className="text-2xl font-bold text-primary-foreground mb-2">Simulasi Harga</h3>
-            <p className="text-primary-foreground/80 text-sm">Contoh untuk 1.000 siswa aktif</p>
-          </div>
-
-          <div className="p-8 space-y-4">
-            {[
-              { label: "Core System (Database, Kelas, Dashboard)", price: "Gratis", highlight: true },
-              { label: "Absensi & Jurnaling", price: "Rp 5.000.000" },
-              { label: "Jadwal & Kurikulum", price: "Rp 2.000.000" },
-              { label: "Nilai & Rapor", price: "Rp 3.000.000" },
-              { label: "CBT — Ujian Online", price: "Rp 3.000.000" },
-            ].map((item) => (
-              <div key={item.label} className="flex items-center justify-between py-3 border-b last:border-0">
-                <div className="flex items-center gap-3">
-                  <Check className={`h-4 w-4 ${item.highlight ? 'text-secondary' : 'text-primary'}`} />
-                  <span className="text-sm font-medium">{item.label}</span>
-                </div>
-                <span className={`text-sm font-bold ${item.highlight ? 'text-secondary' : 'text-foreground'}`}>{item.price}</span>
-              </div>
-            ))}
-
-            <div className="mt-6 pt-6 border-t">
-              <div className="flex justify-between items-center mb-2">
-                <span className="font-bold">Total (tanpa diskon)</span>
-                <span className="font-bold text-lg">Rp 13.000.000<span className="text-sm font-normal text-muted-foreground"> /tahun</span></span>
-              </div>
-              <div className="flex justify-between items-center text-secondary">
-                <span className="text-sm font-semibold">Dengan diskon bundling 15%</span>
-                <span className="font-bold">Rp 11.050.000</span>
-              </div>
+            {/* Price highlight */}
+            <p className="text-sm font-semibold text-secondary mb-2">Mulai dari</p>
+            <div className="flex items-baseline justify-center gap-2 mb-4">
+              <span className="text-5xl md:text-7xl font-extrabold text-white tracking-tight">Rp 2.000</span>
+              <span className="text-base md:text-lg text-white/60 font-medium" style={{ fontFamily: "'Caveat', cursive" }}>/ siswa / tahun</span>
             </div>
 
-            <div className="bg-muted rounded-xl p-4 mt-4">
-              <p className="text-sm text-muted-foreground text-center">
-                💡 Ambil lebih banyak modul atau kontrak multi-tahun? <span className="font-bold text-foreground">Dapatkan diskon hingga 20%.</span>
-              </p>
+            {/* Description */}
+            <p className="text-sm md:text-base text-white/70 max-w-lg mx-auto mb-8 leading-relaxed">
+              Core System <span className="font-bold text-white">Gratis Selamanya</span>. Bayar <span className="underline decoration-white/40">hanya modul tambahan</span> yang digunakan dengan sistem kuota per siswa.
+            </p>
+
+            {/* Discount badge */}
+            <div className="inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm px-5 py-2.5 mb-8">
+              <Tag className="h-4 w-4 text-accent" />
+              <span className="text-sm text-white/80">
+                Diskon hingga <span className="font-bold text-accent">20%</span> untuk aktivasi paket modul lengkap.
+              </span>
             </div>
 
-            <div className="text-center mt-6">
-              <Button size="lg" asChild className="bg-hero-gradient hover:opacity-90 transition-opacity px-8 h-12 rounded-xl">
-                <a href="/pricing">Hitung Estimasi Biaya Sekolah Anda</a>
+            {/* CTA */}
+            <div>
+              <Button size="lg" asChild className="bg-accent text-accent-foreground hover:bg-accent/90 transition-all px-10 h-13 rounded-xl text-base font-bold shadow-lg shadow-accent/20">
+                <a href="/pricing">Cek Simulasi Harga</a>
               </Button>
             </div>
           </div>
