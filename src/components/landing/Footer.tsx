@@ -14,13 +14,18 @@ const Footer = () => {
           {/* Logo & Tagline */}
           <div className="flex flex-col items-start lg:col-span-5">
             <div className="mb-6 flex items-center gap-2">
-              <img src="kite.svg" alt="BCB Edu Logo" className="w-7 h-7 object-contain grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all" />
+              <img
+                src="kite.svg"
+                alt="BCB Edu Logo"
+                className="w-7 h-7 object-contain grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all"
+              />
               <span className="text-xl font-bold">
                 BCB <span className="text-gradient">Edu</span>
               </span>
             </div>
             <p className="max-w-xs text-sm leading-relaxed text-muted-foreground">
-              Platform Edukasi Terpadu untuk Tingkatkan Kualitas Pembelajaran Anda.
+              Platform Edukasi Terpadu untuk Tingkatkan Kualitas Pembelajaran
+              Anda.
             </p>
           </div>
 
@@ -33,23 +38,38 @@ const Footer = () => {
 
           {/* Contact */}
           <div className="flex flex-col gap-4 text-sm text-muted-foreground lg:col-span-2">
-            <a href="tel:+6281234567890" className="transition-colors hover:text-foreground">
+            <a
+              href="tel:+6281234567890"
+              className="transition-colors hover:text-foreground"
+            >
               +62 812 3456 7890
             </a>
-            <a href="mailto:hello@bcbedu.com" className="transition-colors hover:text-foreground">
+            <a
+              href="mailto:hello@bcbedu.com"
+              className="transition-colors hover:text-foreground"
+            >
               hello@bcbedu.com
             </a>
           </div>
 
           {/* Links */}
           <div className="flex flex-col items-start gap-4 text-sm text-muted-foreground md:items-end lg:col-span-2 lg:items-end">
-            <a href="#modul" className="transition-colors hover:text-foreground">
+            <a
+              href="#modul"
+              className="transition-colors hover:text-foreground"
+            >
               Fitur
             </a>
-            <a href="#harga" className="transition-colors hover:text-foreground">
+            <a
+              href="#harga"
+              className="transition-colors hover:text-foreground"
+            >
               Harga
             </a>
-            <a href="#testimoni" className="transition-colors hover:text-foreground">
+            <a
+              href="#testimoni"
+              className="transition-colors hover:text-foreground"
+            >
               Testimoni
             </a>
             <a href="#demo" className="transition-colors hover:text-foreground">
