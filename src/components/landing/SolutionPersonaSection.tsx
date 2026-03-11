@@ -41,15 +41,10 @@ interface PersonaCard {
 
 const solutions: SolutionCard[] = [
   {
-    icon: ClipboardCheck,
-    name: "Absensi Digital",
-    desc: "Catat kehadiran real-time dari HP, lengkap dengan jurnal dan foto aktivitas.",
-    connectedPersonas: [
-      "Guru",
-      "Operator & Staf TU",
-      "Kepala Sekolah & Yayasan",
-      "Orang Tua",
-    ],
+    icon: LayoutDashboard,
+    name: "Dashboard Admin",
+    desc: "Pantau performa sekolah, kontrol modul aktif, dan kelola biaya dari satu tempat.",
+    connectedPersonas: ["Kepala Sekolah & Yayasan", "Operator & Staf TU"],
   },
   {
     icon: CalendarDays,
@@ -67,13 +62,23 @@ const solutions: SolutionCard[] = [
     icon: BarChart3,
     name: "Manajemen Nilai",
     desc: "Input nilai, olah data, generate rapor digital — tanpa Excel, tanpa rekap manual.",
-    connectedPersonas: ["Guru", "Kepala Sekolah & Yayasan", "Orang Tua"],
+    connectedPersonas: [
+      "Guru",
+      "Kepala Sekolah & Yayasan",
+      "Orang Tua",
+      "Siswa",
+    ],
   },
   {
-    icon: LayoutDashboard,
-    name: "Dashboard Admin",
-    desc: "Pantau performa sekolah, kontrol modul aktif, dan kelola biaya dari satu tempat.",
-    connectedPersonas: ["Kepala Sekolah & Yayasan", "Operator & Staf TU"],
+    icon: ClipboardCheck,
+    name: "Absensi Digital",
+    desc: "Catat kehadiran real-time dari HP, lengkap dengan jurnal dan foto aktivitas.",
+    connectedPersonas: [
+      "Guru",
+      "Operator & Staf TU",
+      "Kepala Sekolah & Yayasan",
+      "Orang Tua",
+    ],
   },
 ];
 
@@ -597,7 +602,7 @@ const SolutionPersonaSection = () => {
             transition={{ duration: 0.4 }}
             className="text-center mb-16">
             <PillBadge icon={<Users className="h-3 w-3" />}>
-              · Solusi untuk Semua Peran
+              Solusi untuk Semua Peran
             </PillBadge>
             <h2 className="text-3xl lg:text-4xl font-extrabold mb-4 leading-tight mt-4">
               Satu Platform, Lima Peran,{" "}
