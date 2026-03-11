@@ -43,7 +43,11 @@ const Navbar = () => {
       <div className="container mx-auto flex items-center justify-between h-20 px-4">
         {/* Logo */}
         <a href="#" className="flex items-center gap-3 relative z-50">
-          <img src="/kite.svg" alt="BCB Edu Logo" className="w-8 h-8 object-contain" />
+          <img
+            src="/kite.svg"
+            alt="BCB Edu Logo"
+            className="w-8 h-8 object-contain"
+          />
           <span className="text-xl font-bold text-foreground">
             BCB <span className="text-gradient">Edu</span>
           </span>
@@ -59,10 +63,18 @@ const Navbar = () => {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="start" className="w-72 p-2">
               {modulItems.map((item) => (
-                <DropdownMenuItem key={item.href} asChild className="cursor-pointer rounded-md px-3 py-2.5 focus:bg-accent">
+                <DropdownMenuItem
+                  key={item.href}
+                  asChild
+                  className="cursor-pointer rounded-md px-3 py-2.5 focus:bg-accent"
+                >
                   <Link to={item.href} className="flex flex-col gap-0.5">
-                    <span className="text-sm font-medium text-foreground">{item.title}</span>
-                    <span className="text-xs text-muted-foreground">{item.subtitle}</span>
+                    <span className="text-sm font-medium text-foreground">
+                      {item.title}
+                    </span>
+                    <span className="text-xs text-muted-foreground">
+                      {item.subtitle}
+                    </span>
                   </Link>
                 </DropdownMenuItem>
               ))}
@@ -86,13 +98,16 @@ const Navbar = () => {
               >
                 {link.label}
               </a>
-            )
+            ),
           )}
         </div>
 
         {/* Desktop CTA */}
         <div className="hidden md:block">
-          <Button asChild className="bg-hero-gradient hover:opacity-90 transition-opacity rounded-full px-6">
+          <Button
+            asChild
+            className="bg-hero-gradient hover:opacity-90 transition-opacity rounded-full px-6"
+          >
             <a href="#demo">Jadwalkan Demo</a>
           </Button>
         </div>
@@ -116,10 +131,7 @@ const Navbar = () => {
             transition={{ duration: 0.25 }}
             className="fixed inset-0 z-40 md:hidden"
           >
-            {/* Gradient background */}
-            <div className="absolute inset-0 bg-gradient-to-b from-primary via-primary/95 to-secondary" />
-
-            <div className="relative z-10 flex flex-col items-center justify-between h-full pt-24 pb-8 px-6">
+            <div className="relative z-10 flex flex-col items-center gap-8 h-full bg-gradient-to-b from-primary via-primary/95 to-secondary pt-24 pb-8 px-6">
               {/* Nav Links */}
               <div className="flex flex-col items-center gap-2 w-full">
                 {/* Modul Accordion */}
@@ -174,7 +186,7 @@ const Navbar = () => {
                     >
                       {link.label}
                     </a>
-                  )
+                  ),
                 )}
               </div>
 
