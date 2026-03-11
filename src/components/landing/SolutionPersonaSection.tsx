@@ -446,6 +446,7 @@ const SolutionPersonaSection = () => {
 
   const [hoveredSolution, setHoveredSolution] = useState<number | null>(null);
   const [hoveredPersona, setHoveredPersona] = useState<number | null>(null);
+  const [autoplayIndex, setAutoplayIndex] = useState<number>(0);
   const [isVisible, setIsVisible] = useState(false);
   const [logoGlow, setLogoGlow] = useState(false);
   const [linePositions, setLinePositions] = useState<LinePositions>({
@@ -458,15 +459,22 @@ const SolutionPersonaSection = () => {
     typeof window !== "undefined" && window.innerWidth < 768 ? 0 : null,
   );
 
-  // Connected persona indices for hovered solution
+  // Determine the effective active solution (manual hover overrides autoplay)
+  const activeSolutionIndex = useMemo(() => {
+    if (hoveredSolution !== null) return hoveredSolution;
+    if (hoveredPersona !== null) return null; // Persona hover takes over with its own logic
+    return autoplayIndex;
+  }, [hoveredSolution, hoveredPersona, autoplayIndex]);
+
+  // Connected persona indices for active solution
   const connectedPersonaIndices = useMemo(
     () =>
-      hoveredSolution !== null
-        ? solutions[hoveredSolution].connectedPersonas
+      activeSolutionIndex !== null
+        ? solutions[activeSolutionIndex].connectedPersonas
             .map((name) => personas.findIndex((p) => p.name === name))
             .filter((i) => i !== -1)
         : [],
-    [hoveredSolution],
+    [activeSolutionIndex],
   );
 
   // Connected solution indices for hovered persona
@@ -530,10 +538,21 @@ const SolutionPersonaSection = () => {
     };
   }, [recalculate]);
 
-  // Logo glow on any hover
+  // Autoplay Effect: Cycle solution index every 7 seconds if not hovering
   useEffect(() => {
-    setLogoGlow(hoveredSolution !== null || hoveredPersona !== null);
-  }, [hoveredSolution, hoveredPersona]);
+    if (!isVisible || hoveredSolution !== null || hoveredPersona !== null) return;
+
+    const interval = setInterval(() => {
+      setAutoplayIndex((prev) => (prev + 1) % solutions.length);
+    }, 7000);
+
+    return () => clearInterval(interval);
+  }, [isVisible, hoveredSolution, hoveredPersona]);
+
+  // Logo glow on any hover or autoplay activity
+  useEffect(() => {
+    setLogoGlow(activeSolutionIndex !== null || hoveredPersona !== null);
+  }, [activeSolutionIndex, hoveredPersona]);
 
   // IntersectionObserver for entrance animation
   useEffect(() => {
@@ -575,18 +594,20 @@ const SolutionPersonaSection = () => {
     (i: number) => {
       if (hoveredSolution !== null) return hoveredSolution !== i;
       if (hoveredPersona !== null) return !connectedSolutionIndices.includes(i);
+      if (autoplayIndex !== null) return autoplayIndex !== i;
       return false;
     },
-    [hoveredSolution, hoveredPersona, connectedSolutionIndices],
+    [hoveredSolution, hoveredPersona, connectedSolutionIndices, autoplayIndex],
   );
 
   const isPersonaDimmed = useCallback(
     (i: number) => {
       if (hoveredSolution !== null) return !connectedPersonaIndices.includes(i);
       if (hoveredPersona !== null) return hoveredPersona !== i;
+      if (activeSolutionIndex !== null) return !connectedPersonaIndices.includes(i);
       return false;
     },
-    [hoveredSolution, hoveredPersona, connectedPersonaIndices],
+    [hoveredSolution, hoveredPersona, connectedPersonaIndices, activeSolutionIndex],
   );
 
   return (
@@ -619,7 +640,7 @@ const SolutionPersonaSection = () => {
             {/* SVG Connector Lines overlay */}
             <ZigzagConnectorLines
               positions={linePositions}
-              hoveredSolution={hoveredSolution}
+              hoveredSolution={activeSolutionIndex}
               hoveredPersona={hoveredPersona}
               connectedPersonaIndices={connectedPersonaIndices}
               connectedSolutionIndices={connectedSolutionIndices}
@@ -632,7 +653,7 @@ const SolutionPersonaSection = () => {
                   key={sol.name}
                   solution={sol}
                   index={i}
-                  isHovered={hoveredSolution === i}
+                  isHovered={activeSolutionIndex === i}
                   dimmed={isSolutionDimmed(i)}
                   isVisible={isVisible}
                   onHover={handleSolutionHover}
