@@ -5,7 +5,8 @@ import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Send } from "lucide-react";
+import { PillBadge } from "@/components/ui/pill-badge";
+import { Send, ShieldCheck, Cpu, Tag } from "lucide-react";
 
 /* ─── animation helpers ─── */
 const sectionVariants = {
@@ -40,7 +41,6 @@ function Section({ children, className = "", id }: { children: React.ReactNode; 
   );
 }
 
-const MChild = motion.div;
 
 const DotLabel = ({ text }: { text: string }) => (
   <div className="flex items-center gap-2 justify-center mb-3">
@@ -145,35 +145,35 @@ const ModulCBT = () => {
           <div className="max-w-4xl mx-auto relative">
             <div className="grid lg:flex gap-12 items-center">
               <motion.div initial="hidden" animate="visible" variants={staggerContainer(0.12)}>
-                <MChild variants={childFade()}>
+                <motion.div variants={childFade()}>
                   <Badge variant="secondary" className="mb-4 text-xs font-semibold">
                     Modul · CBT – Ujian Online
                   </Badge>
-                </MChild>
-                <MChild variants={childFade()}>
+                </motion.div>
+                <motion.div variants={childFade()}>
                   <h1 className="text-4xl md:text-5xl lg:text-[3.4rem] font-extrabold leading-[1.12] mb-5">
                     Ujian Online Langsung di Platform —{" "}
                     <span className="text-gradient">Aman, Stabil, Otomatis</span>
                   </h1>
-                </MChild>
-                <MChild variants={childFade()}>
+                </motion.div>
+                <motion.div variants={childFade()}>
                   <p className="text-lg text-muted-foreground leading-relaxed mb-8 max-w-xl">
                     Buat soal, jadwalkan ujian, pantau 1000+ siswa secara bersamaan, dan lihat hasil otomatis — semua di satu tempat tanpa aplikasi tambahan.
                   </p>
-                </MChild>
-                <MChild variants={childFade()}>
+                </motion.div>
+                <motion.div variants={childFade()}>
                   <Button size="lg" asChild className="bg-hero-gradient hover:opacity-90 transition-opacity text-lg px-8 h-14 rounded-xl">
                     <a href="/#demo">
                       Jadwalkan Demo Gratis
                       <Send className="ml-2 h-5 w-5" />
                     </a>
                   </Button>
-                </MChild>
-                <MChild variants={childFade()}>
+                </motion.div>
+                <motion.div variants={childFade()}>
                   <p className="mt-4 text-sm text-muted-foreground">
                     Harga mulai <span className="font-semibold text-foreground">Rp 3.000</span> / siswa / tahun
                   </p>
-                </MChild>
+                </motion.div>
               </motion.div>
 
               <motion.div
@@ -205,13 +205,13 @@ const ModulCBT = () => {
           }}
         />
         <div className="container mx-auto px-4 relative z-10">
-          <MChild variants={sectionVariants}>
-            <DotLabel text="Keunggulan Modul" />
+          <motion.div variants={sectionVariants} className="flex flex-col items-center">
+            <PillBadge icon={<ShieldCheck className="w-3 h-3" />}>Keunggulan Modul</PillBadge>
             <h2 className="text-3xl md:text-5xl font-extrabold text-center mb-14">Kenapa Memilih Modul Ini?</h2>
-          </MChild>
+          </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            <MChild variants={childFade()} className={`${cardHover} p-8 md:col-span-2 lg:row-span-3 flex flex-col`}>
+            <motion.div variants={childFade()} className={`${cardHover} p-8 md:col-span-2 lg:row-span-3 flex flex-col`}>
               <span className="text-3xl mb-4">🛡️</span>
               <h3 className="text-xl font-bold mb-2">Anti Kecurangan</h3>
               <p className="text-sm text-muted-foreground mb-6 leading-relaxed">
@@ -220,31 +220,31 @@ const ModulCBT = () => {
               <div className="flex-1 min-h-[200px] relative">
                 <FloatingIcons />
               </div>
-            </MChild>
+            </motion.div>
 
-            <MChild variants={childFade()} className={`${cardHover} p-6 md:col-span-2 lg:col-span-1`}>
+            <motion.div variants={childFade()} className={`${cardHover} p-6 md:col-span-2 lg:col-span-1`}>
               <span className="text-3xl mb-3 block">🚀</span>
               <h3 className="text-lg font-bold mb-1">Akses Massal Stabil</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 Dapat diakses oleh 1.000+ siswa secara bersamaan tanpa kendala performa atau lag.
               </p>
-            </MChild>
+            </motion.div>
 
-            <MChild variants={childFade()} className={`${cardHover} p-6`}>
+            <motion.div variants={childFade()} className={`${cardHover} p-6`}>
               <span className="text-3xl mb-3 block">🔄</span>
               <h3 className="text-lg font-bold mb-1">Rekap Otomatis Sesuai Absen</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 Hasil ujian otomatis terekam dan tersinkronisasi dengan data kehadiran siswa.
               </p>
-            </MChild>
+            </motion.div>
 
-            <MChild variants={childFade()} className={`${cardHover} p-6`}>
+            <motion.div variants={childFade()} className={`${cardHover} p-6`}>
               <span className="text-3xl mb-3 block">👁️</span>
               <h3 className="text-lg font-bold mb-1">Monitoring Real-Time</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 Guru dapat memantau kehadiran dan progres ujian setiap siswa secara langsung dari dashboard.
               </p>
-            </MChild>
+            </motion.div>
           </div>
         </div>
       </Section>
@@ -252,20 +252,10 @@ const ModulCBT = () => {
       {/* ── SECTION 3: MODULE FEATURES ── */}
       <Section className="py-24">
         <div className="container mx-auto px-4">
-          <MChild variants={sectionVariants}>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="flex items-center gap-2 justify-center"
-            >
-              <div className="flex items-center gap-3 mb-4 px-4 py-1.5 rounded-full bg-primary/10">
-                <span className="w-2 h-2 rounded-full bg-primary" />
-                <span className="text-primary text-xs font-semibold">Fitur Modul</span>
-              </div>
-            </motion.div>
+          <motion.div variants={sectionVariants} className="flex flex-col items-center">
+            <PillBadge icon={<Cpu className="w-3 h-3" />}>Fitur Modul</PillBadge>
             <h2 className="text-3xl md:text-5xl font-extrabold text-center mb-14">Semua yang Ada di Dalam Modul</h2>
-          </MChild>
+          </motion.div>
 
           <div className="grid sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
             {[
@@ -274,11 +264,11 @@ const ModulCBT = () => {
               { emoji: "💻", title: "Manajemen Perangkat Siswa", desc: "Mendukung soft reset & hard reset jika perangkat siswa mengalami kendala saat ujian berlangsung." },
               { emoji: "🔑", title: "Manajemen Token Ujian", desc: "Token ujian dapat di-reset kapan saja oleh guru untuk mencegah kebocoran soal." },
             ].map((f) => (
-              <MChild key={f.title} variants={childFade()} className={`${cardHover} p-6`}>
+              <motion.div key={f.title} variants={childFade()} className={`${cardHover} p-6`}>
                 <span className="text-2xl mb-3 block">{f.emoji}</span>
                 <h3 className="text-base font-bold mb-1">{f.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
-              </MChild>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -287,11 +277,11 @@ const ModulCBT = () => {
       {/* ── SECTION 4: PRICING ── */}
       <Section className="py-24 bg-section-alt" id="harga">
         <div className="container mx-auto px-4">
-          <MChild variants={sectionVariants}>
-            <DotLabel text="Harga Modul" />
+          <motion.div variants={sectionVariants} className="flex flex-col items-center">
+            <PillBadge icon={<Tag className="w-3 h-3" />}>Harga Modul</PillBadge>
             <h2 className="text-3xl md:text-5xl font-extrabold text-center mb-12">Harga Transparan, Bayar Sesuai Siswa Aktif</h2>
-          </MChild>
-          <MChild variants={childFade()} className="max-w-lg mx-auto">
+          </motion.div>
+          <motion.div variants={childFade()} className="max-w-lg mx-auto">
             <div ref={pricingRef} className={`${cardHover} p-8 md:p-10 text-center`}>
               <p className="text-sm text-muted-foreground mb-2 font-medium">Mulai dari</p>
               <p className="text-5xl md:text-6xl font-extrabold text-gradient mb-1">Rp {countedPrice.toLocaleString("id-ID")}</p>
@@ -311,7 +301,7 @@ const ModulCBT = () => {
                 Lihat detail harga lengkap →
               </Link>
             </div>
-          </MChild>
+          </motion.div>
         </div>
       </Section>
 

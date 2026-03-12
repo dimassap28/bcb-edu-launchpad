@@ -5,7 +5,8 @@ import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Send } from "lucide-react";
+import { PillBadge } from "@/components/ui/pill-badge";
+import { Send, Calendar, CreditCard } from "lucide-react";
 
 /* ─── animation helpers ─── */
 const sectionVariants = {
@@ -40,7 +41,6 @@ function Section({ children, className = "", id }: { children: React.ReactNode; 
   );
 }
 
-const MChild = motion.div;
 
 /* ─── dot decoration ─── */
 const DotLabel = ({ text }: { text: string }) => (
@@ -147,35 +147,35 @@ const ModulJadwal = () => {
           <div className="max-w-4xl mx-auto relative">
             <div className="grid lg:flex gap-12 items-center">
               <motion.div initial="hidden" animate="visible" variants={staggerContainer(0.12)}>
-                <MChild variants={childFade()}>
+                <motion.div variants={childFade()}>
                   <Badge variant="secondary" className="mb-4 text-xs font-semibold">
                     Modul · Jadwal &amp; Kurikulum
                   </Badge>
-                </MChild>
-                <MChild variants={childFade()}>
+                </motion.div>
+                <motion.div variants={childFade()}>
                   <h1 className="text-4xl md:text-5xl lg:text-[3.4rem] font-extrabold leading-[1.12] mb-5">
                     Atur Jadwal Sekolah Tanpa Ribet,{" "}
                     <span className="text-gradient">Tanpa Bentrok</span>
                   </h1>
-                </MChild>
-                <MChild variants={childFade()}>
+                </motion.div>
+                <motion.div variants={childFade()}>
                   <p className="text-lg text-muted-foreground leading-relaxed mb-8 max-w-xl">
                     Drag, drop, selesai. Kelola jadwal pelajaran dalam satu tempat — perubahan langsung terlihat oleh semua pihak, real-time.
                   </p>
-                </MChild>
-                <MChild variants={childFade()}>
+                </motion.div>
+                <motion.div variants={childFade()}>
                   <Button size="lg" asChild className="bg-hero-gradient hover:opacity-90 transition-opacity text-lg px-8 h-14 rounded-xl">
                     <a href="/#demo">
                       Jadwalkan Demo Gratis
                       <Send className="ml-2 h-5 w-5" />
                     </a>
                   </Button>
-                </MChild>
-                <MChild variants={childFade()}>
+                </motion.div>
+                <motion.div variants={childFade()}>
                   <p className="mt-4 text-sm text-muted-foreground">
                     Harga mulai <span className="font-semibold text-foreground">Rp 2.000</span> / siswa / tahun
                   </p>
-                </MChild>
+                </motion.div>
               </motion.div>
 
               <motion.div
@@ -207,13 +207,13 @@ const ModulJadwal = () => {
           }}
         />
         <div className="container mx-auto px-4 relative z-10">
-          <MChild variants={sectionVariants}>
-            <DotLabel text="Keunggulan Modul" />
+          <motion.div variants={sectionVariants} className="flex flex-col items-center">
+            <PillBadge icon={<Calendar className="w-3 h-3" />}>Keunggulan Modul</PillBadge>
             <h2 className="text-3xl md:text-5xl font-extrabold text-center mb-14">Kenapa Memilih Modul Ini?</h2>
-          </MChild>
+          </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            <MChild variants={childFade()} className={`${cardHover} p-8 md:col-span-2 lg:row-span-2 flex flex-col`}>
+            <motion.div variants={childFade()} className={`${cardHover} p-8 md:col-span-2 lg:row-span-2 flex flex-col`}>
               <span className="text-3xl mb-4">⚡</span>
               <h3 className="text-xl font-bold mb-2">Auto Generate Jadwal</h3>
               <p className="text-sm text-muted-foreground mb-6 leading-relaxed">
@@ -222,31 +222,31 @@ const ModulJadwal = () => {
               <div className="flex-1 min-h-[200px] relative">
                 <FloatingIcons />
               </div>
-            </MChild>
+            </motion.div>
 
-            <MChild variants={childFade()} className={`${cardHover} p-6`}>
+            <motion.div variants={childFade()} className={`${cardHover} p-6`}>
               <span className="text-3xl mb-3 block">🤖</span>
               <h3 className="text-lg font-bold mb-1">Optimasi Ruangan dengan AI</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 Sistem AI cerdas mengatur jadwal meski jumlah ruangan terbatas — tidak ada ruang yang terbuang sia-sia.
               </p>
-            </MChild>
+            </motion.div>
 
-            <MChild variants={childFade()} className={`${cardHover} p-6`}>
+            <motion.div variants={childFade()} className={`${cardHover} p-6`}>
               <span className="text-3xl mb-3 block">🚫</span>
               <h3 className="text-lg font-bold mb-1">Anti Bentrok Jadwal</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 Sistem menjamin tidak ada jadwal yang tabrakan — semua kelas dan guru mendapatkan slot jam mereka.
               </p>
-            </MChild>
+            </motion.div>
 
-            <MChild variants={childFade()} className={`${cardHover} p-6 lg:col-span-3 md:col-span-2`}>
+            <motion.div variants={childFade()} className={`${cardHover} p-6 lg:col-span-3 md:col-span-2`}>
               <span className="text-3xl mb-3 block">🎯</span>
               <h3 className="text-lg font-bold mb-1">Penjadwalan Fleksibel</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 Jadwal disesuaikan dengan preferensi guru dan kebutuhan spesifik sekolah — bukan template kaku.
               </p>
-            </MChild>
+            </motion.div>
           </div>
         </div>
       </Section>
@@ -254,11 +254,11 @@ const ModulJadwal = () => {
       {/* ── SECTION 4: PRICING ── */}
       <Section className="py-24 bg-section-alt" id="harga">
         <div className="container mx-auto px-4">
-          <MChild variants={sectionVariants}>
-            <DotLabel text="Harga Modul" />
+          <motion.div variants={sectionVariants} className="flex flex-col items-center">
+            <PillBadge icon={<CreditCard className="w-3 h-3" />}>Harga Modul</PillBadge>
             <h2 className="text-3xl md:text-5xl font-extrabold text-center mb-12">Harga Transparan, Bayar Sesuai Siswa Aktif</h2>
-          </MChild>
-          <MChild variants={childFade()} className="max-w-lg mx-auto">
+          </motion.div>
+          <motion.div variants={childFade()} className="max-w-lg mx-auto">
             <div ref={pricingRef} className={`${cardHover} p-8 md:p-10 text-center`}>
               <p className="text-sm text-muted-foreground mb-2 font-medium">Mulai dari</p>
               <p className="text-5xl md:text-6xl font-extrabold text-gradient mb-1">Rp {countedPrice.toLocaleString("id-ID")}</p>
@@ -278,7 +278,7 @@ const ModulJadwal = () => {
                 Lihat detail harga lengkap →
               </Link>
             </div>
-          </MChild>
+          </motion.div>
         </div>
       </Section>
 

@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Tag } from "lucide-react";
+import { Tag, Banknote } from "lucide-react";
+import { PillBadge } from "@/components/ui/pill-badge";
 
 const PricingSection = () => {
   return (
@@ -20,8 +21,14 @@ const PricingSection = () => {
           <div className="absolute top-0 right-0 w-64 h-64 rounded-full opacity-20 blur-3xl bg-primary" />
           <div className="absolute bottom-0 left-0 w-48 h-48 rounded-full opacity-15 blur-3xl bg-secondary" />
 
-          <div className="relative z-10 px-5 py-12 md:px-14 md:py-16 text-center">
+          <div className="relative z-10 px-5 py-12 md:px-14 md:py-16 text-center flex flex-col items-center">
             {/* Headline */}
+            <PillBadge 
+              icon={<Banknote className="w-3 h-3" />} 
+              className="border-white/10 bg-white/5 text-secondary mb-6"
+            >
+              Harga Modul
+            </PillBadge>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white mb-6">
               Investasi Cerdas untuk Sekolah Anda
             </h2>
