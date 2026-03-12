@@ -36,7 +36,8 @@ const ProblemSection = () => {
           </PillBadge>
 
           <h2 className="text-3xl md:text-5xl font-extrabold mb-4">
-            Apakah Sekolah Anda Masih Menghadapi Ini?
+            Apakah Sekolah Anda{" "}
+            <span className="text-gradient">Masih Menghadapi Ini?</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-xl mx-auto">
             Banyak sekolah terjebak dalam sistem yang justru menambah beban.
@@ -57,7 +58,9 @@ const ProblemSection = () => {
                 <p.icon className="h-6 w-6 text-destructive" />
               </div>
               <h3 className="text-lg font-bold mb-2">{p.title}</h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">{p.desc}</p>
+              <p className="text-muted-foreground text-sm leading-relaxed">
+                {p.desc}
+              </p>
             </motion.div>
           ))}
         </div>

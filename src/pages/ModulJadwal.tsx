@@ -1,17 +1,172 @@
+// ModulJadwal.tsx — updated hero section only
+// Replace the existing hero <section> with this block.
+// Import ScheduleMockup at the top of your file:
+//   import { ScheduleMockup } from "@/components/landing/schedule-mockup"
+
+// ─── Add this hook inside ModulJadwal component (alongside pricingRef) ──────
+//
+//   const [heroYOffset, setHeroYOffset] = useState(0)
+//   useEffect(() => {
+//     const onScroll = () => {
+//       setHeroYOffset(Math.min(window.scrollY / 400, 1) * -16)
+//     }
+//     window.addEventListener("scroll", onScroll, { passive: true })
+//     return () => window.removeEventListener("scroll", onScroll)
+//   }, [])
+
+// ─── Hero 3D transform config ────────────────────────────────────────────────
+//   const heroTransform = {
+//     rotateX: 12,
+//     rotateY: -8,
+//     rotateZ: 2,
+//     scale: 1.05,
+//   }
+
+// ─── Replace the SECTION 1: HERO block with the JSX below ───────────────────
+
+/*
+<section className="pt-28 pb-0 overflow-hidden relative">
+  <div className="container mx-auto px-4">
+    <div className="max-w-5xl mx-auto">
+
+      {/* Left: headline copy *\/}
+      <motion.div
+        initial="hidden"
+        animate="visible"
+        variants={staggerContainer(0.12)}
+        className="max-w-xl"
+      >
+        <motion.div variants={childFade()}>
+          <Badge variant="secondary" className="mb-4 text-xs font-semibold">
+            Modul · Jadwal &amp; Kurikulum
+          </Badge>
+        </motion.div>
+        <motion.div variants={childFade()}>
+          <h1 className="text-4xl md:text-5xl lg:text-[3.4rem] font-extrabold leading-[1.12] mb-5">
+            Atur Jadwal Sekolah Tanpa Ribet,{" "}
+            <span className="text-gradient">Tanpa Bentrok</span>
+          </h1>
+        </motion.div>
+        <motion.div variants={childFade()}>
+          <p className="text-lg text-muted-foreground leading-relaxed mb-8 max-w-xl">
+            Generate jadwal otomatis dalam satu klik — perubahan langsung
+            terlihat oleh semua pihak, real-time.
+          </p>
+        </motion.div>
+        <motion.div variants={childFade()}>
+          <Button
+            size="lg"
+            asChild
+            className="bg-hero-gradient hover:opacity-90 transition-opacity text-lg px-8 h-14 rounded-xl"
+          >
+            <a href="/#demo">
+              Jadwalkan Demo Gratis
+              <Send className="ml-2 h-5 w-5" />
+            </a>
+          </Button>
+        </motion.div>
+        <motion.div variants={childFade()}>
+          <p className="mt-4 text-sm text-muted-foreground">
+            Harga mulai{" "}
+            <span className="font-semibold text-foreground">Rp 2.000</span> / siswa / tahun
+          </p>
+        </motion.div>
+      </motion.div>
+    </div>
+  </div>
+
+  {/* ── 3D mockup stage — full bleed ── *\/}
+  <div
+    style={{
+      width: "100vw",
+      position: "relative",
+      left: "50%",
+      right: "50%",
+      marginLeft: "-50vw",
+      marginRight: "-50vw",
+      height: "520px",
+      marginTop: "-40px",
+      overflow: "hidden",
+    }}
+  >
+    {/* Fade gradient at bottom *\/}
+    <div
+      className="absolute bottom-0 left-0 right-0 z-10 pointer-events-none"
+      style={{
+        height: "200px",
+        background: "linear-gradient(to top, var(--color-background) 20%, transparent 100%)",
+      }}
+    />
+    {/* Fade gradient at top *\/}
+    <div
+      className="absolute top-0 left-0 right-0 z-10 pointer-events-none"
+      style={{
+        height: "80px",
+        background: "linear-gradient(to bottom, var(--color-background) 0%, transparent 100%)",
+      }}
+    />
+
+    {/* Perspective wrapper *\/}
+    <div
+      style={{
+        transform: `translateY(${heroYOffset}px)`,
+        transition: "transform 0.1s ease-out",
+        perspective: "3000px",
+        perspectiveOrigin: "50% 20%",
+        width: "100%",
+        height: "100%",
+        position: "relative",
+      }}
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.4, duration: 1, ease: [0.22, 1, 0.36, 1] }}
+        style={{
+          width: "1200px",
+          height: "700px",
+          position: "absolute",
+          top: "60px",
+          left: "50%",
+          transform: `translateX(-50%) rotateX(${heroTransform.rotateX}deg) rotateY(${heroTransform.rotateY}deg) rotate(${heroTransform.rotateZ}deg) scale(${heroTransform.scale})`,
+          transformOrigin: "center top",
+          borderRadius: "16px",
+          border: "1px solid rgba(0,0,0,0.08)",
+          boxShadow: "0 32px 80px rgba(0,0,0,0.12), 0 8px 24px rgba(0,0,0,0.06)",
+          overflow: "hidden",
+          backfaceVisibility: "hidden",
+          WebkitBackfaceVisibility: "hidden",
+        }}
+      >
+        <ScheduleMockup />
+      </motion.div>
+    </div>
+  </div>
+</section>
+*/
+
+// ─── Full file with all changes applied ──────────────────────────────────────
+
 import { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { motion, useInView, AnimatePresence } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import Navbar from "@/components/landing/Navbar";
 import Footer from "@/components/landing/Footer";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { PillBadge } from "@/components/ui/pill-badge";
 import { Send, Calendar, CreditCard } from "lucide-react";
+import { ScheduleMockup } from "@/components/schedule-mockup";
+import { AnimatePresence } from "framer-motion";
 
 /* ─── animation helpers ─── */
 const sectionVariants = {
   hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" as const } },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: "easeOut" as const },
+  },
 };
 
 const staggerContainer = (stagger = 0.1) => ({
@@ -21,10 +176,22 @@ const staggerContainer = (stagger = 0.1) => ({
 
 const childFade = () => ({
   hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: "easeOut" as const } },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.45, ease: "easeOut" as const },
+  },
 });
 
-function Section({ children, className = "", id }: { children: React.ReactNode; className?: string; id?: string }) {
+function Section({
+  children,
+  className = "",
+  id,
+}: {
+  children: React.ReactNode;
+  className?: string;
+  id?: string;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
   return (
@@ -41,7 +208,6 @@ function Section({ children, className = "", id }: { children: React.ReactNode; 
   );
 }
 
-
 /* ─── dot decoration ─── */
 const DotLabel = ({ text }: { text: string }) => (
   <div className="flex items-center gap-2 justify-center mb-3">
@@ -50,7 +216,9 @@ const DotLabel = ({ text }: { text: string }) => (
       <span className="w-1.5 h-1.5 rounded-full bg-primary/30" />
       <span className="w-1.5 h-1.5 rounded-full bg-primary/20" />
     </span>
-    <span className="text-xs font-semibold tracking-widest uppercase text-primary">{text}</span>
+    <span className="text-xs font-semibold tracking-widest uppercase text-primary">
+      {text}
+    </span>
     <span className="flex gap-1">
       <span className="w-1.5 h-1.5 rounded-full bg-primary/20" />
       <span className="w-1.5 h-1.5 rounded-full bg-primary/30" />
@@ -59,7 +227,7 @@ const DotLabel = ({ text }: { text: string }) => (
   </div>
 );
 
-/* ─── floating icon badges for large card ─── */
+/* ─── floating icon badges ─── */
 const floatingIcons = [
   { emoji: "📅", label: "Jadwal", x: "-145%", y: "-130%" },
   { emoji: "🔄", label: "Auto Generate", x: "45%", y: "-190%" },
@@ -70,12 +238,10 @@ const floatingIcons = [
 
 function FloatingIcons() {
   const [cycle, setCycle] = useState(0);
-
   useEffect(() => {
     const interval = setInterval(() => setCycle((c) => c + 1), 4000);
     return () => clearInterval(interval);
   }, []);
-
   return (
     <div className="relative w-full h-full flex items-center justify-center">
       <div className="p-4 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center">
@@ -98,7 +264,13 @@ function FloatingIcons() {
               transition={{
                 scale: { delay: i * 0.3, duration: 0.4, ease: "easeOut" },
                 opacity: { delay: i * 0.3, duration: 0.4 },
-                y: { delay: i * 0.3 + 1.5, duration: 2, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" },
+                y: {
+                  delay: i * 0.3 + 1.5,
+                  duration: 2,
+                  repeat: Infinity,
+                  repeatType: "reverse",
+                  ease: "easeInOut",
+                },
               }}
             >
               <div className="flex items-center gap-1.5 bg-card rounded-full px-3 py-1.5 shadow-card border text-xs font-medium whitespace-nowrap">
@@ -113,7 +285,8 @@ function FloatingIcons() {
   );
 }
 
-const cardHover = "bg-card rounded-2xl border shadow-card transition-all duration-200 ease-out hover:-translate-y-1 hover:shadow-card-hover hover:border-primary/30";
+const cardHover =
+  "bg-card rounded-2xl border shadow-card transition-all duration-200 ease-out hover:-translate-y-1 hover:shadow-card-hover hover:border-primary/30";
 
 /* ─── count-up hook ─── */
 function useCountUp(target: number, duration = 1200, start = false) {
@@ -132,67 +305,167 @@ function useCountUp(target: number, duration = 1200, start = false) {
   return value;
 }
 
+/* ─── 3D transform config ─── */
+const HERO_TRANSFORM = {
+  rotateX: 12,
+  rotateY: -8,
+  rotateZ: 2,
+  scale: 1.05,
+};
+
 const ModulJadwal = () => {
   const pricingRef = useRef<HTMLDivElement>(null);
   const pricingInView = useInView(pricingRef, { once: true, margin: "-80px" });
   const countedPrice = useCountUp(2000, 1200, pricingInView);
+
+  // Parallax scroll for hero mockup
+  const [heroYOffset, setHeroYOffset] = useState(0);
+  useEffect(() => {
+    const onScroll = () => {
+      setHeroYOffset(Math.min(window.scrollY / 400, 1) * -16);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
 
       {/* ── SECTION 1: HERO ── */}
-      <section className="pt-28 pb-20 overflow-hidden">
+      <section className="pt-28 pb-0 overflow-hidden relative">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto relative">
-            <div className="grid lg:flex gap-12 items-center">
-              <motion.div initial="hidden" animate="visible" variants={staggerContainer(0.12)}>
-                <motion.div variants={childFade()}>
-                  <Badge variant="secondary" className="mb-4 text-xs font-semibold">
-                    Modul · Jadwal &amp; Kurikulum
-                  </Badge>
-                </motion.div>
-                <motion.div variants={childFade()}>
-                  <h1 className="text-4xl md:text-5xl lg:text-[3.4rem] font-extrabold leading-[1.12] mb-5">
-                    Atur Jadwal Sekolah Tanpa Ribet,{" "}
-                    <span className="text-gradient">Tanpa Bentrok</span>
-                  </h1>
-                </motion.div>
-                <motion.div variants={childFade()}>
-                  <p className="text-lg text-muted-foreground leading-relaxed mb-8 max-w-xl">
-                    Drag, drop, selesai. Kelola jadwal pelajaran dalam satu tempat — perubahan langsung terlihat oleh semua pihak, real-time.
-                  </p>
-                </motion.div>
-                <motion.div variants={childFade()}>
-                  <Button size="lg" asChild className="bg-hero-gradient hover:opacity-90 transition-opacity text-lg px-8 h-14 rounded-xl">
-                    <a href="/#demo">
-                      Jadwalkan Demo Gratis
-                      <Send className="ml-2 h-5 w-5" />
-                    </a>
-                  </Button>
-                </motion.div>
-                <motion.div variants={childFade()}>
-                  <p className="mt-4 text-sm text-muted-foreground">
-                    Harga mulai <span className="font-semibold text-foreground">Rp 2.000</span> / siswa / tahun
-                  </p>
-                </motion.div>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, x: 40 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
-                className="right-0 -translate-y-1/2 lg:translate-y-0 lg:right-auto flex justify-center"
-              >
-                <div
-                  className="relative rounded-[2.5rem] border-2 border-border bg-muted/50 flex items-center justify-center"
-                  style={{ width: 280, aspectRatio: "9/19.5" }}
+          <div className="max-w-5xl mx-auto">
+            {/* Headline copy */}
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={staggerContainer(0.12)}
+              className="max-w-xl"
+            >
+              <motion.div variants={childFade()}>
+                <Badge
+                  variant="secondary"
+                  className="mb-4 text-xs font-semibold"
                 >
-                  <span className="text-xs text-muted-foreground font-medium">[ Screenshot Produk ]</span>
-                  <div className="absolute top-3 left-1/2 -translate-x-1/2 w-24 h-5 rounded-full bg-border/60" />
-                </div>
+                  Modul · Jadwal &amp; Kurikulum
+                </Badge>
               </motion.div>
-            </div>
+              <motion.div variants={childFade()}>
+                <h1 className="text-4xl md:text-5xl lg:text-[3.4rem] font-extrabold leading-[1.12] mb-5">
+                  Atur Jadwal Sekolah Tanpa Ribet,{" "}
+                  <span className="text-gradient">Tanpa Bentrok</span>
+                </h1>
+              </motion.div>
+              <motion.div variants={childFade()}>
+                <p className="text-lg text-muted-foreground leading-relaxed mb-8 max-w-xl">
+                  Generate jadwal otomatis dalam satu klik — perubahan langsung
+                  terlihat oleh semua pihak, real-time.
+                </p>
+              </motion.div>
+              <motion.div variants={childFade()}>
+                <Button
+                  size="lg"
+                  asChild
+                  className="bg-hero-gradient hover:opacity-90 transition-opacity text-lg px-8 h-14 rounded-xl"
+                >
+                  <a href="/#demo">
+                    Jadwalkan Demo Gratis
+                    <Send className="ml-2 h-5 w-5" />
+                  </a>
+                </Button>
+              </motion.div>
+              <motion.div variants={childFade()}>
+                <p className="mt-4 text-sm text-muted-foreground">
+                  Harga mulai{" "}
+                  <span className="font-semibold text-foreground">
+                    Rp 2.000
+                  </span>{" "}
+                  / siswa / tahun
+                </p>
+              </motion.div>
+            </motion.div>
+          </div>
+        </div>
+
+        {/* ── 3D Mockup Stage — full bleed ── */}
+        <div
+          style={{
+            width: "100vw",
+            position: "relative",
+            left: "50%",
+            right: "50%",
+            marginLeft: "-50vw",
+            marginRight: "-50vw",
+            height: "520px",
+            marginTop: "-40px",
+            overflow: "hidden",
+          }}
+        >
+          {/* Bottom fade */}
+          <div
+            className="absolute bottom-0 left-0 right-0 z-10 pointer-events-none"
+            style={{
+              height: "220px",
+              background:
+                "linear-gradient(to top, hsl(var(--background)) 20%, transparent 100%)",
+            }}
+          />
+          {/* Top fade */}
+          <div
+            className="absolute top-0 left-0 right-0 z-10 pointer-events-none"
+            style={{
+              height: "80px",
+              background:
+                "linear-gradient(to bottom, hsl(var(--background)) 0%, transparent 100%)",
+            }}
+          />
+
+          {/* Perspective wrapper */}
+          <div
+            style={{
+              transform: `translateY(${heroYOffset}px)`,
+              transition: "transform 0.1s ease-out",
+              perspective: "3000px",
+              perspectiveOrigin: "50% 20%",
+              width: "100%",
+              height: "100%",
+              position: "relative",
+            }}
+          >
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                delay: 0.4,
+                duration: 1.1,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              style={{
+                width: "1200px",
+                height: "700px",
+                position: "absolute",
+                top: "60px",
+                left: "50%",
+                transform: `
+                  translateX(-50%)
+                  rotateX(${HERO_TRANSFORM.rotateX}deg)
+                  rotateY(${HERO_TRANSFORM.rotateY}deg)
+                  rotate(${HERO_TRANSFORM.rotateZ}deg)
+                  scale(${HERO_TRANSFORM.scale})
+                `,
+                transformOrigin: "center top",
+                borderRadius: "16px",
+                border: "1px solid rgba(0,0,0,0.07)",
+                boxShadow:
+                  "0 32px 80px rgba(0,0,0,0.10), 0 8px 24px rgba(0,0,0,0.06)",
+                overflow: "hidden",
+                backfaceVisibility: "hidden",
+                WebkitBackfaceVisibility: "hidden",
+              }}
+            >
+              <ScheduleMockup />
+            </motion.div>
           </div>
         </div>
       </section>
@@ -202,22 +475,34 @@ const ModulJadwal = () => {
         <div
           className="absolute inset-0 w-full h-full pointer-events-none"
           style={{
-            backgroundImage: "radial-gradient(circle, hsl(var(--primary) / 0.18) 1px, transparent 1px)",
+            backgroundImage:
+              "radial-gradient(circle, hsl(var(--primary) / 0.18) 1px, transparent 1px)",
             backgroundSize: "24px 24px",
           }}
         />
         <div className="container mx-auto px-4 relative z-10">
-          <motion.div variants={sectionVariants} className="flex flex-col items-center">
-            <PillBadge icon={<Calendar className="w-3 h-3" />}>Keunggulan Modul</PillBadge>
-            <h2 className="text-3xl md:text-5xl font-extrabold text-center mb-14">Kenapa Memilih Modul Ini?</h2>
+          <motion.div
+            variants={sectionVariants}
+            className="flex flex-col items-center"
+          >
+            <PillBadge icon={<Calendar className="w-3 h-3" />}>
+              Keunggulan Modul
+            </PillBadge>
+            <h2 className="text-3xl md:text-5xl font-extrabold text-center mb-14">
+              Kenapa Memilih Modul Ini?
+            </h2>
           </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            <motion.div variants={childFade()} className={`${cardHover} p-8 md:col-span-2 lg:row-span-2 flex flex-col`}>
+            <motion.div
+              variants={childFade()}
+              className={`${cardHover} p-8 md:col-span-2 lg:row-span-2 flex flex-col`}
+            >
               <span className="text-3xl mb-4">⚡</span>
               <h3 className="text-xl font-bold mb-2">Auto Generate Jadwal</h3>
               <p className="text-sm text-muted-foreground mb-6 leading-relaxed">
-                Penyusunan jadwal otomatis cukup satu klik — selesai dalam hitungan detik, tidak perlu drag manual satu per satu.
+                Penyusunan jadwal otomatis cukup satu klik — selesai dalam
+                hitungan detik, tidak perlu drag manual satu per satu.
               </p>
               <div className="flex-1 min-h-[200px] relative">
                 <FloatingIcons />
@@ -226,9 +511,12 @@ const ModulJadwal = () => {
 
             <motion.div variants={childFade()} className={`${cardHover} p-6`}>
               <span className="text-3xl mb-3 block">🤖</span>
-              <h3 className="text-lg font-bold mb-1">Optimasi Ruangan dengan AI</h3>
+              <h3 className="text-lg font-bold mb-1">
+                Optimasi Ruangan dengan AI
+              </h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                Sistem AI cerdas mengatur jadwal meski jumlah ruangan terbatas — tidak ada ruang yang terbuang sia-sia.
+                Sistem AI cerdas mengatur jadwal meski jumlah ruangan terbatas —
+                tidak ada ruang yang terbuang sia-sia.
               </p>
             </motion.div>
 
@@ -236,15 +524,20 @@ const ModulJadwal = () => {
               <span className="text-3xl mb-3 block">🚫</span>
               <h3 className="text-lg font-bold mb-1">Anti Bentrok Jadwal</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                Sistem menjamin tidak ada jadwal yang tabrakan — semua kelas dan guru mendapatkan slot jam mereka.
+                Sistem menjamin tidak ada jadwal yang tabrakan — semua kelas dan
+                guru mendapatkan slot jam mereka.
               </p>
             </motion.div>
 
-            <motion.div variants={childFade()} className={`${cardHover} p-6 lg:col-span-3 md:col-span-2`}>
+            <motion.div
+              variants={childFade()}
+              className={`${cardHover} p-6 lg:col-span-3 md:col-span-2`}
+            >
               <span className="text-3xl mb-3 block">🎯</span>
               <h3 className="text-lg font-bold mb-1">Penjadwalan Fleksibel</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                Jadwal disesuaikan dengan preferensi guru dan kebutuhan spesifik sekolah — bukan template kaku.
+                Jadwal disesuaikan dengan preferensi guru dan kebutuhan spesifik
+                sekolah — bukan template kaku.
               </p>
             </motion.div>
           </div>
@@ -254,15 +547,31 @@ const ModulJadwal = () => {
       {/* ── SECTION 4: PRICING ── */}
       <Section className="py-24 bg-section-alt" id="harga">
         <div className="container mx-auto px-4">
-          <motion.div variants={sectionVariants} className="flex flex-col items-center">
-            <PillBadge icon={<CreditCard className="w-3 h-3" />}>Harga Modul</PillBadge>
-            <h2 className="text-3xl md:text-5xl font-extrabold text-center mb-12">Harga Transparan, Bayar Sesuai Siswa Aktif</h2>
+          <motion.div
+            variants={sectionVariants}
+            className="flex flex-col items-center"
+          >
+            <PillBadge icon={<CreditCard className="w-3 h-3" />}>
+              Harga Modul
+            </PillBadge>
+            <h2 className="text-3xl md:text-5xl font-extrabold text-center mb-12">
+              Harga Transparan, Bayar Sesuai Siswa Aktif
+            </h2>
           </motion.div>
           <motion.div variants={childFade()} className="max-w-lg mx-auto">
-            <div ref={pricingRef} className={`${cardHover} p-8 md:p-10 text-center`}>
-              <p className="text-sm text-muted-foreground mb-2 font-medium">Mulai dari</p>
-              <p className="text-5xl md:text-6xl font-extrabold text-gradient mb-1">Rp {countedPrice.toLocaleString("id-ID")}</p>
-              <p className="text-muted-foreground text-sm mb-8">/ siswa / tahun</p>
+            <div
+              ref={pricingRef}
+              className={`${cardHover} p-8 md:p-10 text-center`}
+            >
+              <p className="text-sm text-muted-foreground mb-2 font-medium">
+                Mulai dari
+              </p>
+              <p className="text-5xl md:text-6xl font-extrabold text-gradient mb-1">
+                Rp {countedPrice.toLocaleString("id-ID")}
+              </p>
+              <p className="text-muted-foreground text-sm mb-8">
+                / siswa / tahun
+              </p>
               <div className="space-y-3 text-sm mb-6">
                 <div className="flex justify-between py-2 border-b border-border">
                   <span className="text-muted-foreground">500 siswa</span>
@@ -273,8 +582,13 @@ const ModulJadwal = () => {
                   <span className="font-semibold">Rp 2.000.000 / tahun</span>
                 </div>
               </div>
-              <p className="text-xs text-muted-foreground mb-4">Hemat 5–15% jika dikombinasikan dengan modul lain</p>
-              <Link to="/pricing" className="text-sm font-semibold text-primary hover:underline inline-flex items-center gap-1">
+              <p className="text-xs text-muted-foreground mb-4">
+                Hemat 5–15% jika dikombinasikan dengan modul lain
+              </p>
+              <Link
+                to="/pricing"
+                className="text-sm font-semibold text-primary hover:underline inline-flex items-center gap-1"
+              >
                 Lihat detail harga lengkap →
               </Link>
             </div>
@@ -291,17 +605,27 @@ const ModulJadwal = () => {
           transition={{ duration: 0.5 }}
           className="container mx-auto px-4 text-center"
         >
-          <h2 className="text-3xl md:text-4xl font-extrabold text-primary-foreground mb-4">Tertarik dengan Modul Ini?</h2>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-primary-foreground mb-4">
+            Tertarik dengan Modul Ini?
+          </h2>
           <p className="text-primary-foreground/80 text-lg max-w-xl mx-auto mb-8">
-            Jadwalkan demo gratis dan lihat langsung cara kerja modul Jadwal &amp; Kurikulum di sekolah Anda.
+            Jadwalkan demo gratis dan lihat langsung cara kerja modul Jadwal
+            &amp; Kurikulum di sekolah Anda.
           </p>
-          <Button asChild size="lg" variant="secondary" className="bg-card text-foreground hover:bg-card/90 h-14 rounded-xl text-base px-8 shadow-lg">
+          <Button
+            asChild
+            size="lg"
+            variant="secondary"
+            className="bg-card text-foreground hover:bg-card/90 h-14 rounded-xl text-base px-8 shadow-lg"
+          >
             <a href="/#demo">
               Jadwalkan Demo Sekarang
               <Send className="ml-2 h-5 w-5" />
             </a>
           </Button>
-          <p className="mt-4 text-sm text-primary-foreground/70">Tidak ada komitmen. Tim kami menghubungi Anda dalam 1×24 jam.</p>
+          <p className="mt-4 text-sm text-primary-foreground/70">
+            Tidak ada komitmen. Tim kami menghubungi Anda dalam 1×24 jam.
+          </p>
         </motion.div>
       </section>
 

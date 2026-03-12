@@ -1,10 +1,4 @@
-import {
-  useState,
-  useRef,
-  useEffect,
-  useCallback,
-  useMemo,
-} from "react";
+import { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import { motion } from "framer-motion";
 import {
   ClipboardCheck,
@@ -145,7 +139,8 @@ const DotGridAccent = ({ bright }: { bright: boolean }) => (
   <svg
     className={`absolute top-2 right-2 w-[50px] h-[50px] md:w-[60px] md:h-[60px] transition-opacity duration-200 ${bright ? "opacity-30" : "opacity-10"}`}
     viewBox="0 0 60 60"
-    fill="none">
+    fill="none"
+  >
     {Array.from({ length: 5 }).map((_, row) =>
       Array.from({ length: 5 - row }).map((_, col) => (
         <circle
@@ -172,7 +167,13 @@ interface GridSolutionCardProps {
 }
 
 // Map index to strict tailwind row classes for static analysis tracking
-const ROW_CLASSES = ["row-start-1", "row-start-2", "row-start-3", "row-start-4", "row-start-5"];
+const ROW_CLASSES = [
+  "row-start-1",
+  "row-start-2",
+  "row-start-3",
+  "row-start-4",
+  "row-start-5",
+];
 
 const GridSolutionCard = ({
   solution,
@@ -195,13 +196,18 @@ const GridSolutionCard = ({
       className={`relative cursor-pointer transition-all duration-300 ease-out ${colClass} ${rowClass} ${
         isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4"
       } ${dimmed ? "opacity-35" : ""}`}
-      style={{ transitionDelay: isVisible ? `${index * 80}ms` : "0ms", zIndex: isHovered ? 20 : 10 }}
+      style={{
+        transitionDelay: isVisible ? `${index * 80}ms` : "0ms",
+        zIndex: isHovered ? 20 : 10,
+      }}
       onMouseEnter={() => onHover(index)}
-      onMouseLeave={() => onHover(null)}>
+      onMouseLeave={() => onHover(null)}
+    >
       <div
         className={`relative rounded-2xl bg-card p-5 border border-border transition-all duration-200 ${
           isHovered ? "shadow-card-hover -translate-y-0.5" : "shadow-card"
-        }`}>
+        }`}
+      >
         <div className="w-9 h-9 rounded-lg bg-primary/10 text-primary flex items-center justify-center mb-3">
           <solution.icon className="h-4 w-4" />
         </div>
@@ -252,18 +258,25 @@ const GridPersonaCard = ({
       className={`relative cursor-pointer transition-all duration-300 ease-out ${colClass} ${rowClass} ${
         isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-4"
       } ${dimmed ? "opacity-35" : ""}`}
-      style={{ transitionDelay: isVisible ? `${index * 80}ms` : "0ms", zIndex: expanded ? 20 : 10 }}
+      style={{
+        transitionDelay: isVisible ? `${index * 80}ms` : "0ms",
+        zIndex: expanded ? 20 : 10,
+      }}
       onMouseEnter={() => onHover(index)}
-      onMouseLeave={() => onHover(null)}>
-      
+      onMouseLeave={() => onHover(null)}
+    >
       {/* Main Visible Card */}
       <div
         className={`relative rounded-2xl border bg-card p-5 transition-all duration-200 z-10 ${
-          expanded ? "shadow-card-hover -translate-y-0.5 border-border rounded-b-none" : "shadow-card border-border"
-        }`}>
+          expanded
+            ? "shadow-card-hover -translate-y-0.5 border-border rounded-b-none"
+            : "shadow-card border-border"
+        }`}
+      >
         <DotGridAccent bright={expanded} />
         <div
-          className={`w-9 h-9 rounded-lg ${p.color} flex items-center justify-center mb-3`}>
+          className={`w-9 h-9 rounded-lg ${p.color} flex items-center justify-center mb-3`}
+        >
           <p.icon className="h-4 w-4" />
         </div>
         <h3 className="font-bold text-sm mb-1 leading-tight">{p.name}</h3>
@@ -275,13 +288,17 @@ const GridPersonaCard = ({
       {/* Absolutely Positioned Benefits Dropdown (avoiding layout shift) */}
       <div
         className={`absolute left-0 right-0 top-full bg-card border border-t-0 border-border rounded-b-2xl p-5 pt-3 shadow-card-hover transition-all duration-200 origin-top pointer-events-none ${
-          expanded ? "opacity-100 scale-y-100 translate-y-[-2px]" : "opacity-0 scale-y-95 -translate-y-2"
-        }`}>
+          expanded
+            ? "opacity-100 scale-y-100 translate-y-[-2px]"
+            : "opacity-0 scale-y-95 -translate-y-2"
+        }`}
+      >
         <ul className="space-y-1.5">
           {p.benefits.map((b) => (
             <li
               key={b}
-              className="flex items-start gap-1.5 text-[11px] leading-relaxed text-foreground">
+              className="flex items-start gap-1.5 text-[11px] leading-relaxed text-foreground"
+            >
               <Check className="h-3 w-3 text-primary mt-0.5 flex-shrink-0" />
               <span>{b}</span>
             </li>
@@ -359,7 +376,8 @@ const ZigzagConnectorLines = ({
               y1={sc.y}
               x2={logo.x}
               y2={logo.y}
-              gradientUnits="userSpaceOnUse">
+              gradientUnits="userSpaceOnUse"
+            >
               <stop offset="0%" stopColor={BRAND_COLOR} stopOpacity="0.8" />
               <stop offset="100%" stopColor={BRAND_COLOR} stopOpacity="0.8" />
             </linearGradient>
@@ -377,7 +395,8 @@ const ZigzagConnectorLines = ({
               y1={logo.y}
               x2={pc.x}
               y2={pc.y}
-              gradientUnits="userSpaceOnUse">
+              gradientUnits="userSpaceOnUse"
+            >
               <stop offset="0%" stopColor={BRAND_COLOR} stopOpacity="0.8" />
               <stop
                 offset="100%"
@@ -393,12 +412,12 @@ const ZigzagConnectorLines = ({
       {activeSolIndices.map((si) => {
         const sc = solCenters[si];
         if (!sc) return null;
-        
+
         // Control points for smooth horizontal curve
         const dx = Math.abs(logo.x - sc.x) * 0.5;
         const cp1x = sc.x + dx;
         const cp2x = logo.x - dx;
-        
+
         return (
           <path
             key={`sol-line-${si}`}
@@ -415,11 +434,11 @@ const ZigzagConnectorLines = ({
       {linePairs.map(({ si, pi }) => {
         const pc = perCenters[pi];
         if (!pc) return null;
-        
+
         const dx = Math.abs(pc.x - logo.x) * 0.5;
         const cp1x = logo.x + dx;
         const cp2x = pc.x - dx;
-        
+
         return (
           <path
             key={`per-line-${si}-${pi}`}
@@ -482,9 +501,7 @@ const SolutionPersonaSection = () => {
     () =>
       hoveredPersona !== null
         ? solutions.reduce<number[]>((acc, sol, si) => {
-            if (
-              sol.connectedPersonas.includes(personas[hoveredPersona].name)
-            ) {
+            if (sol.connectedPersonas.includes(personas[hoveredPersona].name)) {
               acc.push(si);
             }
             return acc;
@@ -540,7 +557,8 @@ const SolutionPersonaSection = () => {
 
   // Autoplay Effect: Cycle solution index every 7 seconds if not hovering
   useEffect(() => {
-    if (!isVisible || hoveredSolution !== null || hoveredPersona !== null) return;
+    if (!isVisible || hoveredSolution !== null || hoveredPersona !== null)
+      return;
 
     const interval = setInterval(() => {
       setAutoplayIndex((prev) => (prev + 1) % solutions.length);
@@ -604,10 +622,16 @@ const SolutionPersonaSection = () => {
     (i: number) => {
       if (hoveredSolution !== null) return !connectedPersonaIndices.includes(i);
       if (hoveredPersona !== null) return hoveredPersona !== i;
-      if (activeSolutionIndex !== null) return !connectedPersonaIndices.includes(i);
+      if (activeSolutionIndex !== null)
+        return !connectedPersonaIndices.includes(i);
       return false;
     },
-    [hoveredSolution, hoveredPersona, connectedPersonaIndices, activeSolutionIndex],
+    [
+      hoveredSolution,
+      hoveredPersona,
+      connectedPersonaIndices,
+      activeSolutionIndex,
+    ],
   );
 
   return (
@@ -621,22 +645,26 @@ const SolutionPersonaSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4 }}
-            className="text-center mb-16">
+            className="text-center mb-16"
+          >
             <PillBadge icon={<Users className="h-3 w-3" />}>
               Solusi untuk Semua Peran
             </PillBadge>
-            <h2 className="text-3xl lg:text-4xl font-extrabold mb-4 leading-tight mt-4">
+            <h2 className="text-3xl lg:text-5xl font-extrabold mb-4 leading-tight mt-4">
               Satu Platform, Lima Peran,{" "}
               <span className="text-gradient">Nol Kebingungan</span>
             </h2>
-            <p className="text-muted-foreground text-base max-w-[500px] mx-auto">
+            <p className="text-muted-foreground text-lg max-w-xl mx-auto">
               Setiap fitur BCB Edu dirancang untuk menjawab kebutuhan spesifik
               setiap peran di sekolah.
             </p>
           </motion.div>
 
           {/* 3-column overall grid */}
-          <div ref={sectionRef} className="relative grid grid-cols-[2fr_120px_2fr] gap-4 w-full">
+          <div
+            ref={sectionRef}
+            className="relative grid grid-cols-[2fr_120px_2fr] gap-4 w-full"
+          >
             {/* SVG Connector Lines overlay */}
             <ZigzagConnectorLines
               positions={linePositions}
@@ -686,7 +714,8 @@ const SolutionPersonaSection = () => {
                     boxShadow: logoGlow
                       ? "0 0 0 12px hsl(210 80% 45% / 0.2), 0 8px 32px rgba(0,0,0,0.2)"
                       : "0 0 0 8px hsl(210 80% 45% / 0.08), 0 8px 24px rgba(0,0,0,0.15)",
-                  }}>
+                  }}
+                >
                   <span className="text-sm font-bold text-white tracking-tight">
                     BCB{" "}
                     <span className="bg-gradient-to-br from-blue-400 to-teal-400 bg-clip-text text-transparent">
@@ -725,7 +754,8 @@ const SolutionPersonaSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4 }}
-            className="text-center mb-10">
+            className="text-center mb-10"
+          >
             <PillBadge icon={<Users className="h-3 w-3" />}>
               Solusi untuk Semua
             </PillBadge>
@@ -752,10 +782,12 @@ const SolutionPersonaSection = () => {
                   className={`relative px-4 py-5 border-b border-border transition-colors duration-200 ${
                     expanded ? "bg-primary/5" : ""
                   }`}
-                  onClick={() => setTappedPersona(expanded ? null : i)}>
+                  onClick={() => setTappedPersona(expanded ? null : i)}
+                >
                   <DotGridAccent bright={expanded} />
                   <div
-                    className={`w-9 h-9 rounded-lg ${p.color} flex items-center justify-center mb-2.5`}>
+                    className={`w-9 h-9 rounded-lg ${p.color} flex items-center justify-center mb-2.5`}
+                  >
                     <p.icon className="h-4 w-4" />
                   </div>
                   <h3 className="font-bold text-sm mb-0.5">{p.name}</h3>
@@ -767,12 +799,14 @@ const SolutionPersonaSection = () => {
                       expanded
                         ? "max-h-40 opacity-100 mt-2.5"
                         : "max-h-0 opacity-0"
-                    }`}>
+                    }`}
+                  >
                     <ul className="space-y-1.5">
                       {p.benefits.map((b) => (
                         <li
                           key={b}
-                          className="flex items-start gap-1.5 text-xs flex-nowrap leading-relaxed text-foreground">
+                          className="flex items-start gap-1.5 text-xs flex-nowrap leading-relaxed text-foreground"
+                        >
                           <Check className="h-3 w-3 text-primary mt-0.5 shrink-0" />
                           <span>{b}</span>
                         </li>
