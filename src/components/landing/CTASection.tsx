@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Send, Mail, Phone, CheckCircle2, CalendarCheck } from "lucide-react";
 import { PillBadge } from "@/components/ui/pill-badge";
@@ -13,6 +14,7 @@ const MODULE_OPTIONS = [
   "Jadwal & Kurikulum",
   "CBT – Ujian Online",
   "Belum tahu, ingin konsultasi",
+  "Lainnya",
 ];
 
 const CTASection = () => {
@@ -20,6 +22,7 @@ const CTASection = () => {
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [selectedModules, setSelectedModules] = useState<string[]>([]);
+  const [otherModuleInfo, setOtherModuleInfo] = useState("");
   const [errors, setErrors] = useState<Record<string, boolean>>({});
 
   const toggleModule = (mod: string) => {
@@ -232,6 +235,23 @@ const CTASection = () => {
                               );
                             })}
                           </div>
+
+                          {selectedModules.includes("Lainnya") && (
+                            <motion.div
+                              initial={{ opacity: 0, height: 0 }}
+                              animate={{ opacity: 1, height: "auto" }}
+                              exit={{ opacity: 0, height: 0 }}
+                              className="pt-2">
+                              <Textarea
+                                placeholder="Sebutkan modul atau kebutuhan lainnya..."
+                                value={otherModuleInfo}
+                                onChange={(e) =>
+                                  setOtherModuleInfo(e.target.value)
+                                }
+                                className="min-h-[100px] rounded-xl resize-none"
+                              />
+                            </motion.div>
+                          )}
                         </div>
                       </div>
 
