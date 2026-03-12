@@ -380,7 +380,7 @@ const containerVariants = {
 
 const panelVariants = {
   hidden: { opacity: 0, x: 60, y: -40 },
-  visible: { opacity: 1, x: 0, y: 0, transition: { duration: 1.1, ease: [0.22, 1, 0.36, 1] } },
+  visible: { opacity: 1, x: 0, y: 0, transition: { duration: 1.1, ease: [0.22, 1, 0.36, 1] as const } },
 }
 
 export const ScheduleMockup = memo(function ScheduleMockup() {
@@ -487,7 +487,7 @@ export const ScheduleMockup = memo(function ScheduleMockup() {
             AD
           </div>
           <div style={{ minWidth: 0 }}>
-            <p style={{ fontSize: "10px", fontWeight: 600, color: "var(--color-text-1, #0F172A)", truncate: true }}>Admin</p>
+            <p style={{ fontSize: "10px", fontWeight: 600, color: "var(--color-text-1, #0F172A)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>Admin</p>
             <p style={{ fontSize: "9px", color: "#94A3B8" }}>Operator</p>
           </div>
         </div>
