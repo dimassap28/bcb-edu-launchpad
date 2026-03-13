@@ -1,241 +1,210 @@
-import { motion, useInView } from "framer-motion";
-import { useRef, useEffect, useState } from "react";
-import { AlertTriangle } from "lucide-react";
+import { motion } from "framer-motion";
+import {
+  FileSpreadsheet,
+  Unplug,
+  Hourglass,
+  CircleDollarSign,
+  AlertTriangle,
+} from "lucide-react";
 import { PillBadge } from "@/components/ui/pill-badge";
 
-/* ─── SVG Accent: × (cross) ─── */
-const CrossAccent = ({ className = "" }: { className?: string }) => (
-  <svg
-    viewBox="0 0 40 40"
-    fill="none"
-    className={`text-primary ${className}`}
-    style={{ opacity: 0.18 }}
-  >
-    <line x1="4" y1="4" x2="36" y2="36" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-    <line x1="36" y1="4" x2="4" y2="36" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-  </svg>
-);
-
-/* ─── SVG Accent: + (plus) ─── */
-const PlusAccent = ({ className = "" }: { className?: string }) => (
-  <svg
-    viewBox="0 0 40 40"
-    fill="none"
-    className={`text-primary ${className}`}
-    style={{ opacity: 0.18 }}
-  >
-    <line x1="20" y1="4" x2="20" y2="36" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-    <line x1="4" y1="20" x2="36" y2="20" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-  </svg>
-);
-
-/* ─── Animated Counter ─── */
-const AnimatedNumber = ({ target, suffix = "" }: { target: number; suffix?: string }) => {
-  const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-50px" });
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    if (!inView) return;
-    let start = 0;
-    const duration = 1600;
-    const startTime = performance.now();
-
-    const animate = (now: number) => {
-      const elapsed = now - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      // ease-out cubic
-      const eased = 1 - Math.pow(1 - progress, 3);
-      start = Math.round(eased * target);
-      setCount(start);
-      if (progress < 1) requestAnimationFrame(animate);
-    };
-    requestAnimationFrame(animate);
-  }, [inView, target]);
-
-  return (
-    <span ref={ref} className="tabular-nums">
-      {count}{suffix}
-    </span>
-  );
-};
-
-/* ─── Problem Data ─── */
 const problems = [
   {
-    stat: 85,
-    statSuffix: "%",
-    statLabel: "Sekolah terjebak administrasi manual",
-    title: "Administrasi yang Melumpuhkan Waktu",
-    desc: "Guru menghabiskan 40% waktu mereka hanya untuk input data manual yang repetitif, bukan untuk mendidik siswa.",
+    icon: FileSpreadsheet,
+    title: "Administrasi yang menyita waktu",
+    desc: "Data siswa, absensi, dan jadwal masih dikelola manual atau tersebar di banyak file.",
   },
   {
-    stat: 3,
-    statSuffix: "×",
-    statLabel: "Biaya membengkak tanpa manfaat nyata",
-    title: "Bayar Mahal untuk Fitur Mubazir",
-    desc: "Sistem kaku memaksa Anda membayar paket 'All-in-One' yang 70% fiturnya tidak pernah menyentuh kebutuhan sekolah Anda.",
+    icon: CircleDollarSign,
+    title: "Bayar mahal untuk fitur yang tidak dipakai",
+    desc: "Sistem lain memaksa Anda membeli paket lengkap, meski hanya butuh 2–3 fitur.",
   },
   {
-    stat: 60,
-    statSuffix: "%",
-    statLabel: "Tingkat penolakan adopsi sistem baru",
-    title: "Kompleksitas yang Membingungkan",
-    desc: "User interface yang berantakan membuat staf enggan beralih, menjadikan investasi teknologi Anda sia-sia.",
+    icon: Hourglass,
+    title: "Sistem baru yang malah membingungkan",
+    desc: "Terlalu banyak fitur sekaligus membuat guru dan staf enggan menggunakannya.",
   },
 ];
 
-/* ─── Bento grid layout config ─── */
-// Layout 8-column:
-// Row 1: [Accent (2 col)] [Card 1 (4 col)] [Accent (2 col)]
-// Row 2: [Card 2 (3 col)] [Accent (2 col)] [Card 3 (3 col)]
+const floatingTags = [
+  { label: "Rekap Manual", icon: FileSpreadsheet, x: "8%", y: "25%" },
+  { label: "Tidak Terintegrasi", icon: Unplug, x: "72%", y: "20%" },
+  { label: "Proses Lambat", icon: Hourglass, x: "10%", y: "65%" },
+  { label: "Sistem Mahal", icon: CircleDollarSign, x: "76%", y: "60%" },
+];
 
 const ProblemSection = () => {
-  const sectionRef = useRef<HTMLDivElement>(null);
-
   return (
-    <section className="py-24 bg-section-alt" ref={sectionRef}>
-      <div className="container mx-auto px-4">
-        {/* Header */}
+    <section className="relative py-24 overflow-hidden bg-background">
+      {/* Radial glow effects */}
+      <div
+        className="absolute pointer-events-none"
+        style={{
+          top: "30%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          width: 600,
+          height: 600,
+          background:
+            "radial-gradient(circle, hsl(210 80% 45% / 0.08) 0%, transparent 70%)",
+        }}
+      />
+      <div
+        className="absolute pointer-events-none"
+        style={{
+          top: "50%",
+          left: "30%",
+          transform: "translate(-50%, -50%)",
+          width: 400,
+          height: 400,
+          background:
+            "radial-gradient(circle, hsl(175 60% 40% / 0.06) 0%, transparent 70%)",
+        }}
+      />
+      <div
+        className="absolute pointer-events-none"
+        style={{
+          top: "45%",
+          left: "70%",
+          transform: "translate(-50%, -50%)",
+          width: 400,
+          height: 400,
+          background:
+            "radial-gradient(circle, hsl(270 60% 55% / 0.04) 0%, transparent 70%)",
+        }}
+      />
+
+      {/* Dot grid overlay */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-[0.04]"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle, hsl(220 25% 10%) 1px, transparent 1px)",
+          backgroundSize: "24px 24px",
+        }}
+      />
+
+      <div className="container mx-auto px-4 relative z-10">
+        {/* Headline */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16">
-          <PillBadge icon={<AlertTriangle className="h-3 w-3" />}>
-            Tantangan Sekolah Modern
+          className="text-center mb-16"
+        >
+          <PillBadge
+            icon={<AlertTriangle className="h-3 w-3" />}
+            className="border-destructive/20 bg-destructive/10 text-destructive"
+          >
+            Tantangan
           </PillBadge>
-          <h2 className="text-3xl md:text-5xl font-extrabold mb-4 leading-tight">
-            Hentikan Pemborosan Sumber Daya
-            <br />
-            <span className="text-gradient">Di Sistem yang Salah</span>
+
+          <h2 className="text-3xl md:text-5xl font-extrabold mb-4 text-foreground">
+            Apakah Sekolah Anda Masih Menghadapi Ini?
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Teknologi seharusnya mempermudah, bukan menjadi beban baru. BCB EDU
-            hadir untuk menyelesaikan masalah yang diabaikan sistem
-            konvensional.
+          <p className="text-muted-foreground text-lg max-w-xl mx-auto">
+            Banyak sekolah terjebak dalam sistem yang justru menambah beban.
           </p>
         </motion.div>
 
-        {/* Bento Grid — 8 column base */}
-        <div className="mx-auto grid grid-cols-1 md:grid-cols-8">
-          {/* Row 1 — Col 1: × × × accents (2 units) */}
+        {/* Logo showcase with floating tags */}
+        <div className="relative mx-auto max-w-3xl" style={{ height: 380 }}>
+          {/* Center logo with perspective */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.1, duration: 0.5 }}
-            className="hidden md:flex items-center justify-center md:col-span-2 rounded-full border border-border bg-card p-6">
-            <div className="flex gap-4">
-              <CrossAccent className="w-8 h-8" />
-              <CrossAccent className="w-8 h-8" />
-              <CrossAccent className="w-8 h-8" />
-            </div>
-          </motion.div>
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10"
+          >
+            {/* Glow ring behind logo */}
+            <div
+              className="absolute -inset-16 rounded-full"
+              style={{
+                background:
+                  "radial-gradient(circle, hsl(210 80% 45% / 0.15) 0%, hsl(175 60% 40% / 0.08) 40%, transparent 70%)",
+              }}
+            />
 
-          {/* Row 1 — Col 2: Stat Card 1 (main, 4 units) */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-            className="md:col-span-4 rounded-full border border-border bg-primary/[0.04] p-3 md:p-5 flex flex-col md:flex-row items-center gap-8 text-center md:text-left">
-            <div className="flex items-center gap-3 shrink-0">
-              <span className="text-primary text-2xl font-bold">↑</span>
-              <span className="text-6xl md:text-7xl font-extrabold text-primary tracking-tight">
-                <AnimatedNumber
-                  target={problems[0].stat}
-                  suffix={problems[0].statSuffix}
-                />
-              </span>
-            </div>
-            <div>
-              <p className="text-primary font-semibold text-sm mb-2 uppercase tracking-wider">
-                {problems[0].statLabel}
-              </p>
-              <h3 className="text-xl md:text-2xl font-bold mb-3">
-                {problems[0].title}
-              </h3>
-              <p className="text-muted-foreground text-base leading-relaxed">
-                {problems[0].desc}
-              </p>
-            </div>
-          </motion.div>
-
-          {/* Row 1 — Col 3: × × accents (2 units) */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.3, duration: 0.5 }}
-            className="hidden md:flex items-center justify-center md:col-span-2 rounded-full border border-border bg-card p-6">
-            <div className="flex gap-4">
-              <CrossAccent className="w-8 h-8" />
-              <CrossAccent className="w-8 h-8" />
-              <CrossAccent className="w-8 h-8" />
-            </div>
-          </motion.div>
-
-          {/* Row 2 — Col 1: Stat Card 2 (3 units) */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.35, duration: 0.5 }}
-            className="md:col-span-3 rounded-full border border-border bg-card py-3 md:py-5 px-9 md:px-12 flex flex-col justify-center gap-2">
-            <span className="text-5xl md:text-6xl font-extrabold text-primary tracking-tight shrink-0">
-              <AnimatedNumber
-                target={problems[1].stat}
-                suffix={problems[1].statSuffix}
+            {/* Logo container with 3D perspective — low opacity bg to let glow through */}
+            <div
+              className="relative w-48 h-48 rounded-[28px] flex items-center justify-center border border-border/50"
+              style={{
+                transform:
+                  "perspective(800px) rotateX(6deg) rotateY(8deg) rotateZ(-9deg)",
+                background: "hsl(0 0% 100% / 0.55)",
+                backdropFilter: "blur(12px)",
+                boxShadow:
+                  "12px 16px 40px -8px hsl(220 25% 10% / 0.25), 4px 6px 16px -4px hsl(220 25% 10% / 0.15), 0 0 0 1px hsl(var(--border) / 0.3)",
+              }}
+            >
+              {/* Inner highlight for light-facing effect */}
+              <div
+                className="absolute inset-0 rounded-[28px] pointer-events-none"
+                style={{
+                  background:
+                    "linear-gradient(135deg, hsl(0 0% 100% / 0.7) 0%, transparent 40%, hsl(220 25% 10% / 0.03) 100%)",
+                }}
               />
-            </span>
-            <div>
-              <p className="text-muted-foreground font-medium text-sm mb-2 uppercase tracking-wider">
-                {problems[1].statLabel}
-              </p>
-              <h3 className="text-xl font-bold mb-2">{problems[1].title}</h3>
+              <img
+                src="/kite.svg"
+                alt="BCB Edu"
+                className="w-20 h-20 relative z-10"
+                style={{
+                  filter: "drop-shadow(2px 4px 6px hsl(220 25% 10% / 0.2))",
+                }}
+              />
+            </div>
+          </motion.div>
+
+          {/* Floating problem tags — 4 cards with icons */}
+          {floatingTags.map((tag, i) => (
+            <motion.div
+              key={tag.label}
+              initial={{ opacity: 0, scale: 0.85 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: 0.3 + i * 0.1 }}
+              className="absolute z-20"
+              style={{ left: tag.x, top: tag.y }}
+            >
+              <div
+                className="flex items-center gap-2 rounded-lg border border-border/60 px-4 py-2.5 text-sm font-medium backdrop-blur-sm cursor-default select-none transition-all duration-300 hover:scale-105 text-foreground hover:shadow-card-hover"
+                style={{
+                  background: "hsl(0 0% 100% / 0.6)",
+                  animation: `float-bob ${3.5 + i * 0.7}s ease-in-out infinite`,
+                  animationDelay: `${i * 0.4}s`,
+                }}
+              >
+                <tag.icon className="h-4 w-4 text-destructive shrink-0" />
+                {tag.label}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Problem cards grid */}
+        <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto mt-16">
+          {problems.map((p, i) => (
+            <motion.div
+              key={p.title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.5 + i * 0.12 }}
+              className="group rounded-2xl p-8 border border-border bg-card transition-all duration-300 hover:-translate-y-1 hover:shadow-card-hover"
+            >
+              <div className="w-12 h-12 rounded-xl bg-destructive/10 flex items-center justify-center mb-5 transition-colors group-hover:bg-destructive/20">
+                <p.icon className="h-6 w-6 text-destructive" />
+              </div>
+              <h3 className="text-lg font-bold mb-2 text-foreground">
+                {p.title}
+              </h3>
               <p className="text-muted-foreground text-sm leading-relaxed">
-                {problems[1].desc}
+                {p.desc}
               </p>
-            </div>
-          </motion.div>
-
-          {/* Row 2 — Col 2: + accent (2 units) */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.4, duration: 0.5 }}
-            className="hidden md:flex items-center justify-center md:col-span-2 rounded-full border border-border bg-card p-6">
-            <PlusAccent className="w-16 h-16" />
-          </motion.div>
-
-          {/* Row 2 — Col 3: Stat Card 3 (gradient, 3 units) */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.45, duration: 0.5 }}
-            className="md:col-span-3 rounded-[2.5rem] bg-hero-gradient text-primary-foreground p-8 md:p-10 flex flex-col gap-6">
-            <div className="flex items-center gap-2 shrink-0">
-              <span className="text-2xl font-bold opacity-80">↑</span>
-              <span className="text-5xl md:text-6xl font-extrabold tracking-tight">
-                <AnimatedNumber
-                  target={problems[2].stat}
-                  suffix={problems[2].statSuffix}
-                />
-              </span>
-            </div>
-            <div>
-              <p className="text-primary-foreground/80 font-medium text-sm mb-2 uppercase tracking-wider">
-                {problems[2].statLabel}
-              </p>
-              <h3 className="text-xl font-bold mb-2">{problems[2].title}</h3>
-              <p className="text-primary-foreground/80 text-sm leading-relaxed">
-                {problems[2].desc}
-              </p>
-            </div>
-          </motion.div>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
