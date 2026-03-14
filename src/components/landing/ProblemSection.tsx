@@ -26,31 +26,31 @@ interface Problem {
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
 const floatingTags = [
-  { 
-    label: "Rekap Manual", 
-    icon: FileSpreadsheet, 
-    x: "25%", 
-    y: "25%", 
-    mobileX: "0%" 
+  {
+    label: "Rekap Manual",
+    icon: FileSpreadsheet,
+    x: "25%",
+    y: "25%",
+    mobileX: "0%",
   },
-  { 
-    label: "Tidak Terintegrasi", 
-    icon: Unplug, 
-    x: "52%", 
-    y: "20%" 
+  {
+    label: "Tidak Terintegrasi",
+    icon: Unplug,
+    x: "52%",
+    y: "20%",
   },
-  { 
-    label: "Proses Lambat", 
-    icon: Hourglass, 
-    x: "30%", 
-    y: "65%", 
-    mobileX: "2%" 
+  {
+    label: "Proses Lambat",
+    icon: Hourglass,
+    x: "30%",
+    y: "65%",
+    mobileX: "2%",
   },
-  { 
-    label: "Sistem Mahal", 
-    icon: CircleDollarSign, 
-    x: "60%", 
-    y: "60%" 
+  {
+    label: "Sistem Mahal",
+    icon: CircleDollarSign,
+    x: "60%",
+    y: "60%",
   },
 ];
 
@@ -146,7 +146,8 @@ function FileChaosAnimation() {
             ["--w" as string]: `${f.rot > 0 ? 10 : -10}deg`,
             opacity: 0,
             animation: `file-float ${f.dur}s ${f.delay}s infinite ease-in-out`,
-          }}>
+          }}
+        >
           <div className="w-8 h-9 rounded-md bg-destructive/10 border border-destructive/25 flex items-center justify-center">
             <f.Icon className="h-4 w-4 text-destructive/60" />
           </div>
@@ -204,7 +205,8 @@ function ChecklistAnimation({ inView }: { inView: boolean }) {
               animation: inView
                 ? `row-in 0.4s ${item.delay}s forwards ease-out`
                 : "none",
-            }}>
+            }}
+          >
             {/* Checkbox */}
             <div
               className="w-4 h-4 rounded-[4px] border-2 border-destructive/30 bg-background flex-shrink-0 relative overflow-hidden"
@@ -212,7 +214,8 @@ function ChecklistAnimation({ inView }: { inView: boolean }) {
                 animation: inView
                   ? `check-fill 0.3s ${item.delay + 0.55}s forwards ease-out`
                   : "none",
-              }}>
+              }}
+            >
               {/* Checkmark tick */}
               <span
                 className="absolute"
@@ -237,7 +240,8 @@ function ChecklistAnimation({ inView }: { inView: boolean }) {
                 item.highlight
                   ? "font-semibold text-foreground"
                   : "text-muted-foreground/60"
-              }`}>
+              }`}
+            >
               {item.label}
             </span>
 
@@ -260,7 +264,8 @@ function ChecklistAnimation({ inView }: { inView: boolean }) {
           key={price}
           style={{
             animation: "price-pop 0.3s ease-out",
-          }}>
+          }}
+        >
           {price === 0 ? "Rp 0" : `Rp ${(price / 1000).toFixed(0)}rb`}
         </p>
       </div>
@@ -363,7 +368,8 @@ function UIOverloadAnimation({ inView }: { inView: boolean }) {
       className="relative h-[140px] overflow-hidden"
       style={{
         animation: inView ? "stage-shake 0.4s 2.8s ease-in-out" : "none",
-      }}>
+      }}
+    >
       {UI_BUTTONS.map((btn) => (
         <button
           key={btn.label}
@@ -385,7 +391,8 @@ function UIOverloadAnimation({ inView }: { inView: boolean }) {
               ? `btn-explode 0.5s ${btn.delay}s forwards cubic-bezier(0.34,1.56,0.64,1),
                  btn-pulse 2s ${btn.delay + 0.5}s infinite ease-in-out`
               : "none",
-          }}>
+          }}
+        >
           {btn.label}
         </button>
       ))}
@@ -403,7 +410,8 @@ function UIOverloadAnimation({ inView }: { inView: boolean }) {
             animation: inView
               ? `btn-explode 0.4s ${tag.delay}s forwards cubic-bezier(0.34,1.56,0.64,1)`
               : "none",
-          }}>
+          }}
+        >
           {tag.label}
         </span>
       ))}
@@ -433,8 +441,8 @@ function ProblemCard({
       initial={{ opacity: 0, y: 20 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ delay, duration: 0.5, ease: "easeOut" }}
-      className="group rounded-2xl p-6 border border-border bg-card transition-all duration-300 hover:-translate-y-1 hover:shadow-card-hover">
-
+      className="group rounded-2xl p-6 border border-border bg-card transition-all duration-300 hover:-translate-y-1 hover:shadow-card-hover"
+    >
       {/* Animation stage — rendered with inView state */}
       <div className="mb-4">
         {/* Pass inView so stateful animations know when to start */}
@@ -443,7 +451,9 @@ function ProblemCard({
 
       {/* Text */}
       <h3 className="text-lg font-bold mb-2 text-foreground">{title}</h3>
-      <p className="text-muted-foreground text-sm leading-relaxed min-h-[70px]">{desc}</p>
+      <p className="text-muted-foreground text-sm leading-relaxed min-h-[70px]">
+        {desc}
+      </p>
     </motion.div>
   );
 }
@@ -527,14 +537,17 @@ const ProblemSection = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16">
+          className="text-center mb-16"
+        >
           <PillBadge
             icon={<AlertTriangle className="h-3 w-3" />}
-            className="border-destructive/20 bg-destructive/10 text-destructive">
+            className="border-destructive/20 bg-destructive/10 text-destructive"
+          >
             Tantangan
           </PillBadge>
           <h2 className="text-3xl md:text-5xl font-extrabold mb-4 text-foreground">
-            Apakah Sekolah Anda Masih Menghadapi Ini?
+            Apakah Sekolah Anda{" "}
+            <span className="text-gradient">Masih Menghadapi Ini?</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-xl mx-auto">
             Banyak sekolah terjebak dalam sistem yang justru menambah beban.
@@ -544,7 +557,8 @@ const ProblemSection = () => {
         {/* ── Logo showcase with floating tags ── */}
         <div
           className="relative mx-auto max-w-5xl flex items-center justify-center rounded-[48px] border border-border overflow-hidden"
-          style={{ height: 460 }}>
+          style={{ height: 460 }}
+        >
           {/* Dot grid corners */}
           <div className="absolute inset-0 pointer-events-none">
             <div
@@ -579,7 +593,8 @@ const ProblemSection = () => {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="relative z-10 -translate-y-8">
+            className="relative z-10 -translate-y-8"
+          >
             <div className="absolute inset-0 -z-10 flex items-center justify-center">
               <motion.div
                 animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.5, 0.3] }}
@@ -617,7 +632,8 @@ const ProblemSection = () => {
                   "perspective(1000px) rotateX(8deg) rotateY(12deg) rotateZ(-6deg)",
                 boxShadow:
                   "0 30px 60px -12px rgba(0,0,0,0.6), 0 0 40px 10px hsl(210 80% 45% / 0.2)",
-              }}>
+              }}
+            >
               <div
                 className="absolute inset-0 rounded-[40px] border-[1.5px] border-white/20 pointer-events-none"
                 style={{
@@ -660,18 +676,22 @@ const ProblemSection = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: 0.3 + i * 0.1 }}
               className="absolute z-20 left-[var(--tag-x-mobile)] md:left-[var(--tag-x-desktop)]"
-              style={{
-                "--tag-x-mobile": (tag as any).mobileX || tag.x,
-                "--tag-x-desktop": tag.x,
-                top: tag.y,
-              } as any}>
+              style={
+                {
+                  "--tag-x-mobile": (tag as any).mobileX || tag.x,
+                  "--tag-x-desktop": tag.x,
+                  top: tag.y,
+                } as any
+              }
+            >
               <div
                 className="flex items-center gap-2 rounded-lg border border-border/60 px-4 py-2.5 text-sm font-medium backdrop-blur-sm cursor-default select-none transition-all duration-300 hover:scale-105 text-foreground hover:shadow-card-hover"
                 style={{
                   background: "hsl(0 0% 100% / 0.6)",
                   animation: `float-bob ${3.5 + i * 0.7}s ease-in-out infinite`,
                   animationDelay: `${i * 0.4}s`,
-                }}>
+                }}
+              >
                 <tag.icon className="h-4 w-4 text-destructive shrink-0" />
                 {tag.label}
               </div>

@@ -5,7 +5,7 @@ import { PillBadge } from "@/components/ui/pill-badge";
 
 const PricingSection = () => {
   return (
-    <section id="harga" className="py-24 bg-section-alt">
+    <section id="harga" className="py-24 bg-background">
       <div className="px-5 md:px-14">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -16,15 +16,16 @@ const PricingSection = () => {
           style={{
             background:
               "linear-gradient(135deg, hsl(220 25% 8%) 0%, hsl(220 20% 14%) 50%, hsl(210 80% 15%) 100%)",
-          }}>
+          }}
+        >
           {/* Subtle primary glow corners */}
           <div className="absolute top-0 right-0 w-64 h-64 rounded-full opacity-20 blur-3xl bg-primary" />
           <div className="absolute bottom-0 left-0 w-48 h-48 rounded-full opacity-15 blur-3xl bg-secondary" />
 
           <div className="relative z-10 px-5 py-12 md:px-14 md:py-16 text-center flex flex-col items-center">
             {/* Headline */}
-            <PillBadge 
-              icon={<Banknote className="w-3 h-3" />} 
+            <PillBadge
+              icon={<Banknote className="w-3 h-3" />}
               className="border-white/10 bg-white/5 text-secondary mb-6"
             >
               Harga Modul
@@ -71,14 +72,16 @@ const PricingSection = () => {
               <Button
                 size="lg"
                 asChild
-                className="bg-accent text-accent-foreground hover:bg-accent/90 w-full sm:w-auto transition-all px-10 h-12 rounded-xl text-base font-bold shadow-lg shadow-accent/20">
+                className="bg-accent text-accent-foreground hover:bg-accent/90 w-full sm:w-auto transition-all px-10 h-12 rounded-xl text-base font-bold shadow-lg shadow-accent/20"
+              >
                 <a href="/pricing">Cek Simulasi Harga</a>
               </Button>
               <Button
                 size="lg"
                 variant="outline"
                 asChild
-                className="w-full sm:w-auto border-white/20 bg-white/5 text-white hover:bg-white/10 hover:text-white transition-all px-10 h-12 rounded-xl text-base font-bold backdrop-blur-sm">
+                className="w-full sm:w-auto border-white/20 bg-white/5 text-white hover:bg-white/10 hover:text-white transition-all px-10 h-12 rounded-xl text-base font-bold backdrop-blur-sm"
+              >
                 <a href="#demo">Jadwalkan Demo</a>
               </Button>
             </div>
