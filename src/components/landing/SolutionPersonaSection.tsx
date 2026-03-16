@@ -340,21 +340,43 @@ const ZigzagConnectorLines = ({
   const isPerActive = hoveredPersona !== null;
   if (!isSolActive && !isPerActive) return null;
 
-  // Which solution→persona pairs to draw
+  // Helper for smooth-cornered circuit paths
+  const getSmoothStepPath = (p1: { x: number; y: number }, p2: { x: number; y: number }, isRight: boolean) => {
+    const dx = p2.x - p1.x;
+    const dy = p2.y - p1.y;
+    
+    // Constant horizontal "exit" from the card
+    const hExit = isRight ? 45 : -45;
+    const cornerRadius = 24; // Smoothness factor
+    
+    const x1 = p1.x;
+    const y1 = p1.y;
+    const x2 = p2.x;
+    const y2 = p2.y;
+    
+    const midX = x1 + hExit;
+    const sweep = dy > 0 ? (isRight ? 1 : 0) : (isRight ? 0 : 1);
+    
+    // Simple S-curve with 2 arcs for smoothness
+    return `M ${x1} ${y1} 
+            L ${midX - (isRight ? cornerRadius : -cornerRadius)} ${y1}
+            Q ${midX} ${y1} ${midX} ${y1 + (dy > 0 ? cornerRadius : -cornerRadius)}
+            L ${midX} ${y2 - (dy > 0 ? cornerRadius : -cornerRadius)}
+            Q ${midX} ${y2} ${midX + (isRight ? cornerRadius : -cornerRadius)} ${y2}
+            L ${x2} ${y2}`;
+  };
+
   const linePairs: { si: number; pi: number }[] = [];
   const activeSolIndices: number[] = [];
-  const activePerIndices: number[] = [];
 
   if (isSolActive) {
     const si = hoveredSolution!;
     activeSolIndices.push(si);
     for (const pi of connectedPersonaIndices) {
       linePairs.push({ si, pi });
-      activePerIndices.push(pi);
     }
   } else if (isPerActive) {
     const pi = hoveredPersona!;
-    activePerIndices.push(pi);
     for (const si of connectedSolutionIndices) {
       linePairs.push({ si, pi });
       activeSolIndices.push(si);
@@ -363,91 +385,71 @@ const ZigzagConnectorLines = ({
 
   return (
     <svg className="absolute inset-0 w-full h-full pointer-events-none z-0">
+      {/* Glow shadow for lines */}
       <defs>
-        {/* solution → logo gradients */}
-        {activeSolIndices.map((si) => {
-          const sc = solCenters[si];
-          if (!sc) return null;
-          return (
-            <linearGradient
-              key={`grad-sol-${si}`}
-              id={`grad-sol-${si}`}
-              x1={sc.x}
-              y1={sc.y}
-              x2={logo.x}
-              y2={logo.y}
-              gradientUnits="userSpaceOnUse"
-            >
-              <stop offset="0%" stopColor={BRAND_COLOR} stopOpacity="0.8" />
-              <stop offset="100%" stopColor={BRAND_COLOR} stopOpacity="0.8" />
-            </linearGradient>
-          );
-        })}
-        {/* unique per-pair logo→persona gradients */}
-        {linePairs.map(({ si, pi }) => {
-          const pc = perCenters[pi];
-          if (!pc) return null;
-          return (
-            <linearGradient
-              key={`grad-per-${si}-${pi}`}
-              id={`grad-per-${si}-${pi}`}
-              x1={logo.x}
-              y1={logo.y}
-              x2={pc.x}
-              y2={pc.y}
-              gradientUnits="userSpaceOnUse"
-            >
-              <stop offset="0%" stopColor={BRAND_COLOR} stopOpacity="0.8" />
-              <stop
-                offset="100%"
-                stopColor={BRAND_COLOR}
-                stopOpacity={isPerActive ? "0.8" : "0"}
-              />
-            </linearGradient>
-          );
-        })}
+        <filter id="line-glow" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="3" result="blur" />
+          <feComposite in="SourceGraphic" in2="blur" operator="over" />
+        </filter>
       </defs>
 
-      {/* solution → logo lines (Bezier) */}
+      {/* Solution → Logo Trace */}
       {activeSolIndices.map((si) => {
         const sc = solCenters[si];
         if (!sc) return null;
-
-        // Control points for smooth horizontal curve
-        const dx = Math.abs(logo.x - sc.x) * 0.5;
-        const cp1x = sc.x + dx;
-        const cp2x = logo.x - dx;
-
+        const path = getSmoothStepPath(sc, logo, true);
+        
         return (
-          <path
-            key={`sol-line-${si}`}
-            d={`M ${sc.x} ${sc.y} C ${cp1x} ${sc.y}, ${cp2x} ${logo.y}, ${logo.x} ${logo.y}`}
-            stroke={`url(#grad-sol-${si})`}
-            strokeWidth="1.5"
-            fill="none"
-            className="transition-opacity duration-300 ease-in-out"
-          />
+          <g key={`sol-g-${si}`}>
+            <motion.path
+              initial={{ pathLength: 0, opacity: 0 }}
+              animate={{ pathLength: 1, opacity: 1 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              d={path}
+              stroke="currentColor"
+              className="text-primary"
+              strokeWidth="2"
+              fill="none"
+              style={{ filter: "url(#line-glow)" }}
+            />
+            <motion.circle
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ delay: 0.4 }}
+              cx={sc.x} cy={sc.y} r="3.5"
+              className="fill-primary"
+            />
+          </g>
         );
       })}
 
-      {/* logo → persona lines (Bezier) */}
+      {/* Logo → Persona Trace */}
       {linePairs.map(({ si, pi }) => {
         const pc = perCenters[pi];
         if (!pc) return null;
-
-        const dx = Math.abs(pc.x - logo.x) * 0.5;
-        const cp1x = logo.x + dx;
-        const cp2x = pc.x - dx;
-
+        const path = getSmoothStepPath(logo, pc, true);
+        
         return (
-          <path
-            key={`per-line-${si}-${pi}`}
-            d={`M ${logo.x} ${logo.y} C ${cp1x} ${logo.y}, ${cp2x} ${pc.y}, ${pc.x} ${pc.y}`}
-            stroke={`url(#grad-per-${si}-${pi})`}
-            strokeWidth="1.5"
-            fill="none"
-            className="transition-opacity duration-300 ease-in-out"
-          />
+          <g key={`per-g-${si}-${pi}`}>
+            <motion.path
+              initial={{ pathLength: 0, opacity: 0 }}
+              animate={{ pathLength: 1, opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+              d={path}
+              stroke="currentColor"
+              className="text-primary"
+              strokeWidth="2"
+              fill="none"
+              style={{ filter: "url(#line-glow)" }}
+            />
+            <motion.circle
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ delay: 0.6 }}
+              cx={pc.x} cy={pc.y} r="3.5"
+              className="fill-primary"
+            />
+          </g>
         );
       })}
     </svg>
