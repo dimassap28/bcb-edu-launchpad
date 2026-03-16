@@ -658,10 +658,10 @@ const ProblemSection = () => {
                   transform: "skewX(-25deg) scaleY(2)",
                 }}
               />
-              <span className="text-5xl font-bold text-white tracking-tighter relative z-10">
-                BCB{" "}
-                <span className="bg-gradient-to-br from-blue-400 to-teal-400 bg-clip-text text-transparent">
-                  Edu
+              <span className="text-5xl text-center font-bold text-white tracking-tighter relative z-10">
+                Sistem{" "}
+                <span className="bg-gradient-to-br from-red-500 to-yellow-400 bg-clip-text text-transparent">
+                  Sekolah Lain
                 </span>
               </span>
             </div>
