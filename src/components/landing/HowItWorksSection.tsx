@@ -136,7 +136,8 @@ function ModulePickerAnim({ run }: { run: boolean }) {
 const CHECKLIST = [
   "Import data siswa",
   "Buat akun guru & staf",
-  "Jadwal pelatihan",
+  "Buat tahun ajaran",
+  "Jadwal pelajaran",
 ];
 
 function ProgressSetupAnim({ run }: { run: boolean }) {
@@ -171,10 +172,10 @@ function ProgressSetupAnim({ run }: { run: boolean }) {
 
     runner.current = makeRunner();
     const { sleep, cancel } = runner.current;
-    const pcts = [0, 33, 66, 100];
+    const pcts = [0, 25, 50, 75, 100];
 
     (async () => {
-      for (let i = 0; i < 3; i++) {
+      for (let i = 0; i < CHECKLIST.length; i++) {
         await sleep(i === 0 ? 100 : 720);
         const row = rowRefs.current[i];
         const cb = cbRefs.current[i];
