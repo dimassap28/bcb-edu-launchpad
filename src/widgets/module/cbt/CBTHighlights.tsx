@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { PillBadge } from "@/shared/ui/pill-badge";
 import { ShieldCheck } from "lucide-react";
 import { Section, sectionVariants, childFade } from "@/widgets/module/ui/Section";
-import { cardHover } from "@/entities/module/data/module.data";
+import { cardHover } from "@/entities/module";
 
 const floatingIcons = [
   { emoji: "🔒", label: "Lockdown", x: "-145%", y: "-130%" },

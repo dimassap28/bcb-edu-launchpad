@@ -3,7 +3,7 @@ import { PillBadge } from "@/shared/ui/pill-badge";
 import { Sparkles } from "lucide-react";
 import { Section, sectionVariants, childFade } from "@/widgets/module/ui/Section";
 import { FloatingIcons } from "@/widgets/module/ui/FloatingIcons";
-import { cardHover } from "@/entities/module/data/module.data";
+import { cardHover } from "@/entities/module";
 
 export function AbsensiHighlights() {
   return (

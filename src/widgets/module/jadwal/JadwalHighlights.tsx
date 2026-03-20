@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { PillBadge } from "@/shared/ui/pill-badge";
 import { Calendar } from "lucide-react";
 import { Section, sectionVariants, childFade } from "@/widgets/module/ui/Section";
-import { cardHover } from "@/entities/module/data/module.data";
+import { cardHover } from "@/entities/module";
 
 const floatingIcons = [
   { emoji: "📅", label: "Jadwal", x: "-145%", y: "-130%" },
