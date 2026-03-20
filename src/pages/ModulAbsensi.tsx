@@ -1,138 +1,17 @@
-import { useEffect, useRef, useState, useMemo } from "react";
+import { useRef } from "react";
 import { Link } from "react-router-dom";
-import { motion, useInView, AnimatePresence } from "framer-motion";
-import Navbar from "@/components/landing/Navbar";
-import Footer from "@/components/landing/Footer";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { PillBadge } from "@/components/ui/pill-badge";
+import { motion, useInView } from "framer-motion";
+import Navbar from "@/widgets/landing/Navbar";
+import Footer from "@/widgets/landing/Footer";
+import { Button } from "@/shared/ui/button";
+import { Badge } from "@/shared/ui/badge";
+import { PillBadge } from "@/shared/ui/pill-badge";
 import { Send, Sparkles, Layout, Wallet } from "lucide-react";
 
-/* ─── animation helpers ─── */
-const sectionVariants = {
-  hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" as const } },
-};
-
-const staggerContainer = (stagger = 0.1) => ({
-  hidden: {},
-  visible: { transition: { staggerChildren: stagger } },
-});
-
-const childFade = () => ({
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.45, ease: "easeOut" as const } },
-});
-
-function Section({ children, className = "", id }: { children: React.ReactNode; className?: string; id?: string }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
-  return (
-    <motion.section
-      ref={ref}
-      id={id}
-      initial="hidden"
-      animate={inView ? "visible" : "hidden"}
-      variants={staggerContainer(0.1)}
-      className={className}
-    >
-      {children}
-    </motion.section>
-  );
-}
-
-
-/* ─── dot decoration ─── */
-const DotLabel = ({ text }: { text: string }) => (
-  <div className="flex items-center gap-2 justify-center mb-3">
-    <span className="flex gap-1">
-      <span className="w-1.5 h-1.5 rounded-full bg-primary/50" />
-      <span className="w-1.5 h-1.5 rounded-full bg-primary/30" />
-      <span className="w-1.5 h-1.5 rounded-full bg-primary/20" />
-    </span>
-    <span className="text-xs font-semibold tracking-widest uppercase text-primary">{text}</span>
-    <span className="flex gap-1">
-      <span className="w-1.5 h-1.5 rounded-full bg-primary/20" />
-      <span className="w-1.5 h-1.5 rounded-full bg-primary/30" />
-      <span className="w-1.5 h-1.5 rounded-full bg-primary/50" />
-    </span>
-  </div>
-);
-
-/* ─── floating icon badges ─── */
-const floatingIcons = [
-  { emoji: "🔔", label: "Notifikasi", x: "-145%", y: "-130%" },
-  { emoji: "✅", label: "Approval", x: "45%", y: "-190%" },
-  { emoji: "⏰", label: "Reminder", x: "65%", y: "10%" },
-  { emoji: "📍", label: "Live Loc", x: "45%", y: "235%" },
-  { emoji: "📸", label: "Foto Bukti", x: "-130%", y: "175%" },
-];
-
-function FloatingIcons() {
-  const [cycle, setCycle] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => setCycle((c) => c + 1), 4000);
-    return () => clearInterval(interval);
-  }, []);
-
-  return (
-    <div className="relative w-full h-full flex items-center justify-center">
-      {/* center phone icon */}
-      <div className="p-4 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center">
-        <span className="text-[150px]">📱</span>
-      </div>
-      <AnimatePresence mode="wait">
-        <motion.div key={cycle} className="absolute inset-0">
-          {floatingIcons.map((icon, i) => (
-            <motion.div
-              key={i}
-              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-              style={{ x: icon.x, y: icon.y }}
-              initial={{ scale: 0.6, opacity: 0 }}
-              animate={{
-                scale: 1,
-                opacity: 1,
-                y: [icon.y, `calc(${icon.y} - 6px)`, icon.y],
-              }}
-              exit={{ scale: 0.6, opacity: 0 }}
-              transition={{
-                scale: { delay: i * 0.3, duration: 0.4, ease: "easeOut" },
-                opacity: { delay: i * 0.3, duration: 0.4 },
-                y: { delay: i * 0.3 + 1.5, duration: 2, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" },
-              }}
-            >
-              <div className="flex items-center gap-1.5 bg-card rounded-full px-3 py-1.5 shadow-card border text-xs font-medium whitespace-nowrap">
-                <span>{icon.emoji}</span>
-                <span className="text-foreground">{icon.label}</span>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
-      </AnimatePresence>
-    </div>
-  );
-}
-
-/* ─── card hover class ─── */
-const cardHover = "bg-card rounded-2xl border shadow-card transition-all duration-200 ease-out hover:-translate-y-1 hover:shadow-card-hover hover:border-primary/30";
-
-/* ─── count-up hook ─── */
-function useCountUp(target: number, duration = 1200, start = false) {
-  const [value, setValue] = useState(0);
-  useEffect(() => {
-    if (!start) return;
-    const startTime = performance.now();
-    const tick = (now: number) => {
-      const elapsed = now - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      setValue(Math.round(progress * target));
-      if (progress < 1) requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
-  }, [start, target, duration]);
-  return value;
-}
+import { sectionVariants, staggerContainer, childFade, Section } from "@/widgets/module/ui/Section";
+import { FloatingIcons } from "@/widgets/module/ui/FloatingIcons";
+import { cardHover, absensiFeatures } from "@/entities/module/data/module.data";
+import { useCountUp } from "@/shared/hooks/use-count-up";
 
 /* ═══════════════════════════════════════════════ */
 /* PAGE                                            */
@@ -297,38 +176,7 @@ const ModulAbsensi = () => {
           </motion.div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {[
-              {
-                emoji: "🤳",
-                title: "Anti Jurnal Fiktif",
-                desc: "Input jurnal wajib selfie langsung dari kamera — tidak bisa dari galeri foto. Disertai lokasi real-time.",
-              },
-              {
-                emoji: "☁️",
-                title: "Hemat Biaya Server",
-                desc: "Sekolah tidak perlu memikirkan storage. Server dan penyimpanan data ditangani sepenuhnya oleh sistem.",
-              },
-              {
-                emoji: "📸",
-                title: "Double Check",
-                desc: "Selain lokasi, ada bukti foto langsung dari kamera sebagai verifikasi kehadiran guru.",
-              },
-              {
-                emoji: "🔗",
-                title: "Sinkron dengan Jadwal",
-                desc: "Jadwal guru yang sedang on duty terintegrasi otomatis — tidak perlu input ulang.",
-              },
-              {
-                emoji: "👨‍🏫",
-                title: "Guru Pengganti",
-                desc: "Jika guru berhalangan hadir, bisa digantikan guru piket atau guru lain — tercatat di sistem.",
-              },
-              {
-                emoji: "✅",
-                title: "Approval Jurnal",
-                desc: "Guru piket dapat mereject hasil jurnal yang tidak sesuai — ada lapisan verifikasi manual.",
-              },
-            ].map((f, i) => (
+            {absensiFeatures.map((f, i) => (
               <motion.div
                 key={f.title}
                 variants={childFade()}

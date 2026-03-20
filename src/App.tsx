@@ -1,9 +1,9 @@
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
+import { Toaster } from "@/shared/ui/toaster";
+import { Toaster as Sonner } from "@/shared/ui/sonner";
+import { TooltipProvider } from "@/shared/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import GradualBlur from "@/components/ui/GradualBlur";
+import GradualBlur from "@/shared/ui/GradualBlur";
 import Index from "./pages/Index";
 import Pricing from "./pages/Pricing";
 import ModulAbsensi from "./pages/ModulAbsensi";

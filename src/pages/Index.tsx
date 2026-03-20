@@ -1,13 +1,13 @@
-import Navbar from "@/components/landing/Navbar";
-import HeroSection from "@/components/landing/HeroSection";
-import ProblemSection from "@/components/landing/ProblemSection";
-import HowItWorksSection from "@/components/landing/HowItWorksSection";
-import ModulesSection from "@/components/landing/ModulesSection";
-import PricingSection from "@/components/landing/PricingSection";
-import SolutionPersonaSection from "@/components/landing/SolutionPersonaSection";
-import SocialProofSection from "@/components/landing/SocialProofSection";
-import CTASection from "@/components/landing/CTASection";
-import Footer from "@/components/landing/Footer";
+import Navbar from "@/widgets/landing/Navbar";
+import HeroSection from "@/widgets/landing/HeroSection";
+import ProblemSection from "@/widgets/landing/ProblemSection";
+import HowItWorksSection from "@/widgets/landing/HowItWorksSection";
+import ModulesSection from "@/widgets/landing/ModulesSection";
+import PricingSection from "@/widgets/landing/PricingSection";
+import SolutionPersonaSection from "@/widgets/landing/SolutionPersonaSection";
+import SocialProofSection from "@/widgets/landing/SocialProofSection";
+import CTASection from "@/widgets/landing/CTASection";
+import Footer from "@/widgets/landing/Footer";
 
 const Index = () => {
   return (

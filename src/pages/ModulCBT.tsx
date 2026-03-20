@@ -1,11 +1,11 @@
 import { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion, useInView, AnimatePresence } from "framer-motion";
-import Navbar from "@/components/landing/Navbar";
-import Footer from "@/components/landing/Footer";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { PillBadge } from "@/components/ui/pill-badge";
+import Navbar from "@/widgets/landing/Navbar";
+import Footer from "@/widgets/landing/Footer";
+import { Button } from "@/shared/ui/button";
+import { Badge } from "@/shared/ui/badge";
+import { PillBadge } from "@/shared/ui/pill-badge";
 import { Send, ShieldCheck, Cpu, Tag } from "lucide-react";
 
 /* ─── animation helpers ─── */
@@ -40,23 +40,6 @@ function Section({ children, className = "", id }: { children: React.ReactNode; 
     </motion.section>
   );
 }
-
-
-const DotLabel = ({ text }: { text: string }) => (
-  <div className="flex items-center gap-2 justify-center mb-3">
-    <span className="flex gap-1">
-      <span className="w-1.5 h-1.5 rounded-full bg-primary/50" />
-      <span className="w-1.5 h-1.5 rounded-full bg-primary/30" />
-      <span className="w-1.5 h-1.5 rounded-full bg-primary/20" />
-    </span>
-    <span className="text-xs font-semibold tracking-widest uppercase text-primary">{text}</span>
-    <span className="flex gap-1">
-      <span className="w-1.5 h-1.5 rounded-full bg-primary/20" />
-      <span className="w-1.5 h-1.5 rounded-full bg-primary/30" />
-      <span className="w-1.5 h-1.5 rounded-full bg-primary/50" />
-    </span>
-  </div>
-);
 
 /* ─── floating icon badges for large card ─── */
 const floatingIcons = [
