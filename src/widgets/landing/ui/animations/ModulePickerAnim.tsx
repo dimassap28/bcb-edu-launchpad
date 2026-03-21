@@ -12,7 +12,7 @@ function makeRunner() {
 
 const MODULE_ICONS = [Users, CalendarDays, ClipboardCheck];
 
-export const ModulePickerAnim = ({ run }: { run: boolean }) => {
+export const ModulePickerAnim = ({ run, playKey = 0 }: { run: boolean, playKey?: number }) => {
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
   const runner = useRef(makeRunner());
 
@@ -46,7 +46,7 @@ export const ModulePickerAnim = ({ run }: { run: boolean }) => {
     })();
 
     return cancel;
-  }, [run]);
+  }, [run, playKey]);
 
   return (
     <div className="flex flex-col gap-[7px] w-full">

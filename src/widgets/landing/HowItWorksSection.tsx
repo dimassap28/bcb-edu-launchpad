@@ -9,7 +9,7 @@ import { DashboardLiveAnim } from "./ui/animations/DashboardLiveAnim";
 
 /* ─── Types ──────────────────────────────────────────────────────────────── */
 
-type AnimComponent = React.ComponentType<{ run: boolean }>;
+type AnimComponent = React.ComponentType<{ run: boolean; playKey?: number }>;
 
 const ANIM_COMPONENTS: AnimComponent[] = [
   ModulePickerAnim,
@@ -43,21 +43,27 @@ const StepCard = ({ index, label, title, desc, globalRun, motionDelay }: StepCar
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 30 }}
       animate={globalRun ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.45, delay: motionDelay, ease: "easeOut" }}
-      className="flex flex-col rounded-2xl border border-border bg-card overflow-hidden cursor-default z-10 shadow-card hover:shadow-card-hover transition-all duration-300"
+      transition={{ duration: 0.5, delay: motionDelay, ease: "easeOut" }}
+      className="group relative flex flex-col rounded-[20px] bg-card overflow-hidden cursor-default z-10 
+                 border border-border/50 shadow-sm 
+                 hover:shadow-card-hover hover:border-primary/20 
+                 hover:-translate-y-1.5 transition-all duration-300"
       onMouseEnter={bump}
     >
+      {/* Background glow effect on hover */}
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0 pointer-events-none" />
+
       {/* Animation zone — fixed height keeps all cards equal */}
-      <div className="h-[240px] place-content-center p-4 border-b border-border overflow-hidden">
-        <Anim key={runKey} run={runKey > 0} />
+      <div className="relative z-10 h-[240px] place-content-center p-4 border-b border-border/50 overflow-hidden bg-background/50">
+        <Anim run={runKey > 0} playKey={runKey} />
       </div>
 
       {/* Text */}
-      <div className="flex-1 flex flex-col justify-end p-4">
-        <p className="text-xs font-semibold text-primary mb-1">{label}</p>
-        <h3 className="text-xl font-bold text-foreground mb-1.5">{title}</h3>
+      <div className="relative z-10 flex-1 flex flex-col justify-end p-5 md:p-6 bg-card/80 backdrop-blur-sm">
+        <p className="text-xs font-bold uppercase tracking-wider text-primary mb-2 opacity-80 group-hover:opacity-100 transition-opacity">{label}</p>
+        <h3 className="text-xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors">{title}</h3>
         <p className="text-sm text-muted-foreground leading-relaxed">{desc}</p>
       </div>
     </motion.div>
@@ -85,16 +91,20 @@ const HowItWorksSection = () => {
           </h2>
         </motion.div>
 
-        <div className="relative grid grid-cols-1 md:grid-cols-3 gap-4 max-w-5xl mx-auto">
+        <div className="relative grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {/* Dashed connector — desktop only */}
-          <div className="hidden md:block absolute top-1/2 -translate-y-1/2 left-0 right-0 pointer-events-none z-0">
+          <div className="hidden md:block absolute top-[120px] left-0 right-0 pointer-events-none z-0">
             <motion.div
-              className="w-full border-t-2 border-dashed border-primary/20"
+              className="w-full border-t-[3px] border-dashed border-primary/20"
               initial={{ scaleX: 0 }}
               animate={inView ? { scaleX: 1 } : {}}
               style={{ transformOrigin: "left" }}
-              transition={{ duration: 0.8, ease: "easeInOut" }}
+              transition={{ duration: 1, delay: 0.2, ease: "easeInOut" }}
             />
+            {/* Connector dots */}
+            <div className="absolute top-[-5px] left-[15%] w-3 h-3 rounded-full bg-primary/40 shadow-[0_0_10px_rgba(59,130,246,0.5)]" />
+            <div className="absolute top-[-5px] left-[50%] w-3 h-3 rounded-full bg-primary/40 shadow-[0_0_10px_rgba(59,130,246,0.5)]" />
+            <div className="absolute top-[-5px] right-[15%] w-3 h-3 rounded-full bg-primary/40 shadow-[0_0_10px_rgba(59,130,246,0.5)]" />
           </div>
 
           {HOW_IT_WORKS_STEPS.map((step, i) => (

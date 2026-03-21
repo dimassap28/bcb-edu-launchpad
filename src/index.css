@@ -296,7 +296,7 @@
 
 /* HowItWorksSection styles */
 .mod-el { 
-  transition: opacity .35s ease, transform .35s ease; 
+  transition: opacity .35s ease, transform .35s ease, background-color .35s ease, border-color .35s ease; 
 }
 
 .mod-el[data-state="active"] { 
@@ -305,10 +305,11 @@
 }
 
 .mod-el[data-state="dim"] { 
-  opacity: 0.9 !important; 
+  opacity: 0.6 !important; 
+  filter: grayscale(1);
 }
 
-.mod-el[data-state="active"] .mod-lbl { 
+.mod-el[data-state="active"] .mod-label { 
   color: hsl(var(--primary)); 
 }
 
@@ -320,36 +321,26 @@
   color: hsl(var(--primary)) !important; 
 }
 
-.mod-el[data-state="active"] .mod-chk { 
+.mod-el[data-state="active"] .mod-check { 
+  background: hsl(var(--primary)); 
+  border-color: hsl(var(--primary)); 
+}
+
+.mod-el[data-state="active"] .mod-tick { 
   opacity: 1 !important; 
-  transform: scale(1) !important; 
 }
 
-.cbox-base { 
-  width: 16px; 
-  height: 16px; 
-  border-radius: 4px; 
-  border: 1.5px solid hsl(var(--border)); 
-  flex-shrink: 0; 
-  display: flex; 
-  align-items: center; 
-  justify-content: center; 
-  transition: all .3s; 
+.setup-cb { 
+  transition: all .35s ease; 
 }
 
-.cbox-done { 
-  background: hsl(var(--primary) / 0.12); 
-  border-color: hsl(var(--primary) / 0.7) !important; 
-}
-
-.cbox-spin { 
+.setup-cb[data-done="true"] { 
+  background: hsl(var(--primary)); 
   border-color: hsl(var(--primary)) !important; 
-  border-top-color: transparent !important; 
-  animation: cbox-spin .8s linear infinite; 
 }
 
-@keyframes cbox-spin { 
-  to { transform: rotate(360deg); } 
+.setup-cb[data-done="true"] .setup-tick { 
+  opacity: 1 !important; 
 }
 
 @keyframes dot-pulse {

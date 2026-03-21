@@ -19,7 +19,7 @@ const STATS = [
   { defaultVal: "0%", label: "Hadir hari ini", target: 94,  suffix: "%" },
 ];
 
-export function DashboardLiveAnim({ run }: { run: boolean }) {
+export function DashboardLiveAnim({ run, playKey = 0 }: { run: boolean, playKey?: number }) {
   const statRefs = useRef<(HTMLDivElement | null)[]>([]);
   const rowRefs  = useRef<(HTMLDivElement | null)[]>([]);
   const runner   = useRef(makeRunner());
@@ -57,7 +57,7 @@ export function DashboardLiveAnim({ run }: { run: boolean }) {
     })();
 
     return cancel;
-  }, [run]);
+  }, [run, playKey]);
 
   return (
     <div className="w-full">

@@ -9,12 +9,13 @@ function makeRunner() {
 }
 
 const SETUP_ROWS = [
-  { label: "Import data siswa", pct: 100 },
-  { label: "Konfigurasi kelas", pct: 100 },
-  { label: "Setup akun guru", pct: 100 },
+  { label: "Import data siswa" },
+  { label: "Konfigurasi kelas" },
+  { label: "Buat tahun ajaran" },
+  { label: "Setup akun guru" },
 ];
 
-export function ProgressSetupAnim({ run }: { run: boolean }) {
+export function ProgressSetupAnim({ run, playKey = 0 }: { run: boolean, playKey?: number }) {
   const fillRef = useRef<HTMLDivElement>(null);
   const pctRef = useRef<HTMLSpanElement>(null);
   const rowRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -36,41 +37,37 @@ export function ProgressSetupAnim({ run }: { run: boolean }) {
 
     (async () => {
       await sleep(200);
+      
+      const ROW_DELAY = 180;
+      const CHECK_DELAY = 220;
 
-      // Animate progress bar 0 → 100%
       if (fillRef.current) {
-        fillRef.current.style.transition = "width 1.6s cubic-bezier(0.4,0,0.2,1)";
-        fillRef.current.style.width = "100%";
+        fillRef.current.style.transition = `width 0.3s ease-out`;
       }
 
-      // Animate percentage counter
-      const start = Date.now();
-      const duration = 1600;
-      const tick = () => {
-        const elapsed = Date.now() - start;
-        const val = Math.min(100, Math.round((elapsed / duration) * 100));
-        if (pctRef.current) pctRef.current.textContent = `${val}%`;
-        if (val < 100) requestAnimationFrame(tick);
-      };
-      requestAnimationFrame(tick);
-
-      // Reveal rows one by one
+      // Reveal rows exactly synced with progress steps
       for (let i = 0; i < SETUP_ROWS.length; i++) {
-        await sleep(300 + i * 320);
+        await sleep(ROW_DELAY);
         const r = rowRefs.current[i];
         if (!r) return;
         r.style.opacity = "1";
         r.style.transform = "translateY(0)";
-        await sleep(240);
+        
+        await sleep(CHECK_DELAY);
         if (cbRefs.current[i]) cbRefs.current[i]!.dataset.done = "true";
+
+        // Step-by-step progress (25%, 50%, 75%, 100%)
+        const pct = Math.round(((i + 1) / SETUP_ROWS.length) * 100);
+        if (fillRef.current) fillRef.current.style.width = `${pct}%`;
+        if (pctRef.current) pctRef.current.textContent = `${pct}%`;
       }
     })();
 
     return cancel;
-  }, [run]);
+  }, [run, playKey]);
 
   return (
-    <div className="flex flex-col gap-3 w-full">
+    <div className="flex flex-col gap-[7px] w-full">
       {/* Progress bar */}
       <div className="flex items-center gap-2 mb-1">
         <div className="flex-1 h-[6px] rounded-full bg-muted overflow-hidden">
@@ -95,10 +92,10 @@ export function ProgressSetupAnim({ run }: { run: boolean }) {
         >
           <div
             ref={(el) => { cbRefs.current[i] = el; }}
-            className="setup-cb w-4 h-4 rounded border-2 border-border flex items-center justify-center flex-shrink-0"
+            className="setup-cb w-4 h-4 rounded border-2 border-border flex items-center justify-center flex-shrink-0 transition-colors duration-300"
             data-done=""
           >
-            <svg className="w-2.5 h-2.5 opacity-0 setup-tick" viewBox="0 0 10 8" fill="none">
+            <svg className="w-2.5 h-2.5 opacity-0 setup-tick transition-opacity duration-300" viewBox="0 0 10 8" fill="none">
               <path d="M1 4L3.5 6.5L9 1" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </div>
