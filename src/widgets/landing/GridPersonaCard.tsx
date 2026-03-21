@@ -2,7 +2,7 @@ import { Check } from "lucide-react";
 import { cn } from "@/shared/lib/utils";
 import { GRID_ROW_CLASSES } from "@/shared/lib/grid-utils";
 import { type PersonaCardType } from "@/entities/landing";
-import { DotGridAccent } from "./DotGridAccent";
+import DotGridAccent from "./DotGridAccent";
 
 interface GridPersonaCardProps {
   persona: PersonaCardType;
@@ -15,7 +15,7 @@ interface GridPersonaCardProps {
   cardRef: (el: HTMLDivElement | null) => void;
 }
 
-export const GridPersonaCard = ({
+const GridPersonaCard = ({
   persona,
   index,
   isHovered,
@@ -39,7 +39,7 @@ export const GridPersonaCard = ({
         colClass,
         rowClass,
         isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-4",
-        dimmed && "opacity-35"
+        dimmed && "opacity-35",
       )}
       style={{
         transitionDelay: isVisible ? `${index * 80}ms` : "0ms",
@@ -54,14 +54,14 @@ export const GridPersonaCard = ({
           "relative rounded-2xl border bg-card p-5 transition-all duration-200 z-10",
           expanded
             ? "shadow-card-hover -translate-y-0.5 border-border rounded-b-none"
-            : "shadow-card border-border"
+            : "shadow-card border-border",
         )}
       >
         <DotGridAccent bright={expanded} />
         <div
           className={cn(
             "w-9 h-9 rounded-lg flex items-center justify-center mb-3",
-            p.color
+            p.color,
           )}
         >
           <p.icon className="h-4 w-4" />
@@ -78,7 +78,7 @@ export const GridPersonaCard = ({
           "absolute left-0 right-0 top-full bg-card border border-t-0 border-border rounded-b-2xl p-5 pt-3 shadow-card-hover transition-all duration-200 origin-top pointer-events-none",
           expanded
             ? "opacity-100 scale-y-100 translate-y-[-2px]"
-            : "opacity-0 scale-y-95 -translate-y-2"
+            : "opacity-0 scale-y-95 -translate-y-2",
         )}
       >
         <ul className="space-y-1.5">
@@ -96,3 +96,5 @@ export const GridPersonaCard = ({
     </div>
   );
 };
+
+export default GridPersonaCard;

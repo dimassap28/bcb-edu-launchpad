@@ -5,25 +5,34 @@ import { SOLUTIONS, PERSONAS } from "@/entities/landing";
 import { useSolutionPersona } from "./model/useSolutionPersona";
 import { ZigzagConnectorLines } from "./ui/ZigzagConnectorLines";
 import { SolutionPersonaMobile } from "./ui/SolutionPersonaMobile";
-import { GridSolutionCard } from "./GridSolutionCard";
-import { GridPersonaCard } from "./GridPersonaCard";
-import { DotGridAccent } from "./DotGridAccent";
+import GridSolutionCard from "./GridSolutionCard";
+import GridPersonaCard from "./GridPersonaCard";
 
 const SolutionPersonaSection = () => {
   const {
-    sectionRef, logoRef, spineRef,
-    solutionCardRefs, personaCardRefs,
-    hoveredPersona, tappedPersona, setTappedPersona,
-    activeSolutionIndex, connectedPersonaIndices, connectedSolutionIndices,
-    linePositions, isVisible, logoGlow,
-    handleSolutionHover, handlePersonaHover,
-    isSolutionDimmed, isPersonaDimmed,
+    sectionRef,
+    logoRef,
+    spineRef,
+    solutionCardRefs,
+    personaCardRefs,
+    hoveredPersona,
+    tappedPersona,
+    setTappedPersona,
+    activeSolutionIndex,
+    connectedPersonaIndices,
+    connectedSolutionIndices,
+    linePositions,
+    isVisible,
+    logoGlow,
+    handleSolutionHover,
+    handlePersonaHover,
+    isSolutionDimmed,
+    isPersonaDimmed,
   } = useSolutionPersona();
 
   return (
     <section className="py-20 md:py-28 bg-background">
       <div className="container mx-auto px-4">
-
         {/* ── Desktop Layout ── */}
         <div className="hidden md:block">
           <motion.div
@@ -33,13 +42,16 @@ const SolutionPersonaSection = () => {
             transition={{ duration: 0.4 }}
             className="text-center mb-16"
           >
-            <PillBadge icon={<Users className="h-3 w-3" />}>Solusi untuk Semua Peran</PillBadge>
+            <PillBadge icon={<Users className="h-3 w-3" />}>
+              Solusi untuk Semua Peran
+            </PillBadge>
             <h2 className="text-3xl lg:text-5xl font-extrabold mb-4 leading-tight mt-4">
               Satu Platform, Lima Peran,{" "}
               <span className="text-gradient">Nol Kebingungan</span>
             </h2>
             <p className="text-muted-foreground text-lg max-w-xl mx-auto">
-              Setiap fitur BCB Edu dirancang untuk menjawab kebutuhan spesifik setiap peran di sekolah.
+              Setiap fitur BCB Edu dirancang untuk menjawab kebutuhan spesifik
+              setiap peran di sekolah.
             </p>
           </motion.div>
 
@@ -66,7 +78,9 @@ const SolutionPersonaSection = () => {
                   dimmed={isSolutionDimmed(i)}
                   isVisible={isVisible}
                   onHover={handleSolutionHover}
-                  cardRef={(el) => { solutionCardRefs.current[i] = el; }}
+                  cardRef={(el) => {
+                    solutionCardRefs.current[i] = el;
+                  }}
                 />
               ))}
             </div>
@@ -83,7 +97,9 @@ const SolutionPersonaSection = () => {
                 <div
                   ref={logoRef}
                   className={`flex items-center justify-center w-20 h-20 rounded-[18px] bg-slate-900 transition-all duration-300 ${
-                    isVisible ? "opacity-100 scale-100 delay-300" : "opacity-0 scale-75"
+                    isVisible
+                      ? "opacity-100 scale-100 delay-300"
+                      : "opacity-0 scale-75"
                   }`}
                   style={{
                     boxShadow: logoGlow
@@ -113,7 +129,9 @@ const SolutionPersonaSection = () => {
                   dimmed={isPersonaDimmed(i)}
                   isVisible={isVisible}
                   onHover={handlePersonaHover}
-                  cardRef={(el) => { personaCardRefs.current[i] = el; }}
+                  cardRef={(el) => {
+                    personaCardRefs.current[i] = el;
+                  }}
                 />
               ))}
             </div>

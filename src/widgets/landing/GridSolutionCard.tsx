@@ -12,7 +12,7 @@ interface GridSolutionCardProps {
   cardRef: (el: HTMLDivElement | null) => void;
 }
 
-export const GridSolutionCard = ({
+const GridSolutionCard = ({
   solution,
   index,
   isHovered,
@@ -33,7 +33,7 @@ export const GridSolutionCard = ({
         colClass,
         rowClass,
         isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4",
-        dimmed && "opacity-35"
+        dimmed && "opacity-35",
       )}
       style={{
         transitionDelay: isVisible ? `${index * 80}ms` : "0ms",
@@ -45,7 +45,7 @@ export const GridSolutionCard = ({
       <div
         className={cn(
           "relative rounded-2xl bg-card p-5 border border-border transition-all duration-200",
-          isHovered ? "shadow-card-hover -translate-y-0.5" : "shadow-card"
+          isHovered ? "shadow-card-hover -translate-y-0.5" : "shadow-card",
         )}
       >
         <div className="w-9 h-9 rounded-lg bg-primary/10 text-primary flex items-center justify-center mb-3">
@@ -61,3 +61,5 @@ export const GridSolutionCard = ({
     </div>
   );
 };
+
+export default GridSolutionCard;

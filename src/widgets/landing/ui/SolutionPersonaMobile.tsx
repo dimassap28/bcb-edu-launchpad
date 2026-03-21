@@ -3,7 +3,7 @@ import { Check } from "lucide-react";
 import { PillBadge } from "@/shared/ui/pill-badge";
 import { Users } from "lucide-react";
 import { PERSONAS } from "@/entities/landing";
-import { DotGridAccent } from "../DotGridAccent";
+import DotGridAccent from "../DotGridAccent";
 
 interface SolutionPersonaMobileProps {
   tappedPersona: number | null;
@@ -22,13 +22,16 @@ export const SolutionPersonaMobile = ({
       transition={{ duration: 0.4 }}
       className="text-center mb-10"
     >
-      <PillBadge icon={<Users className="h-3 w-3" />}>Solusi untuk Semua</PillBadge>
+      <PillBadge icon={<Users className="h-3 w-3" />}>
+        Solusi untuk Semua
+      </PillBadge>
       <h2 className="text-3xl font-extrabold mb-3 leading-tight mt-3">
         Satu Platform, Lima Peran,{" "}
         <span className="text-gradient">Nol Kebingungan</span>
       </h2>
       <p className="text-muted-foreground text-[15px] leading-relaxed max-w-[520px] mx-auto">
-        Setiap fitur BCB Edu dirancang untuk menjawab kebutuhan spesifik setiap peran di sekolah.
+        Setiap fitur BCB Edu dirancang untuk menjawab kebutuhan spesifik setiap
+        peran di sekolah.
       </p>
     </motion.div>
 
@@ -48,11 +51,15 @@ export const SolutionPersonaMobile = ({
             onClick={() => onTap(expanded ? null : i)}
           >
             <DotGridAccent bright={expanded} />
-            <div className={`w-9 h-9 rounded-lg ${p.color} flex items-center justify-center mb-2.5`}>
+            <div
+              className={`w-9 h-9 rounded-lg ${p.color} flex items-center justify-center mb-2.5`}
+            >
               <p.icon className="h-4 w-4" />
             </div>
             <h3 className="font-bold text-sm mb-0.5">{p.name}</h3>
-            <p className="text-muted-foreground text-xs leading-relaxed">{p.tagline}</p>
+            <p className="text-muted-foreground text-xs leading-relaxed">
+              {p.tagline}
+            </p>
 
             <div
               className={`overflow-hidden transition-all duration-300 ease-out ${
@@ -61,7 +68,10 @@ export const SolutionPersonaMobile = ({
             >
               <ul className="space-y-1.5">
                 {p.benefits.map((b) => (
-                  <li key={b} className="flex items-start gap-1.5 text-xs flex-nowrap leading-relaxed text-foreground">
+                  <li
+                    key={b}
+                    className="flex items-start gap-1.5 text-xs flex-nowrap leading-relaxed text-foreground"
+                  >
                     <Check className="h-3 w-3 text-primary mt-0.5 shrink-0" />
                     <span>{b}</span>
                   </li>
