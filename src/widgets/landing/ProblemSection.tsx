@@ -191,31 +191,18 @@ const ProblemSection = () => {
             className="relative z-10 -translate-y-8"
           >
             <div className="absolute inset-0 -z-10 flex items-center justify-center">
-              <motion.div
-                animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.5, 0.3] }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-                className="absolute w-[300px] h-[300px] rounded-full blur-[80px]"
+              <div
+                className="absolute w-[300px] h-[300px] rounded-full blur-[60px] opacity-50"
                 style={{
                   background:
-                    "radial-gradient(circle, hsl(210 80% 45% / 0.25) 0%, transparent 70%)",
+                    "radial-gradient(circle, hsl(210 80% 45% / 0.4) 0%, transparent 70%)",
                 }}
               />
-              <motion.div
-                animate={{ scale: [1.1, 1, 1.1], opacity: [0.2, 0.4, 0.2] }}
-                transition={{
-                  duration: 5,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: 1,
-                }}
-                className="absolute w-[250px] h-[250px] rounded-full blur-[60px]"
+              <div
+                className="absolute w-[250px] h-[250px] rounded-full blur-[50px] opacity-40 mix-blend-screen"
                 style={{
                   background:
-                    "radial-gradient(circle, hsl(175 60% 40% / 0.2) 0%, transparent 70%)",
+                    "radial-gradient(circle, hsl(175 60% 40% / 0.3) 0%, transparent 70%)",
                 }}
               />
             </div>
@@ -251,6 +238,7 @@ const ProblemSection = () => {
                   background:
                     "linear-gradient(90deg, transparent 0%, hsl(0 0% 100% / 0.08) 50%, transparent 100%)",
                   transform: "skewX(-25deg) scaleY(2)",
+                  willChange: "transform",
                 }}
               />
               <span className="text-5xl text-center font-bold text-white tracking-tighter relative z-10">
@@ -280,11 +268,12 @@ const ProblemSection = () => {
               }
             >
               <div
-                className="flex items-center gap-2 rounded-lg border border-border/60 px-4 py-2.5 text-sm font-medium backdrop-blur-sm cursor-default select-none transition-all duration-300 hover:scale-105 text-foreground hover:shadow-card-hover"
+                className="flex items-center gap-2 rounded-lg border border-border/60 px-4 py-2.5 text-sm font-medium cursor-default select-none transition-all duration-300 hover:scale-105 text-foreground hover:shadow-card-hover shadow-sm"
                 style={{
-                  background: "hsl(0 0% 100% / 0.6)",
+                  backgroundColor: "hsl(var(--card) / 0.95)",
                   animation: `float-bob ${3.5 + i * 0.7}s ease-in-out infinite`,
                   animationDelay: `${i * 0.4}s`,
+                  willChange: "transform",
                 }}
               >
                 <tag.icon className="h-4 w-4 text-destructive shrink-0" />

@@ -29,6 +29,7 @@ export function UIOverloadAnimation({ inView }: { inView: boolean }) {
               ? `btn-explode 0.5s ${btn.delay}s forwards cubic-bezier(0.34,1.56,0.64,1),
                  btn-pulse 2s ${btn.delay + 0.5}s infinite ease-in-out`
               : "none",
+            willChange: "transform, opacity",
           }}
         >
           {btn.label}

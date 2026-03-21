@@ -15,6 +15,7 @@ export function FileChaosAnimation() {
             ["--w" as string]: `${f.rot > 0 ? 10 : -10}deg`,
             opacity: 0,
             animation: `file-float ${f.dur}s ${f.delay}s infinite ease-in-out`,
+            willChange: "transform, opacity",
           }}
         >
           <div className="w-8 h-9 rounded-md bg-destructive/10 border border-destructive/25 flex items-center justify-center">
