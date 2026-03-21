@@ -3,7 +3,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import "tailwindcss";
 
 @layer base {
   :root {
@@ -80,7 +79,6 @@
 
   body {
     @apply bg-background text-foreground font-sans antialiased;
-    font-family: "Plus Jakarta Sans", system-ui, sans-serif;
   }
 }
 
@@ -104,193 +102,6 @@
 
   .shadow-card-hover {
     box-shadow: var(--card-shadow-hover);
-  }
-}
-
-/* blob swirl animations */
-@keyframes blob-move-0 {
-  from {
-    transform: translate(0, 0);
-  }
-  to {
-    transform: translate(30px, -25px);
-  }
-}
-@keyframes blob-move-1 {
-  from {
-    transform: translate(0, 0);
-  }
-  to {
-    transform: translate(-35px, 20px);
-  }
-}
-@keyframes blob-move-2 {
-  from {
-    transform: translate(0, 0);
-  }
-  to {
-    transform: translate(20px, 35px);
-  }
-}
-@keyframes blob-move-3 {
-  from {
-    transform: translate(0, 0);
-  }
-  to {
-    transform: translate(-25px, -30px);
-  }
-}
-@keyframes blob-move-4 {
-  from {
-    transform: translate(0, 0);
-  }
-  to {
-    transform: translate(30px, 15px);
-  }
-}
-
-@keyframes float-bob {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-6px);
-  }
-}
-
-@keyframes hiw-pulse {
-  0%,
-  100% {
-    transform: scale(0.9);
-  }
-  50% {
-    transform: scale(1.1);
-  }
-}
-
-@keyframes hiw-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-@keyframes scroll-up {
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(-50%);
-  }
-}
-
-/* ProblemSection animations */
-@keyframes file-float {
-  0% {
-    opacity: 0;
-    transform: translateY(18px) rotate(var(--r));
-  }
-  15% {
-    opacity: 1;
-  }
-  70% {
-    opacity: 1;
-    transform: translateY(-22px) rotate(calc(var(--r) + var(--w)));
-  }
-  88% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(-22px) rotate(var(--r));
-  }
-}
-
-@keyframes row-in {
-  from {
-    opacity: 0;
-    transform: translateX(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes check-fill {
-  to {
-    background: hsl(var(--destructive) / 0.1);
-    border-color: hsl(var(--destructive) / 0.7);
-  }
-}
-
-@keyframes check-mark {
-  to {
-    transform: rotate(40deg) scale(1);
-  }
-}
-
-@keyframes price-pop {
-  0% {
-    transform: scale(1);
-  }
-  40% {
-    transform: scale(1.15);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-@keyframes btn-explode {
-  from {
-    opacity: 0;
-    transform: scale(0.2) translate(var(--ox), var(--oy));
-  }
-  to {
-    opacity: 1;
-    transform: scale(1) translate(0, 0);
-  }
-}
-
-@keyframes btn-pulse {
-  0%,
-  100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.04);
-  }
-}
-
-@keyframes stage-shake {
-  0%,
-  100% {
-    transform: translateX(0);
-  }
-  20% {
-    transform: translateX(-3px);
-  }
-  40% {
-    transform: translateX(3px);
-  }
-  60% {
-    transform: translateX(-2px);
-  }
-  80% {
-    transform: translateX(2px);
   }
 }
 
@@ -343,11 +154,6 @@
   opacity: 1 !important; 
 }
 
-@keyframes dot-pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: .35; }
-}
-
 .dot-pulse {
-  animation: dot-pulse 2s infinite;
+  @apply animate-dot-pulse;
 }
