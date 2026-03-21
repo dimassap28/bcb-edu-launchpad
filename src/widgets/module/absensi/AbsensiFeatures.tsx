@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { PillBadge } from "@/shared/ui/pill-badge";
 import { Layout } from "lucide-react";
 import { Section, sectionVariants, childFade } from "@/widgets/module/ui/Section";
-import { cardHover, absensiFeatures } from "@/entities/module/data/module.data";
+import { cardHover, absensiFeatures } from "@/entities/module";
 
 export function AbsensiFeatures() {
   return (

@@ -5,7 +5,7 @@ import { PillBadge } from "@/shared/ui/pill-badge";
 import { Wallet } from "lucide-react";
 import { Section, sectionVariants, childFade } from "@/widgets/module/ui/Section";
 import { useCountUp } from "@/shared/hooks/use-count-up";
-import { cardHover } from "@/entities/module/data/module.data";
+import { cardHover } from "@/entities/module";
 
 export function AbsensiPricing() {
   const pricingRef = useRef<HTMLDivElement>(null);

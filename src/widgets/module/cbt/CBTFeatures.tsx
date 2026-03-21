@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { PillBadge } from "@/shared/ui/pill-badge";
 import { Cpu } from "lucide-react";
 import { Section, sectionVariants, childFade } from "@/widgets/module/ui/Section";
-import { cardHover } from "@/entities/module/data/module.data";
+import { cardHover } from "@/entities/module";
 
 export function CBTFeatures() {
   return (

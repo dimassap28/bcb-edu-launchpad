@@ -1,0 +1,13 @@
+export { default as Navbar } from "./Navbar";
+export { default as Footer } from "./Footer";
+export { default as HeroSection } from "./HeroSection";
+export { default as ProblemSection } from "./ProblemSection";
+export { default as SolutionPersonaSection } from "./SolutionPersonaSection";
+export { default as HowItWorksSection } from "./HowItWorksSection";
+export { default as ModulesSection } from "./ModulesSection";
+export { default as PricingSection } from "./PricingSection";
+export { default as SocialProofSection } from "./SocialProofSection";
+export { default as CTASection } from "./CTASection";
+export { default as DotGridAccent } from "./DotGridAccent";
+export { default as GridPersonaCard } from "./GridPersonaCard";
+export { default as GridSolutionCard } from "./GridSolutionCard";

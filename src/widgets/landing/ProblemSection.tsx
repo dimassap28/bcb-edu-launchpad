@@ -1,4 +1,3 @@
-"use client";
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
@@ -10,7 +9,7 @@ import {
 } from "lucide-react";
 import { PillBadge } from "@/shared/ui/pill-badge";
 
-import { floatingTags } from "@/entities/landing/data/problem.data";
+import { floatingTags } from "@/entities/landing";
 import { FileChaosAnimation } from "./ui/animations/FileChaosAnimation";
 import { ChecklistAnimation } from "./ui/animations/ChecklistAnimation";
 import { UIOverloadAnimation } from "./ui/animations/UIOverloadAnimation";

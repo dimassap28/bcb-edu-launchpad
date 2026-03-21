@@ -1,66 +1,44 @@
-import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import { Check, Shield, Zap, Monitor, Info, Star } from "lucide-react";
 import { Button } from "@/shared/ui/button";
 import { Slider } from "@/shared/ui/slider";
 import { Switch } from "@/shared/ui/switch";
 import { cn } from "@/shared/lib/utils";
+import { SIZE_PRESETS, MODULES } from "@/entities/pricing";
+import { usePricingCalculator } from "./model/usePricingCalculator";
 
-import { SIZE_PRESETS, MODULES } from "@/entities/pricing/data/pricing.data";
+/* ─── Helpers ────────────────────────────────────────────────────────────── */
 
 const formatRupiah = (n: number) =>
-  new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", minimumFractionDigits: 0 }).format(n);
+  new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+    minimumFractionDigits: 0,
+  }).format(n);
 
-export function PricingCalculator() {
-  const [studentCount, setStudentCount] = useState(750);
-  const [selectedModules, setSelectedModules] = useState<string[]>(["core", "lms", "cbt"]);
-  const [isBundle, setIsBundle] = useState(true);
-  const [billingCycle, setBillingCycle] = useState<"monthly" | "annually">("annually");
-  const [couponCode, setCouponCode] = useState("");
-  const [couponApplied, setCouponApplied] = useState(false);
-
-  const activePreset = SIZE_PRESETS.findIndex((p) => {
+const getActivePreset = (studentCount: number) =>
+  SIZE_PRESETS.findIndex((p) => {
     if (p.value <= 300 && studentCount <= 300) return true;
     if (p.value > 300 && p.value <= 800 && studentCount > 300 && studentCount <= 800) return true;
     if (p.value > 800 && studentCount > 800) return true;
     return false;
   });
 
-  const toggleModule = (id: string) => {
-    if (id === "core") return;
-    setSelectedModules((prev) => (prev.includes(id) ? prev.filter((m) => m !== id) : [...prev, id]));
-  };
+/* ─── Component ──────────────────────────────────────────────────────────── */
 
-  const { subtotal, discount, couponDiscount, total } = useMemo(() => {
-    const paidModules = selectedModules.filter((id) => {
-      const mod = MODULES.find((m) => m.id === id);
-      return mod && !mod.free && !mod.comingSoon;
-    });
+export function PricingCalculator() {
+  const {
+    studentCount, setStudentCount,
+    selectedModules, toggleModule,
+    isBundle, setIsBundle,
+    billingCycle, setBillingCycle,
+    couponCode, setCouponCode,
+    couponApplied, applyCoupon,
+    totals,
+  } = usePricingCalculator();
 
-    const sub = paidModules.reduce((sum, id) => {
-      const mod = MODULES.find((m) => m.id === id)!;
-      return sum + mod.pricePerStudent * studentCount;
-    }, 0);
-
-    const bundleDiscount = isBundle && paidModules.length >= 2 ? sub * 0.1 : 0;
-    const annualDiscount = billingCycle === "annually" ? (sub - bundleDiscount) * 0.2 : 0;
-    const disc = bundleDiscount + annualDiscount;
-
-    const couponDisc = couponApplied ? (sub - disc) * 0.1 : 0;
-
-    return {
-      subtotal: sub,
-      discount: disc,
-      couponDiscount: couponDisc,
-      total: sub - disc - couponDisc,
-    };
-  }, [selectedModules, studentCount, isBundle, billingCycle, couponApplied]);
-
-  const applyCoupon = () => {
-    if (couponCode.trim().toUpperCase() === "PENGGUNABARU") {
-      setCouponApplied(true);
-    }
-  };
+  const { subtotal, discount, couponDiscount, total } = totals;
+  const activePreset = getActivePreset(studentCount);
 
   return (
     <>
@@ -74,27 +52,27 @@ export function PricingCalculator() {
             Dalam paket ini, sekolah mendapatkan hak menggunakan semua modul selama 1 tahun, dengan aktivasi dan pendampingan bertahap.
           </motion.p>
 
-          {/* Billing toggle */}
+          {/* Billing cycle toggle */}
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="inline-flex items-center bg-primary-foreground/10 backdrop-blur-sm rounded-full p-1 gap-1">
-            <button
-              onClick={() => setBillingCycle("monthly")}
-              className={cn(
-                "px-6 py-2 rounded-full text-sm font-semibold transition-all",
-                billingCycle === "monthly" ? "bg-primary-foreground text-primary" : "text-primary-foreground/70 hover:text-primary-foreground"
-              )}
-            >
-              Monthly
-            </button>
-            <button
-              onClick={() => setBillingCycle("annually")}
-              className={cn(
-                "px-6 py-2 rounded-full text-sm font-semibold transition-all flex items-center gap-2",
-                billingCycle === "annually" ? "bg-primary-foreground text-primary" : "text-primary-foreground/70 hover:text-primary-foreground"
-              )}
-            >
-              Annually
-              <span className="text-xs bg-accent text-accent-foreground px-2 py-0.5 rounded-full font-bold">⚡ 20% OFF</span>
-            </button>
+            {(["monthly", "annually"] as const).map((cycle) => (
+              <button
+                key={cycle}
+                onClick={() => setBillingCycle(cycle)}
+                className={cn(
+                  "px-6 py-2 rounded-full text-sm font-semibold transition-all flex items-center gap-2",
+                  billingCycle === cycle
+                    ? "bg-primary-foreground text-primary"
+                    : "text-primary-foreground/70 hover:text-primary-foreground",
+                )}
+              >
+                {cycle === "monthly" ? "Monthly" : "Annually"}
+                {cycle === "annually" && (
+                  <span className="text-xs bg-accent text-accent-foreground px-2 py-0.5 rounded-full font-bold">
+                    ⚡ 20% OFF
+                  </span>
+                )}
+              </button>
+            ))}
           </motion.div>
         </div>
       </section>
@@ -103,7 +81,8 @@ export function PricingCalculator() {
       <section className="py-16">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-[1fr_380px] gap-8 max-w-6xl mx-auto">
-            {/* Left panel */}
+
+            {/* ── Left panel ── */}
             <div className="space-y-8">
               {/* Step 1: Student count */}
               <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="bg-card rounded-2xl border shadow-card p-6 md:p-8">
@@ -123,10 +102,7 @@ export function PricingCalculator() {
 
                 <Slider value={[studentCount]} onValueChange={([v]) => setStudentCount(v)} min={50} max={1500} step={10} className="mb-4" />
                 <div className="flex justify-between text-xs text-muted-foreground mb-6">
-                  <span>50</span>
-                  <span>500</span>
-                  <span>1000</span>
-                  <span>1500+</span>
+                  {["50", "500", "1000", "1500+"].map((n) => <span key={n}>{n}</span>)}
                 </div>
 
                 <div className="grid grid-cols-3 gap-3">
@@ -136,11 +112,15 @@ export function PricingCalculator() {
                       onClick={() => setStudentCount(preset.value)}
                       className={cn(
                         "rounded-xl py-3 px-2 text-center border transition-all",
-                        activePreset === i ? "bg-primary text-primary-foreground border-primary shadow-md" : "bg-card hover:bg-muted border-border"
+                        activePreset === i
+                          ? "bg-primary text-primary-foreground border-primary shadow-md"
+                          : "bg-card hover:bg-muted border-border",
                       )}
                     >
                       <span className="block text-sm font-bold">{preset.label}</span>
-                      <span className={cn("block text-xs mt-0.5", activePreset === i ? "text-primary-foreground/80" : "text-muted-foreground")}>({preset.range})</span>
+                      <span className={cn("block text-xs mt-0.5", activePreset === i ? "text-primary-foreground/80" : "text-muted-foreground")}>
+                        ({preset.range})
+                      </span>
                     </button>
                   ))}
                 </div>
@@ -169,7 +149,6 @@ export function PricingCalculator() {
                   {MODULES.map((mod) => {
                     const isSelected = selectedModules.includes(mod.id);
                     const calculatedPrice = mod.free ? 0 : mod.pricePerStudent * studentCount;
-                    const originalPerStudent = mod.comingSoon ? 0 : mod.pricePerStudent;
 
                     return (
                       <button
@@ -178,7 +157,11 @@ export function PricingCalculator() {
                         disabled={mod.comingSoon}
                         className={cn(
                           "w-full rounded-xl border p-4 text-left transition-all flex items-start gap-4",
-                          mod.comingSoon ? "opacity-60 cursor-not-allowed bg-muted/50" : isSelected ? "border-primary bg-primary/5 shadow-sm" : "border-border hover:border-primary/30 hover:bg-muted/30"
+                          mod.comingSoon
+                            ? "opacity-60 cursor-not-allowed bg-muted/50"
+                            : isSelected
+                            ? "border-primary bg-primary/5 shadow-sm"
+                            : "border-border hover:border-primary/30 hover:bg-muted/30",
                         )}
                       >
                         <div className={cn("w-6 h-6 rounded-md border-2 flex items-center justify-center mt-0.5 shrink-0 transition-all", isSelected ? "bg-primary border-primary" : "border-muted-foreground/30")}>
@@ -203,7 +186,11 @@ export function PricingCalculator() {
                             </div>
                           ) : (
                             <div>
-                              {isBundle && isSelected && <span className="text-xs text-muted-foreground line-through">{formatRupiah(originalPerStudent * studentCount * 1.1)}</span>}
+                              {isBundle && isSelected && (
+                                <span className="text-xs text-muted-foreground line-through">
+                                  {formatRupiah(mod.pricePerStudent * studentCount * 1.1)}
+                                </span>
+                              )}
                               <span className="text-sm font-bold text-primary ml-1">{formatRupiah(calculatedPrice)}</span>
                               <span className="block text-xs text-muted-foreground">siswa/tahun</span>
                             </div>
@@ -216,7 +203,7 @@ export function PricingCalculator() {
               </motion.div>
             </div>
 
-            {/* Right panel: Summary */}
+            {/* ── Right panel: Summary ── */}
             <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="lg:sticky lg:top-24 h-fit">
               <div className="bg-card rounded-2xl border shadow-card-hover overflow-hidden">
                 <div className="flex items-center justify-between p-6 border-b">
@@ -227,11 +214,10 @@ export function PricingCalculator() {
                 <div className="p-6 space-y-4">
                   <div className="flex items-center gap-2 text-sm text-muted-foreground">
                     <Monitor className="h-4 w-4" />
-                    <span>
-                      Untuk <strong className="text-foreground">{studentCount.toLocaleString("id-ID")} Siswa</strong>
-                    </span>
+                    <span>Untuk <strong className="text-foreground">{studentCount.toLocaleString("id-ID")} Siswa</strong></span>
                   </div>
 
+                  {/* Selected modules list */}
                   <div className="space-y-3 pt-2">
                     {MODULES.filter((m) => selectedModules.includes(m.id) && !m.comingSoon).map((mod) => (
                       <div key={mod.id} className="flex items-center justify-between text-sm">
@@ -244,18 +230,13 @@ export function PricingCalculator() {
                   {/* Coupon */}
                   <div className="pt-3 border-t">
                     <div className="flex gap-2">
-                      <div className="relative flex-1">
-                        <input
-                          type="text"
-                          value={couponCode}
-                          onChange={(e) => {
-                            setCouponCode(e.target.value);
-                            setCouponApplied(false);
-                          }}
-                          placeholder="Masukkan kode kupon"
-                          className="w-full h-10 rounded-lg border border-input bg-background px-3 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
-                        />
-                      </div>
+                      <input
+                        type="text"
+                        value={couponCode}
+                        onChange={(e) => setCouponCode(e.target.value)}
+                        placeholder="Masukkan kode kupon"
+                        className="flex-1 h-10 rounded-lg border border-input bg-background px-3 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring"
+                      />
                       <Button variant="outline" size="sm" onClick={applyCoupon} className="h-10 shrink-0">
                         Terapkan
                       </Button>
@@ -282,7 +263,9 @@ export function PricingCalculator() {
                     <div className="flex items-end justify-between">
                       <span className="text-sm font-semibold text-muted-foreground">Total / Tahun</span>
                       <div className="text-right">
-                        {(discount > 0 || couponApplied) && <span className="text-sm line-through text-muted-foreground block">{formatRupiah(subtotal)}</span>}
+                        {(discount > 0 || couponApplied) && (
+                          <span className="text-sm line-through text-muted-foreground block">{formatRupiah(subtotal)}</span>
+                        )}
                         <span className="text-2xl font-extrabold text-foreground">{formatRupiah(total)}</span>
                         <span className="text-xs text-muted-foreground block">*Belum termasuk PPN 11%</span>
                       </div>
@@ -304,7 +287,6 @@ export function PricingCalculator() {
                     <Check className="h-4 w-4 shrink-0 mt-0.5" />
                     <span>Free up to 6-month trial • No credit card required • Secure payment</span>
                   </div>
-
                   <div className="flex items-start gap-2 text-xs text-muted-foreground bg-muted/50 rounded-lg p-3">
                     <Check className="h-4 w-4 shrink-0 mt-0.5" />
                     <span>Harga final dapat berbeda tergantung negosiasi dan kustomisasi khusus.</span>

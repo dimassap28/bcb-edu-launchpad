@@ -1,50 +1,13 @@
-import { motion, useInView } from "framer-motion";
-import { ArrowUpRight, Package } from "lucide-react";
 import { useRef, useState } from "react";
+import { motion } from "framer-motion";
+import { ArrowUpRight, Package } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { PillBadge } from "@/shared/ui/pill-badge";
+import { LANDING_MODULES, type LandingModule } from "@/entities/landing";
 
-const modules = [
-  {
-    id: "absensi",
-    name: "Absensi & Jurnaling",
-    price: "Rp 5.000 / siswa / tahun",
-    href: "/modul/absensi",
-    features: [
-      "Absensi langsung dari HP guru, real-time",
-      "Anti jurnal fiktif — selfie + lokasi wajib",
-      "Notifikasi otomatis ke orang tua",
-    ],
-    blobs: ["#38BDF8", "#06B6D4", "#0EA5E9", "#67E8F9", "#BAE6FD"],
-  },
-  {
-    id: "jadwal",
-    name: "Jadwal & Kurikulum",
-    price: "Rp 2.000 / siswa / tahun",
-    href: "/modul/jadwal",
-    features: [
-      "Auto generate jadwal satu klik",
-      "AI optimasi ruangan, anti bentrok",
-      "Jadwal real-time untuk guru & siswa",
-    ],
-    blobs: ["#818CF8", "#A78BFA", "#6366F1", "#C4B5FD", "#E0E7FF"],
-  },
-  {
-    id: "cbt",
-    name: "CBT – Ujian Online",
-    price: "Rp 3.000 / siswa / tahun",
-    href: "/modul/cbt",
-    features: [
-      "Stabil untuk 1.000+ siswa bersamaan",
-      "Lockdown Browser anti kecurangan",
-      "Skor & rekap otomatis setelah ujian",
-    ],
-    blobs: ["#FB923C", "#F472B6", "#FBBF24", "#FCA5A5", "#FED7AA"],
-  },
-];
+/* ─── Constants ─────────────────────────────────────────────────────────── */
 
-/* blob movement patterns — each blob gets unique animation */
-const blobAnimations = [
+const BLOB_ANIMATIONS = [
   { tx: 30, ty: -25, dur: 7 },
   { tx: -35, ty: 20, dur: 9 },
   { tx: 20, ty: 35, dur: 11 },
@@ -52,26 +15,25 @@ const blobAnimations = [
   { tx: 30, ty: 15, dur: 10 },
 ];
 
-const Blob = ({
-  color,
-  index,
-  hovered,
-}: {
+const BLOB_POSITIONS = [
+  { top: "10%", left: "20%" },
+  { top: "50%", left: "60%" },
+  { top: "30%", left: "10%" },
+  { top: "60%", left: "40%" },
+  { top: "20%", left: "70%" },
+];
+
+/* ─── Sub-components ─────────────────────────────────────────────────────── */
+
+interface BlobProps {
   color: string;
   index: number;
   hovered: boolean;
-}) => {
-  const anim = blobAnimations[index];
-  const speed = hovered ? anim.dur * 0.7 : anim.dur;
+}
 
-  /* position each blob differently */
-  const positions = [
-    { top: "10%", left: "20%" },
-    { top: "50%", left: "60%" },
-    { top: "30%", left: "10%" },
-    { top: "60%", left: "40%" },
-    { top: "20%", left: "70%" },
-  ];
+const Blob = ({ color, index, hovered }: BlobProps) => {
+  const anim = BLOB_ANIMATIONS[index];
+  const speed = hovered ? anim.dur * 0.7 : anim.dur;
 
   return (
     <div
@@ -79,7 +41,7 @@ const Blob = ({
       style={{
         backgroundColor: color,
         filter: "blur(60px)",
-        ...positions[index],
+        ...BLOB_POSITIONS[index],
         animation: `blob-move-${index} ${speed}s ease-in-out infinite alternate`,
         animationDelay: `${index * -1.5}s`,
       }}
@@ -87,13 +49,12 @@ const Blob = ({
   );
 };
 
-const ModuleCard = ({
-  mod,
-  index,
-}: {
-  mod: (typeof modules)[0];
+interface ModuleCardProps {
+  mod: LandingModule;
   index: number;
-}) => {
+}
+
+const ModuleCard = ({ mod, index }: ModuleCardProps) => {
   const [hovered, setHovered] = useState(false);
   const navigate = useNavigate();
 
@@ -115,38 +76,28 @@ const ModuleCard = ({
           : "0 2px 12px -4px hsl(0 0% 0% / 0.06)",
       }}
     >
-      {/* top bar: title + arrow */}
+      {/* Header */}
       <div className="flex items-start justify-between p-5 pb-0">
         <h3 className="text-lg font-bold text-card-foreground">{mod.name}</h3>
         <div
           className="w-8 h-8 rounded-lg border border-border flex items-center justify-center transition-all duration-250"
           style={{
-            transform: hovered
-              ? "translate(2px, -2px)"
-              : "translate(0, 0)",
-            color: hovered
-              ? "hsl(var(--primary))"
-              : "hsl(var(--muted-foreground))",
+            transform: hovered ? "translate(2px, -2px)" : "translate(0, 0)",
+            color: hovered ? "hsl(var(--primary))" : "hsl(var(--muted-foreground))",
           }}
         >
           <ArrowUpRight className="w-4 h-4" />
         </div>
       </div>
 
-      {/* swirl zone */}
+      {/* Blob swirl zone */}
       <div
         className="relative mx-5 mt-4 overflow-hidden flex items-center justify-center"
-        style={{
-          height: 280,
-          borderRadius: 16,
-          opacity: 0.85,
-        }}
+        style={{ height: 280, borderRadius: 16, opacity: 0.85 }}
       >
         {mod.blobs.map((color, i) => (
           <Blob key={i} color={color} index={i} hovered={hovered} />
         ))}
-
-        {/* mockup placeholder */}
         <div
           className="relative z-10 w-40 bg-white flex items-center justify-center"
           style={{
@@ -156,21 +107,16 @@ const ModuleCard = ({
             animation: "float-bob 3s ease-in-out infinite",
           }}
         >
-          <span className="text-xs text-gray-400 select-none">
-            [ Screenshot ]
-          </span>
+          <span className="text-xs text-gray-400 select-none">[ Screenshot ]</span>
         </div>
       </div>
 
-      {/* bottom content */}
+      {/* Features list */}
       <div className="p-5 pt-4 flex-1 flex flex-col">
         <span className="text-xs text-muted-foreground mb-3">{mod.price}</span>
         <ul className="space-y-1.5">
           {mod.features.map((f) => (
-            <li
-              key={f}
-              className="flex items-start gap-2 text-sm text-muted-foreground leading-snug"
-            >
+            <li key={f} className="flex items-start gap-2 text-sm text-muted-foreground leading-snug">
               <span className="text-primary mt-0.5 shrink-0">–</span>
               {f}
             </li>
@@ -180,6 +126,8 @@ const ModuleCard = ({
     </motion.div>
   );
 };
+
+/* ─── Section ────────────────────────────────────────────────────────────── */
 
 const ModulesSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -193,11 +141,7 @@ const ModulesSection = () => {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          {/* Pill badge */}
-          <PillBadge icon={<Package className="h-3 w-3" />}>
-            Fitur & Modul
-          </PillBadge>
-
+          <PillBadge icon={<Package className="h-3 w-3" />}>Fitur & Modul</PillBadge>
           <h2 className="text-3xl md:text-5xl font-extrabold mb-4 text-foreground">
             Modul yang Bisa Anda Pilih
           </h2>
@@ -207,7 +151,7 @@ const ModulesSection = () => {
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-          {modules.map((mod, i) => (
+          {LANDING_MODULES.map((mod, i) => (
             <ModuleCard key={mod.id} mod={mod} index={i} />
           ))}
         </div>

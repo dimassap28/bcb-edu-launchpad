@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/shared/ui/accordion";
-import { FAQ_ITEMS } from "@/entities/pricing/data/pricing.data";
+import { FAQ_ITEMS } from "@/entities/pricing";
 
 export function PricingFAQ() {
   return (

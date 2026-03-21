@@ -1,5 +1,5 @@
 import { Monitor, BookOpen, FileText, Star, Wallet, Code2 } from "lucide-react";
-import type { SizePreset, PricingModule, FaqItem } from "../model/pricing.types";
+import type { SizePreset, PricingModule, FaqItem } from "@/entities/pricing";
 
 export const SIZE_PRESETS: SizePreset[] = [
   { label: "Kecil", range: "< 300 Siswa", value: 200 },

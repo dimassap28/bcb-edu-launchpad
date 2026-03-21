@@ -1,5 +1,6 @@
 import { cn } from "@/shared/lib/utils";
-import { type SolutionCardType } from "./solution-persona.types";
+import { GRID_ROW_CLASSES } from "@/shared/lib/grid-utils";
+import { type SolutionCardType } from "@/entities/landing";
 
 interface GridSolutionCardProps {
   solution: SolutionCardType;
@@ -10,14 +11,6 @@ interface GridSolutionCardProps {
   onHover: (i: number | null) => void;
   cardRef: (el: HTMLDivElement | null) => void;
 }
-
-const ROW_CLASSES = [
-  "row-start-1",
-  "row-start-2",
-  "row-start-3",
-  "row-start-4",
-  "row-start-5",
-];
 
 export const GridSolutionCard = ({
   solution,
@@ -30,7 +23,7 @@ export const GridSolutionCard = ({
 }: GridSolutionCardProps) => {
   const isOdd = index % 2 === 0;
   const colClass = isOdd ? "col-start-2" : "col-start-1";
-  const rowClass = ROW_CLASSES[index] || "";
+  const rowClass = GRID_ROW_CLASSES[index] || "";
 
   return (
     <div

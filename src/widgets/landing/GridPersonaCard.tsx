@@ -1,6 +1,7 @@
 import { Check } from "lucide-react";
 import { cn } from "@/shared/lib/utils";
-import { type PersonaCardType } from "./solution-persona.types";
+import { GRID_ROW_CLASSES } from "@/shared/lib/grid-utils";
+import { type PersonaCardType } from "@/entities/landing";
 import { DotGridAccent } from "./DotGridAccent";
 
 interface GridPersonaCardProps {
@@ -13,14 +14,6 @@ interface GridPersonaCardProps {
   onHover: (i: number | null) => void;
   cardRef: (el: HTMLDivElement | null) => void;
 }
-
-const ROW_CLASSES = [
-  "row-start-1",
-  "row-start-2",
-  "row-start-3",
-  "row-start-4",
-  "row-start-5",
-];
 
 export const GridPersonaCard = ({
   persona,
@@ -36,7 +29,7 @@ export const GridPersonaCard = ({
   const expanded = isHovered || highlighted;
   const isOdd = index % 2 === 0;
   const colClass = isOdd ? "col-start-1" : "col-start-2";
-  const rowClass = ROW_CLASSES[index] || "";
+  const rowClass = GRID_ROW_CLASSES[index] || "";
 
   return (
     <div
